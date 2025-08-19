@@ -2,41 +2,42 @@ import { Routes, Route } from 'react-router-dom';
 import MainPage from './components/MainPage'
 import Header from './components/Header';
 import BlankPage from './components/BlankPage';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import educationLogo from '/education.png'
+import servicesLogo from '/services.png'
+import aboutLogo from '/about.png'
 import './App.css'
 
 function App() {
   const blocks = [
     {
-      image: viteLogo,
+      image: educationLogo,
       title: "ОБУЧЕНИЕ",
       description: "лекции, материалы, курсы",
       alt: "education",
       position: "left" as const,
-      route: "обучение"
+      route: "education"
     },
     {
-      image: reactLogo,
+      image: servicesLogo,
       title: "услуги",
       description: "со мной очень приятно работать",
       alt: "services",
       position: "right" as const,
-      route: "услуги"
+      route: "services"
     },
     {
-      image: viteLogo,
+      image: aboutLogo,
       title: "обо мне",
       description: "тут я выпендриваюсь",
       alt: "about",
       position: "left" as const,
-      route: "обо-мне"
+      route: "about"
     }
   ];
 
   const HomePage = () => (
     <div className="app">
-      <Header />
+      <Header titles={["ГЛАВНАЯ", "КОНТАКТЫ"]} routes={["", "contacts"]} />
       <MainPage blocks={blocks} />
     </div>
   );
