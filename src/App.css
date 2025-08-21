@@ -192,7 +192,7 @@
 /* Tablet Styles */
 @media (min-width: 769px) and (max-width: 1024px) {
   .header h1 {
-    font-size: 3.5rem;
+    font-size: 5rem;
   }
 
   .header-desktop-navbar {
@@ -201,7 +201,7 @@
   
   .nav {
     max-width: 700px;
-    gap: 1.8rem;
+    gap: 3rem;
   }
   
   .nav-block-left,
@@ -210,12 +210,12 @@
   }
   
   .nav-image {
-    width: 177px;
-    height: 177px;
+    width: 356px;
+    height: 356px;
   }
   
   .nav-title {
-    font-size: 1.8rem;
+    font-size: 3rem;
   }
 }
 
