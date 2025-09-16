@@ -40,7 +40,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-image: url('/bg-pattern.svg');
+  background-image: url('/bg-pattern-desktop.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -65,14 +65,6 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
@@ -85,5 +77,11 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    background-image: url('/bg-pattern-mobile.svg');
   }
 }

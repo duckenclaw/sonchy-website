@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
 interface headerNavbarButtonProps {
+  currentPage: string;
   titles: string[];
   routes: string[];
 }
 
-const Header = ({ titles, routes }: headerNavbarButtonProps) => {
+const Header = ({ titles, routes, currentPage }: headerNavbarButtonProps) => {
   const navigate = useNavigate();
 
   const handleClick = (route: string) => {
@@ -15,8 +16,15 @@ const Header = ({ titles, routes }: headerNavbarButtonProps) => {
   return (
     <header className="header">
       <div className="header-container">
-        <div className="header-title-container">
-          <h1>СОНЧИ УТОЧКИНА</h1>
+        <div 
+          className="header-title-container"
+          style={{
+            backgroundImage: currentPage === "УСЛУГИ" 
+              ? "url('/title-bg-services.svg')" 
+              : "url('/title-bg.svg')"
+          }}
+        >
+          <h1>{currentPage}</h1>
         </div>
         <div className="header-desktop-navbar">
             {titles.map((title, index) => (

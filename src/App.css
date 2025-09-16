@@ -1,6 +1,6 @@
 .app {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -20,9 +20,9 @@
 }
 
 .header-title-container {
-  smax-width: 384px;
+  max-width: 384px;
   max-height: 75px;
-  margin: 0 auto;
+  margin: 0;
   padding: 15px 30px;
   background-image: url('/title-bg.svg');
   background-size: contain;
@@ -31,12 +31,17 @@
 }
 
 .header-desktop-navbar {
-  max-width: 792px;
-  padding: 0 75px;
+  min-width: 792px;
+  background-image: url('/header-nav-border.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
+  padding: 20px 36px;
+  gap: 15px;
   flex-direction: row;
-  justify-content: end;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: end;
 }
 
 .header-button {
@@ -45,12 +50,10 @@
   font-style: normal;
   font-size: 18px;
   padding: 7px 15px;
-  margin: 0 0 0 10px;
   color: #232B36;
   background-color: #FFF4FA;
   border: 1px solid #392962;
-  border-radius: 15px;
-  text-transform: uppercase;
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -327,5 +330,456 @@
   .back-button {
     font-size: 1rem;
     padding: 0.8rem 1.5rem;
+  }
+}
+
+/* Services Page Styles */
+.services-page {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Services page specific body background */
+body.services-page-background {
+  background-color: #392962;
+  background-image: url('/bg-pattern-services-desktop.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #C4DEF8;
+}
+
+/* Services page header text color */
+body.services-page-background .header h1 {
+  color: #392962;
+}
+
+/* Mobile services background */
+@media (max-width: 768px) {
+  body.services-page-background {
+    background-image: url('/bg-pattern-mobile.svg');
+  }
+}
+
+/* Consulting Page Styles */
+body.consulting-page-background {
+  background-color: #7856A8;
+  background-image: url('/bg-pattern-consulting.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #C4DEF8;
+}
+
+/* Consulting page header text color */
+body.consulting-page-background .header h1 {
+  color: #392962;
+}
+
+.consulting-page {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.consulting-container {
+  width: 100%;
+  max-width: 1024px;
+  margin: 180px auto;
+}
+
+.consulting-flexbox {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: start;
+  justify-content: center;
+}
+
+/* Consulting Block Styles */
+.consulting-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+}
+
+.consulting-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-image: url('/consulting-block-bg.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 0 64px 0 64px;
+  color: #392962;
+  font-size: 12px;
+}
+
+.consulting-image {
+  position: absolute;
+  top: -240px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  z-index: 2;
+}
+
+.consulting-title-container {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  width: 212px;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.consulting-title {
+  font-size: 40px;
+  font-weight: 800;
+  margin: 0;
+  color: #392962;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 15px 30px;
+}
+
+.consulting-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 60px;
+  margin-bottom: 12px;
+}
+
+.consulting-info {
+  flex: 1;
+  text-align: left;
+}
+
+.consulting-bonuses {
+  list-style: none;
+  padding: 0;
+}
+
+.bonus-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.list-decoration {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.consulting-price-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin-left: auto;
+}
+
+.consulting-price {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.price-text {
+  font-family: 'Alumni Sans', sans-serif;
+  font-style: bold;
+  padding: 10px 20px;
+  color: #392962;
+  font-size: 40px;
+  margin: 0;
+}
+
+.consulting-contact-button {
+  position: absolute;
+  bottom: -24px;
+  right: 50%;
+  transform: translateX(50%);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1rem 2rem;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  color: #392962;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 3;
+}
+
+.consulting-contact-button:hover {
+  transform: translateX(50%) translateY(-2px);
+  opacity: 0.9;
+}
+
+/* Mobile Consulting Layout */
+@media (max-width: 768px) {
+  .consulting-page {
+    padding: 1rem;
+  }
+  
+  .consulting-flexbox {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .consulting-block {
+    padding: 1.5rem;
+  }
+  
+  .consulting-image {
+    width: 150px;
+    height: 150px;
+    top: 30px;
+  }
+  
+  .consulting-title {
+    font-size: 2rem;
+    padding: 10px 20px;
+  }
+  
+  .consulting-details {
+    margin-top: 100px;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .consulting-info {
+    text-align: center;
+  }
+  
+  .bonus-item {
+    justify-content: center;
+  }
+  
+  .consulting-price-container {
+    justify-content: center;
+  }
+  
+  .consulting-contact-button {
+    bottom: -15px;
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+/* Tablet Consulting Layout */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .consulting-details {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .consulting-info {
+    text-align: center;
+  }
+  
+  .consulting-price-container {
+    justify-content: center;
+  }
+}
+
+.services-container {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.services-flexbox {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Service Box Styles */
+.service-box {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.service-box-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.service-box-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.service-image {
+  width: 180px;
+  height: 180px;
+  margin-top: 24px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.service-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 32px 0;
+  color: #C4DEF8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.service-box:hover .service-title {
+  color: #392962;
+}
+
+.service-description {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #C4DEF8;
+  margin: 0 0 24px 0;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.service-box:hover .service-description {
+  color: #392962;
+}
+
+.service-confirm-button {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 16px 64px;
+  background-image: url('/confirm-bg.svg');
+  background-color: rgba(255, 255, 255, 0);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #392962;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: translateY(20px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.service-box:hover .service-confirm-button {
+  transform: translateY(8px);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Desktop Services Layout */
+@media (min-width: 1025px) {
+  .services-flexbox {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  
+  .service-box {
+    flex: 1;
+    max-width: 350px;
+  }
+}
+
+/* Tablet Services Layout */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .services-flexbox {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .service-box {
+    width: 300px;
+    height: 450px;
+  }
+  
+  .service-image {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .service-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* Mobile Services Layout */
+@media (max-width: 768px) {
+  .services-page {
+    padding: 1rem;
+  }
+  
+  .service-box {
+    height: 400px;
+    max-width: 320px;
+  }
+  
+  .service-box-content {
+    padding: 1.5rem;
+  }
+  
+  .service-image {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .service-title {
+    font-size: 1.4rem;
+  }
+  
+  .service-description {
+    font-size: 0.9rem;
+  }
+  
+  .service-confirm-button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
   }
 }

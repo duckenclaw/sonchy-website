@@ -2,6 +2,8 @@ import { Routes, Route } from 'react-router-dom';
 import MainPage from './components/MainPage'
 import Header from './components/Header';
 import BlankPage from './components/BlankPage';
+import Services from './components/Services';
+import Consulting from './components/Consulting';
 import educationLogo from '/education.png'
 import servicesLogo from '/services.png'
 import aboutLogo from '/about.png'
@@ -19,7 +21,7 @@ function App() {
     },
     {
       image: servicesLogo,
-      title: "услуги",
+      title: "УСЛУГИ",
       description: "со мной очень приятно работать",
       alt: "services",
       position: "right" as const,
@@ -27,7 +29,7 @@ function App() {
     },
     {
       image: aboutLogo,
-      title: "обо мне",
+      title: "ОБО МНЕ",
       description: "тут я выпендриваюсь",
       alt: "about",
       position: "left" as const,
@@ -37,7 +39,7 @@ function App() {
 
   const HomePage = () => (
     <div className="app">
-      <Header titles={["ГЛАВНАЯ", "КОНТАКТЫ"]} routes={["", "contacts"]} />
+      <Header titles={["Главная", "Контакты"]} routes={["", "contacts"]} currentPage="СОНЧИ УТОЧКИНА" />
       <MainPage blocks={blocks} />
     </div>
   );
@@ -45,6 +47,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/services" element={<Services />} />
+      <Route path="/services/consulting" element={<Consulting />} />
       <Route path="/:section" element={<BlankPage />} />
     </Routes>
   )
