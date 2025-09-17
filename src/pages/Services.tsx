@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import Header from './Header';
-import ServiceBox from './ServiceBox';
+import Header from '../components/Header.tsx';
+import ServiceBox from '../components/ServiceBox.tsx';
 import consultingImage from '/consulting.png';
 import lectionsImage from '/lections.png';
 import projectsImage from '/projects.png';

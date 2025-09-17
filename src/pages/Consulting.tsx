@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import Header from './Header';
-import ConsultingBlock from './ConsultingBlock';
+import Header from '../components/Header.tsx';
+import ConsultingBlock from '../components/ConsultingBlock.tsx';
 import gigaImage from '/giga.png';
 import expressImage from '/express.png';
 

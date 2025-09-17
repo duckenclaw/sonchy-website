@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import MainPage from './components/MainPage'
+import MainPage from './pages/MainPage.tsx'
 import Header from './components/Header';
 import BlankPage from './components/BlankPage';
-import Services from './components/Services';
-import Consulting from './components/Consulting';
+import Services from './pages/Services.tsx';
+import Consulting from './pages/Consulting.tsx';
 import educationLogo from '/education.png'
 import servicesLogo from '/services.png'
 import aboutLogo from '/about.png'

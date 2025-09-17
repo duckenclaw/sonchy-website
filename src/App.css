@@ -396,7 +396,7 @@ body.consulting-page-background .header h1 {
 .consulting-flexbox {
   display: flex;
   flex-direction: row;
-  gap: 32px;
+  gap: 24px;
   align-items: start;
   justify-content: center;
 }
@@ -413,6 +413,7 @@ body.consulting-page-background .header h1 {
 }
 
 .consulting-content {
+  min-height: 360px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -422,7 +423,7 @@ body.consulting-page-background .header h1 {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 0 64px 0 64px;
+  padding: 0 72px 0 72px;
   color: #392962;
   font-size: 12px;
 }
@@ -508,9 +509,9 @@ body.consulting-page-background .header h1 {
 .price-text {
   font-family: 'Alumni Sans', sans-serif;
   font-style: bold;
-  padding: 10px 20px;
+  padding: 8px 16px;
   color: #392962;
-  font-size: 40px;
+  font-size: 36px;
   margin: 0;
 }
 

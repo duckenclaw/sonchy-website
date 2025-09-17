@@ -1,4 +1,4 @@
-import NavBlock from './NavBlock';
+import NavBlock from '../components/NavBlock.tsx';
 
 interface MainPageProps {
   blocks: Array<{
