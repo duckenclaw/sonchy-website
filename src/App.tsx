@@ -7,7 +7,6 @@ import Consulting from './pages/Consulting.tsx';
 import educationLogo from '/education.png'
 import servicesLogo from '/services.png'
 import aboutLogo from '/about.png'
-import './App.css'
 
 function App() {
   const blocks = [

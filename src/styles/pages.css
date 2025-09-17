@@ -1,0 +1,33 @@
+/* Page-specific body backgrounds */
+body.services-page-background {
+  background-color: #392962;
+  background-image: url('/bg-pattern-services-desktop.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #C4DEF8;
+}
+
+body.services-page-background .header h1 {
+  color: #392962;
+}
+
+@media (max-width: 768px) {
+  body.services-page-background {
+    background-image: url('/bg-pattern-mobile.svg');
+  }
+}
+
+body.consulting-page-background {
+  background-color: #7856A8;
+  background-image: url('/bg-pattern-consulting.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #C4DEF8;
+}
+
+body.consulting-page-background .header h1 {
+  color: #392962;
+}
+
