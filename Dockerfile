@@ -1,4 +1,3 @@
-`
 # Use Node.js 24 as base image
 FROM node:24-alpine
 
@@ -27,4 +26,3 @@ EXPOSE 8080
 
 # Start the application
 CMD ["npm", "run", "start"]
-`
