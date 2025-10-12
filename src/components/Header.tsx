@@ -21,7 +21,7 @@ const Header = ({ titles, routes, currentPage }: headerNavbarButtonProps) => {
           style={{
             backgroundImage: currentPage === "УСЛУГИ" 
               ? "url('/title-bg-services.svg')" 
-              : "url('/title-bg.svg')"
+              : "url('/title-bg-main.svg')"
           }}
         >
           <h1>{currentPage}</h1>

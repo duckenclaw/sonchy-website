@@ -4,6 +4,7 @@ import Header from './components/Header';
 import BlankPage from './components/BlankPage';
 import Services from './pages/Services.tsx';
 import Consulting from './pages/Consulting.tsx';
+import Lectures from "./pages/Lectures.tsx";
 import educationLogo from '/education.png'
 import servicesLogo from '/services.png'
 import aboutLogo from '/about.png'
@@ -48,6 +49,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/services" element={<Services />} />
       <Route path="/services/consulting" element={<Consulting />} />
+      <Route path="/services/lectures" element={<Lectures />} />
       <Route path="/:section" element={<BlankPage />} />
     </Routes>
   )
