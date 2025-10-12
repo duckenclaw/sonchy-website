@@ -55,6 +55,8 @@ button {
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
+  border: none;
+  background-color: transparent;
 }
 
 @media (prefers-color-scheme: light) {
