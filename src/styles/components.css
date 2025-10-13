@@ -614,7 +614,7 @@
 
 .lectures-container {
   display: flex;
-  gap: 3rem;
+  gap: 12px;
   align-items: center;
   justify-content: flex-end;
   min-height: 600px;
@@ -630,8 +630,8 @@
   position: absolute;
   width: 75%;
   height: 75%;
-  top: 250px;
-  left: 250px;
+  top: 215px;
+  left: 225px;
   z-index: 1;
 
 }
@@ -641,11 +641,16 @@
   height: auto;
 }
 
+.projects-image {
+  width: 300px;
+  height: auto;
+}
+
 .lectures-content {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 16px;
+  padding: 40px;
   z-index: 2;
 }
 
@@ -689,6 +694,19 @@
 
 .contact-button {
   background-image: url('/contact-bg.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #3D2B6C;
+  background-color: unset;
+  border: none;
+  padding: 40px 60px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.portfolio-button {
+  background-image: url('/portfolio-button.svg');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
