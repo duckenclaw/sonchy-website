@@ -14,6 +14,44 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Colors */
+  --color-primary: #7856A8;
+  --color-secondary: #392962;
+  --color-accent: #C4DEF8;
+  --color-accent-pink: #FFAFE4;
+  --color-light: #FFF4FA;
+  --color-dark: #232B36;
+  --color-white: #FFFFFF;
+  --color-border: rgba(35, 43, 54, 0.3);
+
+  /* Typography */
+  --font-primary: "Montserrat", sans-serif;
+  --font-heading: "Alumni Sans", sans-serif;
+
+  /* Spacing */
+  --mobile-padding: 1.5rem;
+  --desktop-padding: 2rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Border Radius */
+  --radius-sm: 15px;
+  --radius-md: 20px;
+  --radius-lg: 40px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 a {
@@ -73,8 +111,24 @@ button {
 }
 
 @media (max-width: 768px) {
+  html {
+    overflow: auto;
+    height: auto;
+  }
+
   body {
     background-image: url('/bg-pattern-mobile.svg');
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: none;
+    min-height: 100vh;
+  }
+
+  #root {
+    overflow: visible;
+    max-height: none;
+    min-height: 100vh;
+    height: auto;
   }
 }
 
