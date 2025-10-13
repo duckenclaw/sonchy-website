@@ -24,6 +24,7 @@ const ServiceBox = ({ image, title, description, svgPath, viewBox, route, alt = 
       className="service-box"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={handleConfirm}
     >
       <svg
         viewBox={viewBox}
