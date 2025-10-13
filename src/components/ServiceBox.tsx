@@ -1,8 +1,6 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SVG_PATHS } from '../constants/svgPaths';
-
-type InteractionState = 'idle' | 'hover' | 'active';
 
 interface ServiceBoxProps {
   image: string;
@@ -26,7 +24,6 @@ const ServiceBox = ({
   shouldFlipOnMobile = false
 }: ServiceBoxProps) => {
   const navigate = useNavigate();
-  const [interactionState, setInteractionState] = useState<InteractionState>('idle');
 
   const altText = alt || `${title} service`;
 
@@ -44,12 +41,6 @@ const ServiceBox = ({
   return (
     <div
       className="service-box"
-      onMouseEnter={() => setInteractionState('hover')}
-      onMouseLeave={() => setInteractionState('idle')}
-      onMouseDown={() => setInteractionState('active')}
-      onMouseUp={() => setInteractionState('hover')}
-      onTouchStart={() => setInteractionState('active')}
-      onTouchEnd={() => setInteractionState('idle')}
       onClick={handleClick}
       role="button"
       tabIndex={0}
@@ -65,10 +56,9 @@ const ServiceBox = ({
       >
         <path
           d={svgPath}
-          fill={interactionState === 'hover' ? "#FFAFE4" : "transparent"}
+          fill="transparent"
           stroke="#C4DEF8"
           strokeWidth="2"
-          style={{ transition: "fill 0.3s ease" }}
         />
       </svg>
       {/* Mobile SVG */}
@@ -84,10 +74,9 @@ const ServiceBox = ({
       >
         <path
           d={SVG_PATHS.MOBILE_SERVICE_BOX}
-          fill={interactionState === 'active' ? "#FFAFE4" : "transparent"}
+          fill="transparent"
           stroke="#C4DEF8"
           strokeWidth="2"
-          style={{ transition: "fill 0.3s ease" }}
         />
       </svg>
       <div className="service-box-content">

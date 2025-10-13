@@ -55,18 +55,35 @@
   align-items: end;
 }
 
+@keyframes dance {
+  0% {
+    transform: rotate(-15deg) scale(1.15);
+  }
+  50% {
+    transform: rotate(15deg) scale(1.15);
+  }
+}
+
 .header-button {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 18px;
   padding: 7px 15px;
-  color: #232B36;
-  background-color: #FFF4FA;
-  border: 1px solid #392962;
-  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.95);
+  background-color: transparent;
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: none;
+}
+
+.header-button:hover {
+  animation: dance 0.3s step-end infinite;
+}
+
+.header-button:active {
+  animation: none;
+  transform: scale(0.95);
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -353,6 +370,18 @@
 
 .service-box-svg-desktop {
   display: block;
+}
+
+.service-box-svg path {
+  transition: fill 0.3s ease;
+}
+
+.service-box:hover .service-box-svg-desktop path {
+  fill: #FFAFE4;
+}
+
+.service-box:active .service-box-svg-mobile path {
+  fill: #FFAFE4;
 }
 
 .service-box-content {
