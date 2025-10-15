@@ -117,7 +117,22 @@
   }
 
   .consulting-page {
-    padding: 1rem;
+    padding: 0;
+  }
+
+  .consulting-container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .consulting-flexbox {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0;
   }
 }
 

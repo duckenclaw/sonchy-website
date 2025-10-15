@@ -32,3 +32,10 @@ body.consulting-page-background .header h1 {
   color: #392962;
 }
 
+@media (max-width: 768px) {
+  body.consulting-page-background {
+    background-image: none;
+    background-color: #7856A8;
+  }
+}
+

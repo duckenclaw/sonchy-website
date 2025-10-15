@@ -26,6 +26,10 @@
   background-image: url('/title-bg-services.svg');
 }
 
+.header-title-consulting {
+  background-image: url('/title-bg-main.svg');
+}
+
 .header-title-main {
   background-image: url('/title-bg-main.svg');
 }
@@ -33,7 +37,6 @@
 .header h1 {
   font-family: "Alumni Sans", sans-serif;
   font-weight: 700;
-  font-style: bold;
   font-size: 56px;
   margin: 0;
   color: rgba(255, 255, 255, 0.95);
@@ -86,6 +89,11 @@
   transform: scale(0.95);
 }
 
+.header-button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+
 @media (min-width: 481px) and (max-width: 768px) {
   .header {
     padding: 2rem var(--mobile-padding);
@@ -116,6 +124,13 @@
   }
 
   .header-title-services {
+    background-image: url('/title-bg-mobile.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .header-title-consulting {
     background-image: url('/title-bg-mobile.svg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -160,6 +175,13 @@
   }
 
   .header-title-services {
+    background-image: url('/title-bg-mobile.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .header-title-consulting {
     background-image: url('/title-bg-mobile.svg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -455,6 +477,11 @@
   transform: translateY(8px);
   opacity: 1;
   visibility: visible;
+}
+
+.service-confirm-button:focus-visible {
+  outline: 3px solid #392962;
+  outline-offset: 2px;
 }
 
 @media (min-width: 1025px) {
@@ -764,6 +791,11 @@
   transform: translateY(-2px);
 }
 
+.back-button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+
 @media (max-width: 768px) {
   .blank-page-content {
     padding: 2rem;
@@ -812,6 +844,14 @@
   font-size: 12px;
 }
 
+.consulting-content-bg {
+  display: none;
+}
+
+.consulting-content-inner {
+  display: contents;
+}
+
 .consulting-image {
   position: absolute;
   top: -240px;
@@ -842,16 +882,8 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  background-image: url('/title-bg-consulting.svg');
   padding: 15px 30px;
-}
-
-.consulting-details {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  margin-top: 60px;
-  margin-bottom: 12px;
 }
 
 .consulting-info {
@@ -874,6 +906,15 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+}
+
+.consulting-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 60px;
+  margin-bottom: 12px;
 }
 
 .consulting-price-container {
@@ -910,6 +951,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 1rem 2rem;
+  background-image: url('/contact-bg.svg');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -926,59 +968,382 @@
   opacity: 0.9;
 }
 
-@media (max-width: 768px) {
+.consulting-contact-button:focus-visible {
+  outline: 3px solid #392962;
+  outline-offset: 2px;
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
   .consulting-block {
-    padding: 1.5rem;
+    margin-top: 40px;
+    padding: 0;
+    position: relative;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .consulting-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 450px;
+    background-image: none;
+    padding: 0;
+  }
+
+  .consulting-content-bg {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .consulting-content-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 1.5rem 3rem 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .consulting-details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
   }
 
   .consulting-image {
-    width: 150px;
-    height: 150px;
-    top: 30px;
+    position: static;
+    transform: none;
+    width: 60%;
+    height: auto;
+    margin: 0 auto 1.5rem;
+  }
+
+  .consulting-title-container {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    max-width: 326px;
+    z-index: 3;
+  }
+
+  .consulting-title {
+    font-size: 2.5rem;
+    padding: 12px 24px;
+    background-image: url('/title-bg-consulting.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #392962;
+    white-space: nowrap;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .consulting-info {
+    text-align: left;
+    color: #392962;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-top: 2rem;
+    width: 100%;
+  }
+
+  .bonus-item {
+    justify-content: flex-start;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .consulting-bonuses {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .consulting-description {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    color: #392962;
+    font-size: 0.9rem;
+  }
+
+  .consulting-price-container {
+    justify-content: flex-start;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .consulting-price {
+    margin-right: auto;
+    margin-left: 0;
+    margin-bottom: 0;
+  }
+
+  .price-text {
+    font-size: 2.2rem;
+    margin: 0;
+  }
+
+  .consulting-contact-button {
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0;
+    font-size: 1.4rem;
+    padding: 16px 48px;
+    z-index: 3;
+    white-space: nowrap;
+    background-image: url('/contact-bg.svg');
+    background-size: 100% 100%;
+    min-width: 220px;
+    transition: none;
+  }
+
+  .consulting-contact-button:hover {
+    transform: translateX(-50%);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .consulting-block {
+    margin-top: 40px;
+    padding: 0;
+    position: relative;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .consulting-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 400px;
+    background-image: none;
+    padding: 0;
+  }
+
+  .consulting-content-bg {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .consulting-content-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 1rem 2.5rem 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .consulting-details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+  }
+
+  .consulting-image {
+    position: static;
+    transform: none;
+    width: 60%;
+    height: auto;
+    margin: 0 auto 2rem;
+  }
+
+  .consulting-title-container {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    max-width: 326px;
+    z-index: 3;
   }
 
   .consulting-title {
     font-size: 2rem;
     padding: 10px 20px;
-  }
-
-  .consulting-details {
-    margin-top: 100px;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .consulting-info {
+    background-image: url('/title-bg-consulting.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #392962;
+    white-space: nowrap;
+    width: 100%;
+    box-sizing: border-box;
     text-align: center;
   }
 
+  .consulting-info {
+    text-align: left;
+    color: #392962;
+    font-size: 0.85rem;
+    line-height: 1.3;
+    margin-top: 1.7rem;
+    width: 100%;
+  }
+
   .bonus-item {
-    justify-content: center;
+    justify-content: flex-start;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  .consulting-bonuses {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .consulting-description {
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    color: #392962;
+    font-size: 0.8rem;
   }
 
   .consulting-price-container {
-    justify-content: center;
+    justify-content: flex-start;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .consulting-price {
+    margin-right: auto;
+    margin-left: 0;
+    margin-bottom: 0;
+  }
+
+  .price-text {
+    font-size: 1.8rem;
+    margin: 0;
   }
 
   .consulting-contact-button {
-    bottom: -15px;
-    font-size: 1rem;
-    padding: 0.8rem 1.5rem;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0;
+    font-size: 1.2rem;
+    padding: 14px 40px;
+    z-index: 3;
+    white-space: nowrap;
+    background-image: url('/contact-bg.svg');
+    background-size: 100% 100%;
+    min-width: 200px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: none;
+  }
+
+  .consulting-contact-button:hover {
+    transform: translateX(-50%);
+    opacity: 1;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .consulting-details {
-    flex-direction: column;
-    gap: 2rem;
-  }
-
   .consulting-info {
     text-align: center;
+    margin-bottom: 2rem;
   }
 
   .consulting-price-container {
     justify-content: center;
+  }
+}
+
+/* Consulting navigation buttons */
+.consulting-nav-buttons {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .consulting-nav-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  .consulting-back-button,
+  .consulting-home-button {
+    flex: 1;
+    font-family: "Alumni Sans", sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 24px 20px;
+    background-image: url('/return-button.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.95);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  .consulting-back-button:hover,
+  .consulting-home-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  .consulting-back-button:active,
+  .consulting-home-button:active {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 480px) {
+  .consulting-nav-buttons {
+    gap: 0.75rem;
+  }
+
+  .consulting-back-button,
+  .consulting-home-button {
+    font-size: 1.4rem;
+    padding: 20px 16px;
   }
 }
 
