@@ -72,18 +72,67 @@
   justify-content: center;
 }
 
+/* Mobile content wrapper - ensures consistent width for all elements */
 @media (max-width: 768px) {
+  .mobile-content-item {
+    width: 100%;
+    padding-left: var(--mobile-padding);
+    padding-right: var(--mobile-padding);
+    box-sizing: border-box;
+  }
+
+  .app {
+    height: auto;
+    min-height: 100vh;
+  }
+
   .nav {
-    padding: 0 1rem;
-    gap: 1.5rem;
+    padding: 0;
+    gap: 0.5rem;
+    height: auto;
+  }
+
+  .nav-blocks {
+    min-height: auto;
+    padding: 0;
   }
 
   .services-page {
-    padding: 1rem;
+    padding: 0;
+  }
+
+  .services-container {
+    padding-left: var(--mobile-padding);
+    padding-right: var(--mobile-padding);
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .services-flexbox {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0;
   }
 
   .consulting-page {
-    padding: 1rem;
+    padding: 0;
+  }
+
+  .consulting-container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .consulting-flexbox {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0;
   }
 }
 

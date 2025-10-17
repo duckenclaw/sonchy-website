@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
-import Header from '../components/Header.tsx';
-import ConsultingBlock from '../components/ConsultingBlock.tsx';
-import gigaImage from '/giga.png';
-import expressImage from '/express.png';
+import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
+import ConsultingBlock from '../components/ConsultingBlock';
+import { PageType } from '../types/pages';
+import { CONSULTING_PACKAGES } from '../data/consultingData';
 
 const Consulting = () => {
+  const navigate = useNavigate();
+
   // Apply consulting-specific background styling
   useEffect(() => {
     document.body.classList.add('consulting-page-background');
-    
+
     // Cleanup function to remove the class when component unmounts
     return () => {
       document.body.classList.remove('consulting-page-background');
@@ -17,26 +20,39 @@ const Consulting = () => {
 
   return (
     <div className="app">
-      <Header titles={["Главная", "Контакты", "Услуги"]} routes={["", "contact", "services"]} currentPage="КОНСУЛЬТАЦИИ"/>
+      <Header titles={["Главная", "Контакты", "Услуги"]} routes={["", "contact", "services"]} currentPage={PageType.CONSULTING}/>
       <div className="consulting-page">
         <div className="consulting-container">
           <div className="consulting-flexbox">
-            <ConsultingBlock
-              image={gigaImage}
-              title={"ГИГА"}
-              bonuses={["1,5 - 2 часа", "2 недели сопровождение в чате", "PDF с гайдами и примерами для реализации проекта"]}
-              description={"Подходит для больших организаций или масштабных запросов, как стратегия развития бренда на год или TOV компании."}
-              price={"650$"}
-              alt={"giga"}
-            />
-            <ConsultingBlock
-              image={expressImage}
-              title={"ЭКСПРЕСС"}
-              bonuses={["45 мин. - 1 час", "2 дня сопровождения в чате", "список источников/референсов", "без конспектов и материалов", "можно делать видеозапись"]}
-              description={"Хватит времени, чтобы обсудить определённый аспект проекта, побрейнштормить или получить отклик на материал."}
-              price={"210$"}
-              alt={"express"}
-            />
+            {CONSULTING_PACKAGES.map((pkg) => (
+              <ConsultingBlock
+                key={pkg.id}
+                image={pkg.image}
+                title={pkg.title}
+                bonuses={pkg.bonuses}
+                description={pkg.description}
+                price={pkg.price}
+                alt={pkg.alt}
+              />
+            ))}
+          </div>
+          <div className="consulting-nav-buttons">
+            <button
+              type="button"
+              className="consulting-back-button"
+              onClick={() => navigate(-1)}
+              aria-label="Go back"
+            >
+              НАЗАД
+            </button>
+            <button
+              type="button"
+              className="consulting-home-button"
+              onClick={() => navigate('/')}
+              aria-label="Return to main page"
+            >
+              НА ГЛАВНУЮ
+            </button>
           </div>
         </div>
       </div>
