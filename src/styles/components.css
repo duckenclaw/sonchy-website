@@ -1452,3 +1452,166 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+
+
+.courses-header {
+  font-family: 'Alumni Sans', sans-serif;
+  background-image: url('/courses-header-bg.svg');
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.courses-header-text {
+  max-width: 1000px;
+  margin: 42px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+}
+
+.courses-header-text h1 {
+  font-size: 128px;
+  line-height: 70%;
+  padding: 0;
+  align-self: center;
+  margin: 0;
+}
+
+.courses-header-text h2 {
+  font-size: 48px;
+  line-height: 80%;
+  padding: 0;
+  margin: 0;
+}
+
+.courses-header-text h2:first-of-type {
+  align-self: flex-end;
+}
+
+.courses-header-text h2:last-of-type {
+  align-self: flex-start;
+  margin-left: 10px;
+}
+
+.courses-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.motivation-container {
+  font-family: "Montserrat", sans-serif;
+  max-width: 1000px;
+  margin: 40px;
+  color: #230A2F;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.motivation-container p {
+  font-size: 24px;
+  line-height: 70%;
+  margin: 8px 0;
+  padding: 6px 16px;
+  background-color: #FFF4FA;
+  border-radius: 20px;
+}
+
+.motivation-container  p.align-right:first-of-type {
+  margin-top: 24px;
+}
+
+.align-left {
+  align-self: flex-start;
+  text-align: left;
+}
+
+.align-right {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.story-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto;
+}
+
+.story-text {
+  background-color: #374A9A;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 350;
+  font-size: 24px;
+  line-height: 90%;
+  border-radius: 20px;
+  color: #212121;
+  max-width: 560px;
+  margin-top: 64px;
+  padding: 12px 24px;
+}
+
+.story-text section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px 24px;
+  background-image: url('/story-bg.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.points-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+  gap: 120px;
+  margin: 0;
+  background-image: url("/story-bg.svg");
+  padding: 100px 240px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #212121;
+}
+
+.points-container div h3 {
+  font-family: "Alumni Sans", sans-serif;
+  color: #E5348B;
+  font-size: 46px;
+  line-height: 80%;
+}
+
+.points-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.points-container li {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 16px 2px;
+  margin: 0;
+  font-size: 32px;
+  line-height: 70%;
+}
+
+.yes-words-container li {
+  background-image: url("/yes-word.svg");
+}
+
+.no-words-container li {
+  background-image: url("/no-word.svg");
+}

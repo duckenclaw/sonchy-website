@@ -16,6 +16,7 @@ const ProjectsContainer = () => {
                     className="projects-image"
                 />
                 <div className="lectures-content">
+
                     <div className="speech-bubble bottom">
                         Пишу сценарии, создаю концепты, перфоманс-маркетинг и продюсирую.
                     </div>

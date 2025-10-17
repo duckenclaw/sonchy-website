@@ -113,7 +113,6 @@ button {
 @media (max-width: 768px) {
   html {
     overflow: auto;
-    height: auto;
   }
 
   body {
