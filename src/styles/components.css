@@ -833,3 +833,50 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.points-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+  gap: 120px;
+  margin: 0;
+  background-image: url("/story-bg.svg");
+  padding: 100px 240px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #212121;
+}
+
+.points-container div h3 {
+  font-family: "Alumni Sans", sans-serif;
+  color: #E5348B;
+  font-size: 46px;
+  line-height: 80%;
+}
+
+.points-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.points-container li {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 16px 2px;
+  margin: 0;
+  font-size: 32px;
+  line-height: 70%;
+}
+
+.yes-words-container li {
+  background-image: url("/yes-word.svg");
+}
+
+.no-words-container li {
+  background-image: url("/no-word.svg");
+}
