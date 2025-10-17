@@ -9,6 +9,7 @@ import Projects from "./pages/Projects.tsx";
 import educationLogo from '/education.png'
 import servicesLogo from '/services.png'
 import aboutLogo from '/about.png'
+import Courses from "./pages/Courses.tsx";
 
 function App() {
   const blocks = [
@@ -52,6 +53,7 @@ function App() {
       <Route path="/services/consulting" element={<Consulting />} />
       <Route path="/services/lectures" element={<Lectures />} />
       <Route path="/services/projects" element={<Projects />} />
+        <Route path="/courses" element={<Courses />} />
       <Route path="/:section" element={<BlankPage />} />
     </Routes>
   )
