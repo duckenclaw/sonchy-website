@@ -1660,7 +1660,7 @@
 .slider-container {
   background-color: #131C40;
   border-radius: 20px;
-  padding: 40px;
+  padding: 40px 40px 20px 40px;
   width: 100%;
   max-width: 800px;
   margin: 0 60px;
@@ -1734,7 +1734,8 @@
   display: flex;
   gap: 10px;
   justify-content: center;
-  margin-top: 10px;
+  margin: 20px auto auto 0;
+  padding: 0;
 }
 
 .slider-dot {
@@ -1746,6 +1747,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0;
+  margin: 0;
 }
 
 .slider-dot-active {

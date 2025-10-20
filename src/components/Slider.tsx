@@ -58,6 +58,19 @@ const Slider = ({ slides }: SliderProps) => {
             </ul>
           </div>
         </div>
+          <div className="slider-dots">
+              {slides.map((_, index) => (
+                  <button
+                      key={index}
+                      type="button"
+                      className={`slider-dot ${
+                          index === currentIndex ? 'slider-dot-active' : ''
+                      }`}
+                      onClick={() => handleDotClick(index)}
+                      aria-label={`Go to slide ${index + 1}`}
+                  />
+              ))}
+          </div>
       </div>
 
       <button
@@ -69,19 +82,6 @@ const Slider = ({ slides }: SliderProps) => {
         <img src="/arrow-left.svg" alt="" />
       </button>
 
-      <div className="slider-dots">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            className={`slider-dot ${
-              index === currentIndex ? 'slider-dot-active' : ''
-            }`}
-            onClick={() => handleDotClick(index)}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
     </div>
   );
 };
