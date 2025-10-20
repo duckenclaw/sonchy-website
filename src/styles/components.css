@@ -1192,7 +1192,7 @@
   .consulting-title {
     font-size: 2rem;
     padding: 10px 20px;
-    background-image: url('/title-bg-consulting.svg');
+    background-image: url('/title-bg-consulting-mobile-white.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -1255,7 +1255,7 @@
     left: 50%;
     transform: translateX(-50%);
     margin-top: 0;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     padding: 14px 40px;
     z-index: 3;
     white-space: nowrap;
@@ -1267,6 +1267,8 @@
     align-items: center;
     justify-content: center;
     transition: none;
+    height: 80px;
+    width: 80%;
   }
 
   .consulting-contact-button:hover {
@@ -1291,60 +1293,31 @@
   display: none;
 }
 
-@media (max-width: 768px) {
-  .consulting-nav-buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-    width: 100%;
-  }
+/* ===========================================
+   LECTURES & PROJECTS - DESKTOP STYLES (ORIGINAL)
+   =========================================== */
 
-  .consulting-back-button,
-  .consulting-home-button {
-    flex: 1;
-    font-family: "Alumni Sans", sans-serif;
-    font-weight: 700;
-    font-size: 1.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 24px 20px;
-    background-image: url('/return-button.svg');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.95);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-  }
-
-  .consulting-back-button:hover,
-  .consulting-home-button:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
-  }
-
-  .consulting-back-button:active,
-  .consulting-home-button:active {
-    transform: translateY(0);
-    opacity: 0.8;
-  }
+/* Hide navigation buttons on desktop */
+.lectures-nav-buttons,
+.projects-nav-buttons {
+  display: none;
 }
 
-@media (max-width: 480px) {
-  .consulting-nav-buttons {
-    gap: 0.75rem;
-  }
+/* Show desktop, hide mobile by default */
+.lectures-desktop,
+.projects-desktop {
+  display: block;
+}
 
-  .consulting-back-button,
-  .consulting-home-button {
-    font-size: 1.4rem;
-    padding: 20px 16px;
-  }
+.lectures-mobile,
+.projects-mobile {
+  display: none;
+}
+
+/* Hide mobile-only elements on desktop */
+.projects-mobile-title,
+.lectures-mobile-title {
+  display: none;
 }
 
 .lectures-container {
@@ -1362,13 +1335,7 @@
 }
 
 .lectures-images-container {
-  position: absolute;
-  width: 75%;
-  height: 75%;
-  top: 215px;
-  left: 225px;
   z-index: 1;
-
 }
 
 .lectures-image {
@@ -1404,6 +1371,8 @@
 }
 
 .logos {
+  position: absolute;
+  bottom: 35%;
   width: 200px;
   margin: 0.5rem 0;
 }
@@ -1435,7 +1404,7 @@
   color: #3D2B6C;
   background-color: unset;
   border: none;
-  padding: 40px 60px;
+  padding: 40px 60px 47px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -1448,7 +1417,7 @@
   color: #3D2B6C;
   background-color: unset;
   border: none;
-  padding: 40px 60px;
+  padding: 40px 60px 47px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -1614,4 +1583,338 @@
 
 .no-words-container li {
   background-image: url("/no-word.svg");
+}
+
+/* ===========================================
+   LECTURES & PROJECTS - MOBILE STYLES (SEPARATE)
+   =========================================== */
+
+@media (max-width: 768px) {
+  /* Hide desktop, show mobile */
+  .lectures-desktop,
+  .projects-desktop {
+    display: none !important;
+  }
+
+  /* Hide header on mobile for Lectures and Projects pages */
+  .header-desktop-only {
+    display: none !important;
+  }
+
+  .lectures-mobile,
+  .projects-mobile {
+    display: block;
+    margin-top: 40px;
+    margin-bottom: 6rem;
+    padding: 0;
+    position: relative;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .projects-mobile {
+    margin-bottom: 12rem;
+  }
+
+  /* Mobile character images - centered ABOVE the SVG block */
+  .lectures-mobile-character,
+  .projects-mobile-character {
+    display: block;
+    position: relative;
+    max-width: 200px;
+    height: auto;
+    margin: 0 auto;
+    z-index: 3;
+  }
+
+  /* SVG background on mobile */
+  .lectures-content-bg {
+    display: block;
+    position: absolute;
+    top: 420px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 420px);
+    z-index: 0;
+  }
+
+  /* Change SVG fill color to dark purple for both Lectures and Projects */
+  .lectures-content-bg path,
+  .projects-mobile .lectures-content-bg path {
+    fill: #3D2B6C !important;
+    stroke: none;
+  }
+
+  /* Lectures mobile title - show on mobile */
+  .lectures-mobile-title {
+    display: block !important;
+    font-family: "Alumni Sans", sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    color: #392962;
+    background-image: url('/title-bg-services.svg');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 15px 20px;
+    margin: 0 auto 2rem auto;
+    max-width: 280px;
+    position: relative;
+    z-index: 4;
+  }
+
+  /* Content wrapper */
+  .lectures-mobile .lectures-content-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 1.5rem 3rem 1.5rem;
+    margin-top: 50px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Content block */
+  .lectures-mobile .lectures-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* White text without bubble background */
+  .lectures-mobile .speech-bubble {
+    background: transparent !important;
+    color: white !important;
+    font-size: 0.9rem;
+    padding: 0;
+    line-height: 1.5;
+    text-align: left;
+    border-radius: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .lectures-mobile .speech-bubble.bottom {
+    align-self: flex-start;
+  }
+
+  /* Mobile logos */
+  .logos-mobile {
+    display: block;
+    width: 80%;
+    max-width: 280px;
+    margin: 1rem auto;
+    align-self: center;
+  }
+
+  /* Bottom section with price and button */
+  .lectures-mobile .bottom-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  .lectures-mobile .price {
+    background-color: #392962;
+    color: #FFF4FA;
+    font-size: 2rem;
+    padding: 5px 25px;
+    border-radius: 40px;
+    align-self: flex-start;
+  }
+
+  /* Buttons with SVG backgrounds and proper colors */
+  .lectures-mobile .portfolio-button {
+    font-size: 1.1rem;
+    padding: 15px 50px;
+    background-image: url('/contact-bg.svg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    color: #3D2B6C;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .lectures-mobile .contact-button {
+    font-size: 2.5rem;
+    background-image: url('/title-bg-mobile-lectures.svg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    color: #3D2B6C;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: absolute;
+    bottom: -10%;
+    width: 80%;
+  }
+
+  .lectures-mobile .portfolio-button {
+    background-image: url('/portfolio-button.svg');
+  }
+
+  /* Navigation buttons */
+  .lectures-nav-buttons,
+  .projects-nav-buttons,
+  .consulting-nav-buttons {
+    display: flex;
+    flex-direction: row;
+    margin: 5rem 0;
+    width: 100%;
+    height: 75px;
+  }
+
+  
+  .lectures-back-button,
+  .lectures-home-button,
+  .projects-back-button,
+  .projects-home-button,
+  .consulting-back-button,
+  .consulting-home-button {
+    flex: 1;
+    font-family: "Alumni Sans", sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-image: url('/return-button-mobile-blue.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: none;
+    color: #392962;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding-bottom: 5px;
+
+  }
+  
+
+  .lectures-back-button:active,
+  .lectures-home-button:active,
+  .projects-back-button:active,
+  .projects-home-button:active,
+  .consulting-back-button:active,
+  .consulting-home-button:active {
+    transform: scale(0.95);
+  }
+
+  /* ===========================================
+     PROJECTS MOBILE - SPECIFIC STYLES
+     =========================================== */
+
+  /* Projects mobile title - show on mobile */
+  .projects-mobile-title {
+    display: block !important;
+    font-family: "Alumni Sans", sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    color: #392962;
+    background-image: url('/title-bg-services.svg');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 15px 20px;
+    margin: 0 auto 2rem auto;
+    max-width: 280px;
+    position: relative;
+    z-index: 4;
+  }
+
+  /* Projects mobile uses same structure as lectures */
+  .projects-mobile .lectures-content-inner {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 1.5rem 3rem 1.5rem;
+    margin-top: 50px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .projects-mobile .lectures-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 0;
+    width: 100%;
+  }
+
+  .projects-mobile .speech-bubble {
+    background: transparent !important;
+    color: white !important;
+    font-size: 0.9rem;
+    padding: 0;
+    line-height: 1.5;
+    text-align: left;
+    border-radius: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  /* Projects mobile buttons - bottom section is absolutely positioned */
+  .projects-mobile .bottom-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: -60%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+  }
+
+  /* СВЯЗАТЬСЯ button - big */
+  .projects-mobile .contact-button {
+    font-size: 2.5rem;
+    background-image: url('/title-bg-mobile-lectures.svg');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    color: #3D2B6C;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 80%;
+    padding: 15px 20px;
+  }
+
+  /* ПОРТФОЛИО button - smaller, below СВЯЗАТЬСЯ */
+  .projects-mobile .portfolio-button-mobile {
+    font-size: 2.5rem;
+    background-image: url('/title-bg-mobile-lectures.svg');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    color: #3D2B6C;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 80%;
+  }
 }

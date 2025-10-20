@@ -41,7 +41,8 @@
 
 /* Pages wrappers */
 .services-page,
-.consulting-page {
+.consulting-page,
+.lectures-page {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -50,7 +51,8 @@
 }
 
 .services-container,
-.consulting-container {
+.consulting-container,
+.lectures-page-container {
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
@@ -133,6 +135,19 @@
     flex-direction: column;
     gap: 2rem;
     padding: 0;
+  }
+
+  .lectures-page {
+    padding: 0;
+  }
+
+  .lectures-page-container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 

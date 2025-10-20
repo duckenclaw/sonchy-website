@@ -22,7 +22,7 @@ body.services-page-background .header h1 {
 body.consulting-page-background {
   background-color: #7856A8;
   background-image: url('/bg-pattern-consulting.svg');
-  background-size: cover;
+  background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
   color: #C4DEF8;
