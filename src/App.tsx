@@ -41,7 +41,7 @@ function App() {
 
   const HomePage = () => (
     <div className="app">
-      <Header titles={["Главная", "Контакты"]} routes={["", "contacts"]} currentPage="СОНЧИ УТОЧКИНА" />
+      <Header currentPage="СОНЧИ УТОЧКИНА" />
       <MainPage blocks={blocks} />
     </div>
   );
