@@ -50,8 +50,6 @@ const Services = () => {
   return (
     <div className="app">
       <Header
-        titles={["Главная", "Контакты"]}
-        routes={[ROUTES.HOME, ROUTES.CONTACTS]}
         currentPage={PageType.SERVICES}
       />
       <div className="services-page">

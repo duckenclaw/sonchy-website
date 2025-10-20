@@ -1,6 +1,6 @@
 /* Header */
 .header {
-  width: 100%;
+  width: 80%;
   padding: 2rem;
   align-self: center;
   text-align: center;
@@ -10,8 +10,8 @@
 .header-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
+  gap: 1rem;
 }
 
 .header-title-container {
@@ -20,6 +20,11 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  min-width: 400px;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-title-services {
@@ -34,6 +39,11 @@
   background-image: url('/title-bg-main.svg');
 }
 
+.header-desktop-only {
+  display: flex;
+  justify-content: center;
+}
+
 .header h1 {
   font-family: "Alumni Sans", sans-serif;
   font-weight: 700;
@@ -45,7 +55,7 @@
 }
 
 .header-desktop-navbar {
-  min-width: 792px;
+  flex: 1;
   background-image: url('/header-nav-border.svg');
   background-size: contain;
   background-position: center;
@@ -55,7 +65,7 @@
   gap: 15px;
   flex-direction: row;
   justify-content: flex-end;
-  align-items: end;
+  align-items: center;
 }
 
 @keyframes dance {
@@ -273,8 +283,7 @@
   margin: 0;
   color: #392962;
   line-height: 1.4;
-  padding: 2px 5px;
-}
+  padding: 5px 10px;}
 
 @media (max-width: 768px) {
   .nav-block {
@@ -1372,7 +1381,7 @@
 
 .logos {
   position: absolute;
-  bottom: 35%;
+  bottom: 32%;
   width: 200px;
   margin: 0.5rem 0;
 }

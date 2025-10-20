@@ -10,7 +10,7 @@ const Lectures = () => {
     return (
         <div className="app">
             <div className="header-desktop-only">
-                <Header titles={["Главная", "Контакты", "Услуги"]} routes={["", "contact", "services"]} currentPage="ЛЕКЦИИ/ВОРКШОПЫ"/>
+                <Header currentPage="ЛЕКЦИИ/ВОРКШОПЫ"/>
             </div>
             <div className="lectures-page">
                 <div className="lectures-page-container">

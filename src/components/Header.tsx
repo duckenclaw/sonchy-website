@@ -1,13 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { PageType } from '../types/pages';
+import { ROUTES } from '../constants/routes';
 
 interface HeaderProps {
   currentPage: string;
-  titles: string[];
-  routes: string[];
 }
 
-const Header = ({ titles, routes, currentPage }: HeaderProps) => {
+const Header = ({ currentPage }: HeaderProps) => {
   const navigate = useNavigate();
 
   const handleClick = (route: string) => {
@@ -20,6 +19,13 @@ const Header = ({ titles, routes, currentPage }: HeaderProps) => {
     return "header-title-main";
   };
 
+  // Всегда используем одинаковые 3 кнопки навигации
+  const navButtons = [
+    { title: "Главная", route: ROUTES.HOME },
+    { title: "Услуги", route: ROUTES.SERVICES },
+    { title: "Контакты", route: ROUTES.CONTACTS }
+  ];
+
   return (
     <header className="header">
       <div className="header-container">
@@ -29,15 +35,15 @@ const Header = ({ titles, routes, currentPage }: HeaderProps) => {
           <h1>{currentPage}</h1>
         </div>
         <div className="header-desktop-navbar">
-          {titles.map((title, index) => (
+          {navButtons.map((button) => (
             <button
               type="button"
               className="header-button"
-              onClick={() => handleClick(routes[index])}
-              key={routes[index]}
-              aria-label={`Navigate to ${title}`}
+              onClick={() => handleClick(button.route)}
+              key={button.route}
+              aria-label={`Navigate to ${button.title}`}
             >
-              {title}
+              {button.title}
             </button>
           ))}
         </div>

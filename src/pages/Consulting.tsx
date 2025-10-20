@@ -20,7 +20,7 @@ const Consulting = () => {
 
   return (
     <div className="app">
-      <Header titles={["Главная", "Контакты", "Услуги"]} routes={["", "contact", "services"]} currentPage={PageType.CONSULTING}/>
+      <Header currentPage={PageType.CONSULTING}/>
       <div className="consulting-page">
         <div className="consulting-container">
           <div className="consulting-flexbox">
