@@ -261,17 +261,18 @@
 }
 
 .nav-title {
+  background-image: url('/bg-nav-title.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   font-family: "Alumni Sans", sans-serif;
   font-size: 2rem;
   font-weight: 800;
   margin: 0 0 0.5rem 0;
   color: #7856A8;
-  background-color: #C4DEF8;
-  border: 1px solid #392962;
-  border-radius: 15px;
-  padding: 9px 21px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  width: 100%;
 }
 
 .nav-description {
@@ -973,8 +974,11 @@
 }
 
 .consulting-contact-button:hover {
-  transform: translateX(50%) translateY(-2px);
-  opacity: 0.9;
+  transform: translateX(50%) scale(1.05);
+}
+
+.consulting-contact-button:active {
+  transform: translateX(50%) scale(0.95);
 }
 
 .consulting-contact-button:focus-visible {
@@ -1122,12 +1126,15 @@
     background-image: url('/contact-bg.svg');
     background-size: 100% 100%;
     min-width: 220px;
-    transition: none;
+    transition: transform 0.3s ease;
   }
 
   .consulting-contact-button:hover {
-    transform: translateX(-50%);
-    opacity: 1;
+    transform: translateX(-50%) scale(1.05);
+  }
+
+  .consulting-contact-button:active {
+    transform: translateX(-50%) scale(0.95);
   }
 }
 
@@ -1275,14 +1282,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: none;
+    transition: transform 0.3s ease;
     height: 80px;
     width: 80%;
   }
 
   .consulting-contact-button:hover {
-    transform: translateX(-50%);
-    opacity: 1;
+    transform: translateX(-50%) scale(1.05);
+  }
+
+  .consulting-contact-button:active {
+    transform: translateX(-50%) scale(0.95);
   }
 }
 
@@ -1416,6 +1426,15 @@
   padding: 40px 60px 47px;
   font-weight: bold;
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.contact-button:hover {
+  transform: scale(1.05);
+}
+
+.contact-button:active {
+  transform: scale(0.95);
 }
 
 .portfolio-button {
@@ -1429,6 +1448,15 @@
   padding: 40px 60px 47px;
   font-weight: bold;
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.portfolio-button:hover {
+  transform: scale(1.05);
+}
+
+.portfolio-button:active {
+  transform: scale(0.95);
 }
 
 

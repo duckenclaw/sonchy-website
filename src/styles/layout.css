@@ -84,8 +84,9 @@
   }
 
   .app {
-    height: auto;
-    min-height: 100vh;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
   }
 
   .nav {

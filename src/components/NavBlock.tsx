@@ -30,7 +30,7 @@ const NavBlock = ({ image, title, description, alt = "", position, route }: NavB
     >
       <img src={image} alt={alt} className="nav-image" />
       <h2 className="nav-title primary-text">{title}</h2>
-      <p className="nav-description secondary-text">{description}</p>
+      <p className="nav-description secondary-text" dangerouslySetInnerHTML={{ __html: description }} />
     </div>
   );
 };
