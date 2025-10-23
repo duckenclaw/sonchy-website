@@ -170,6 +170,12 @@ const Courses = () => {
 
                 <Slider slides={slides}></Slider>
 
+                <div className="timeline">
+                    <h2>СТАРТ - 6 НОЯБРЯ</h2>
+                    <h2>ФИНАЛ - 13 ДЕКАБРЯ</h2>
+                    <p>лекции по субботам</p>
+                </div>
+
                 <div className="formats-container">
 
                     <div className="base">

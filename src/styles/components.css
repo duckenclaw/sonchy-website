@@ -1628,8 +1628,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 20px;
-  width: 100%;
+  width: 75%;
   position: relative;
 }
 
@@ -1647,8 +1648,8 @@
 }
 
 .slider-arrow img {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
 }
 
 .slider-arrow-left {
@@ -1767,6 +1768,38 @@
   opacity: 0.8;
 }
 
+.timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("/timeline.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  padding: 20px 80px;
+}
+
+.timeline h2 {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 40px;
+  color: #3EC07E;
+  margin: 0;
+  padding: 0;
+}
+
+.timeline h2:first-of-type {
+  color: #E5348B;
+}
+
+.timeline p {
+  font-size: 32px;
+  color: #000000;
+  margin: 12px 0 0 0;
+  padding: 0;
+}
+
 .formats-container {
   display: flex;
   justify-content: center;
@@ -1818,15 +1851,39 @@
   padding: 80px 40px;
 }
 
+.base button {
+  color: #374A9A;
+}
+
+.base button span {
+  color: #E5348B;
+}
+
 .starling {
   text-align: right;
   background-image: url("/starling.svg");
   padding: 100px 60px;
 }
 
+.starling button {
+  color: #4BCB8A;
+}
+
+.starling button span {
+  color: #374A9A;
+}
+
 .supernova {
   background-image: url("/supernova.svg");
   padding: 120px 80px;
+}
+
+.supernova button {
+  color: #E5348B;
+}
+
+.supernova button span {
+  color: #4BCB8A;
 }
 
 .seminars {
