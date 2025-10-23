@@ -94,6 +94,55 @@ const Courses = () => {
 
                 </div>
 
+                <div className="formats-container">
+
+                    <div className="base">
+                        <h3>Базёныш</h3>
+                        <ul>
+                            <li>7 лекций по 1,5 часа без семинаров!</li>
+                            <li>ответы на вопросы</li>
+                            <li>материалы, задания (без проверки)</li>
+                        </ul>
+                        <button type="button" className="base-button">КУПИТЬ ЗА <span>8900 р.</span></button>
+                    </div>
+
+                    <div className="starling">
+                        <h3>Звёздочка</h3>
+                        <ul>
+                            <li>7 лекций по 1,5 часа</li>
+                            <li>6 практических семинаров</li>
+                            <li>группа из 10 человек</li>
+                            <li>отдельный чат</li>
+                            <li>проверка и обсуждение заданий</li>
+                        </ul>
+                        <button type="button" className="starling-button">КУПИТЬ ЗА <span>21900 р.</span></button>
+                    </div>
+
+                    <div className="supernova">
+
+                        <h3>Супернова</h3>
+
+                        <ul>
+
+                            <li>7 лекций</li>
+                            <li>6 практических семинаров</li>
+                            <li>2 индивидуальные сессии</li>
+                            <li>ответы в чате</li>
+                            <li>работа с личным запросом</li>
+                            <li>подборка материалов</li>
+
+                        </ul>
+                        <button
+                            type="button"
+                            className="supernova-button"
+                        >
+                            КУПИТЬ ЗА <span>34900 р.</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>

@@ -1623,6 +1623,68 @@
   background-image: url("/no-word.svg");
 }
 
+.formats-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.formats-container div {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  max-width: 360px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  color: #FFF4FA;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.formats-container div h3 {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 24px;
+  margin: 0;
+}
+
+.formats-container div ul {
+  list-style: none;
+  text-wrap: wrap;
+  padding: 0
+}
+
+.formats-container div button {
+  align-self: center;
+  max-width: 190px;
+  padding: 12px 24px 16px 24px;
+  background-image: url("/buy-bg.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-wrap: wrap;
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 18px;
+  color: #000000;
+}
+
+.base {
+  background-image: url("/basenysh.svg");
+  padding: 80px 40px;
+}
+
+.starling {
+  text-align: right;
+  background-image: url("/starling.svg");
+  padding: 100px 60px;
+}
+
+.supernova {
+  background-image: url("/supernova.svg");
+  padding: 120px 80px;
+}
+
 /* ===========================================
    LECTURES & PROJECTS - MOBILE STYLES (SEPARATE)
    =========================================== */
