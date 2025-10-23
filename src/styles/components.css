@@ -1828,6 +1828,41 @@
   padding: 120px 80px;
 }
 
+.seminars {
+  background: #131C40;
+  border-radius: 20px;
+  padding: 60px;
+}
+
+.seminars-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 460px;
+  padding: 320px 100px;
+  gap: 20px;
+  background-image: url("/seminars-bg.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  color: #000000;
+}
+
+.seminars-text h3 {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 36px;
+  color: #131C40;
+  margin: 0 0 40px 0;
+}
+
+.seminars-text p {
+  width: 100%;
+  margin: 0;
+}
+
 /* ===========================================
    LECTURES & PROJECTS - MOBILE STYLES (SEPARATE)
    =========================================== */
