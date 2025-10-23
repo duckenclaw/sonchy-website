@@ -1623,6 +1623,149 @@
   background-image: url("/no-word.svg");
 }
 
+.slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  position: relative;
+}
+
+.slider-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+.slider-arrow:hover {
+  opacity: 0.7;
+}
+
+.slider-arrow img {
+  width: 24px;
+  height: 24px;
+}
+
+.slider-arrow-left {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slider-arrow-right {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleX(-1);
+}
+
+.slider-container {
+  background-color: #131C40;
+  border-radius: 20px;
+  padding: 40px 40px 20px 40px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 60px;
+}
+
+.slider-text-container {
+  background-image: url('/story-bg.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 486px;
+}
+
+.slider-slide {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 30px;
+  width: 100%;
+  color: #212121;
+}
+
+.slider-header {
+  font-family: "Alumni Sans", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #E5348B;
+  margin: 0;
+}
+
+.slider-description {
+  font-size: 16px;
+  color: #212121;
+  margin: 0;
+}
+
+.slider-image {
+  height: 250px;
+  margin: 0 auto;
+  border-radius: 10px;
+  align-self: center;
+}
+
+.slider-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.slider-list li {
+  font-size: 16px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.slider-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #212121;
+  font-size: 20px;
+}
+
+.slider-dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px auto auto 0;
+  padding: 0;
+}
+
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #FFF4FA;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  margin: 0;
+}
+
+.slider-dot-active {
+  background-color: #4BCB8A;
+  border: 1px solid #FFF4FA;
+}
+
+.slider-dot:hover {
+  opacity: 0.8;
+}
+
 .formats-container {
   display: flex;
   justify-content: center;
@@ -1879,7 +2022,7 @@
     height: 75px;
   }
 
-  
+
   .lectures-back-button,
   .lectures-home-button,
   .projects-back-button,
@@ -1904,7 +2047,7 @@
     padding-bottom: 5px;
 
   }
-  
+
 
   .lectures-back-button:active,
   .lectures-home-button:active,
