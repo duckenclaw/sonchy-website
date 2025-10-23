@@ -230,6 +230,10 @@ const Courses = () => {
                     </div>
                 </div>
 
+                <div className="iceberg">
+                    <img src="/iceberg.png" alt="iceberg"></img>
+                </div>
+
             </div>
 
         </div>
