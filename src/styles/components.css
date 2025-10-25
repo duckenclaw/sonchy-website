@@ -1974,6 +1974,11 @@
   padding: 40px 150px;
 }
 
+.apply-button button a {
+  color: #FFF4FA;
+  text-decoration: none;
+}
+
 .courses-footer {
   width: 100%;
   background-color: #FFF4FA;

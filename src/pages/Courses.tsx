@@ -187,7 +187,7 @@ const Courses = () => {
                     <p>лекции по субботам</p>
                 </div>
 
-                <div className="formats-header">
+                <div id="formats" className="formats-header">
                     <h2>ФОРМАТЫ</h2>
                 </div>
 
@@ -260,7 +260,7 @@ const Courses = () => {
                 </div>
 
                 <div className="apply-button">
-                    <button type={"button"}>ЗАПИСАТЬСЯ НА КУРС</button>
+                    <button type={"button"}><a href="#formats">ЗАПИСАТЬСЯ НА КУРС</a></button>
                 </div>
 
                 <footer className="courses-footer">
