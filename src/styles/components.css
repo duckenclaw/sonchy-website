@@ -1464,6 +1464,7 @@
 
 .courses-header {
   font-family: 'Alumni Sans', sans-serif;
+  color: #FFF4FA;
   background-image: url('/courses-header-bg.svg');
   width: 100%;
   background-size: cover;
@@ -1624,6 +1625,21 @@
   background-image: url("/no-word.svg");
 }
 
+.slider-title {
+  background-image: url("/slider-header-bg.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding: 0 180px;
+}
+
+.slider-title h2 {
+  font-size: 64px;
+  font-family: "Alumni Sans", sans-serif;
+  font-weight: bold;
+  color: #E5348B;
+}
+
 .slider {
   display: flex;
   flex-direction: column;
@@ -1667,7 +1683,7 @@
 }
 
 .slider-container {
-  background-color: #131C40;
+  background-color: #374A9A;
   border-radius: 20px;
   padding: 40px 40px 20px 40px;
   width: 100%;
@@ -1800,6 +1816,20 @@
   padding: 0;
 }
 
+.formats-header {
+  background-image: url("/formats-title-bg.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+
+.formats-header h2 {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 32px;
+  padding: 20px;
+}
+
 .formats-container {
   display: flex;
   justify-content: center;
@@ -1843,7 +1873,6 @@
   text-wrap: wrap;
   font-family: "Dela Gothic One", sans-serif;
   font-size: 18px;
-  color: #000000;
 }
 
 .base {
@@ -1887,7 +1916,7 @@
 }
 
 .seminars {
-  background: #131C40;
+  background: #374A9A;
   border-radius: 20px;
   padding: 60px;
 }
@@ -1912,13 +1941,62 @@
 .seminars-text h3 {
   font-family: "Dela Gothic One", sans-serif;
   font-size: 36px;
-  color: #131C40;
+  color: #374A9A;
   margin: 0 0 40px 0;
 }
 
 .seminars-text p {
   width: 100%;
   margin: 0;
+}
+
+.iceberg-title {
+  background-image: url("/iceberg-title-bg.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.iceberg-title h2 {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 32px;
+  color: #E5348B;
+  padding: 10px 20px;
+}
+
+.apply-button button {
+  background-image: url("/apply-button.svg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-size: 40px;
+  font-family: "Dela Gothic One", sans-serif;
+  padding: 40px 150px;
+}
+
+.courses-footer {
+  width: 100%;
+  background-color: #FFF4FA;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 70px 0 100px 0;
+  border-top: 1px solid #000000;
+  margin-top: 40px;
+}
+
+.courses-footer a {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 24px;
+  text-decoration: none;
+  color: #E5348B;
+}
+
+.courses-footer a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
 }
 
 /* ===========================================

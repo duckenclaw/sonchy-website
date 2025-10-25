@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import Slider from "../components/Slider.tsx";
+import {useNavigate} from "react-router-dom";
 
 
 const Courses = () => {
@@ -76,6 +77,12 @@ const Courses = () => {
             ]
         }
     ]
+
+    const navigate = useNavigate();
+
+    const handleClick = (route: string) => {
+        navigate(`/${route}`);
+    };
 
     // Apply consulting-specific background styling
     useEffect(() => {
@@ -168,12 +175,20 @@ const Courses = () => {
 
                 </div>
 
+                <div className="slider-title">
+                    <h2>7 лекций = 7 тем</h2>
+                </div>
+
                 <Slider slides={slides}></Slider>
 
                 <div className="timeline">
                     <h2>СТАРТ - 6 НОЯБРЯ</h2>
                     <h2>ФИНАЛ - 13 ДЕКАБРЯ</h2>
                     <p>лекции по субботам</p>
+                </div>
+
+                <div className="formats-header">
+                    <h2>ФОРМАТЫ</h2>
                 </div>
 
                 <div className="formats-container">
@@ -236,9 +251,23 @@ const Courses = () => {
                     </div>
                 </div>
 
+                <div className="iceberg-title">
+                    <h2>А что мне за это будет?</h2>
+                </div>
+
                 <div className="iceberg">
                     <img src="/iceberg.png" alt="iceberg"></img>
                 </div>
+
+                <div className="apply-button">
+                    <button type={"button"}>ЗАПИСАТЬСЯ НА КУРС</button>
+                </div>
+
+                <footer className="courses-footer">
+                    <a href="">О проекте</a>
+                    <a href="/">FAQ</a>
+                    <a href="mailto:sonchy@gmail.com">sonchy@gmail.com</a>
+                </footer>
 
             </div>
 
