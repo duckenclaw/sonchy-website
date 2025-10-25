@@ -78,12 +78,6 @@ const Courses = () => {
         }
     ]
 
-    const navigate = useNavigate();
-
-    const handleClick = (route: string) => {
-        navigate(`/${route}`);
-    };
-
     // Apply consulting-specific background styling
     useEffect(() => {
         document.body.classList.add('courses-page-background');
