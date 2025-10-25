@@ -1,7 +1,5 @@
 import {useEffect} from "react";
 import Slider from "../components/Slider.tsx";
-import {useNavigate} from "react-router-dom";
-
 
 const Courses = () => {
 
