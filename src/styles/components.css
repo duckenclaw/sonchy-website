@@ -78,6 +78,15 @@
   }
 }
 
+@keyframes dance-soft {
+  0% {
+    transform: rotate(-8deg) scale(1.15);
+  }
+  50% {
+    transform: rotate(8deg) scale(1.15);
+  }
+}
+
 .header-button {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
@@ -1648,6 +1657,7 @@
   gap: 20px;
   width: 75%;
   position: relative;
+  margin-bottom: 100px;
 }
 
 .slider-arrow {
@@ -1795,6 +1805,7 @@
   background-repeat: no-repeat;
   text-align: center;
   padding: 20px 80px;
+  margin-bottom: 100px;
 }
 
 .timeline h2 {
@@ -1835,6 +1846,7 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
+  margin-bottom: 200px;
 }
 
 .formats-container div {
@@ -1875,9 +1887,86 @@
   font-size: 18px;
 }
 
-.base {
-  background-image: url("/basenysh.svg");
-  padding: 80px 40px;
+/* Format card - контейнер с SVG */
+.format-card {
+  position: relative;
+  display: inline-block;
+}
+
+.format-card img {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+/* Контент поверх SVG */
+.format-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 30px 50px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  color: #FFF4FA;
+}
+
+.format-content h3 {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 24px;
+  margin: 0;
+}
+
+.format-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.format-content li {
+  margin: 8px 0;
+}
+
+.format-content a {
+  margin-top: auto;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.format-content button {
+  max-width: 190px;
+  padding: 12px 24px 16px 24px;
+  background-image: url("/buy-bg.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-wrap: wrap;
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  transition: none;
+}
+
+.format-content a:hover button {
+  animation: dance-soft 0.3s step-end infinite;
+}
+
+.format-content a:active button {
+  animation: none;
+  transform: scale(0.95);
+}
+
+/* Специфичные стили для каждой карточки */
+.base .format-content {
+  text-align: left;
 }
 
 .base button {
@@ -1888,37 +1977,39 @@
   color: #E5348B;
 }
 
-.starling {
+.starling .format-content {
   text-align: right;
-  background-image: url("/starling.svg");
-  padding: 100px 60px;
 }
 
 .starling button {
-  color: #4BCB8A;
-}
-
-.starling button span {
   color: #374A9A;
 }
 
-.supernova {
-  background-image: url("/supernova.svg");
-  padding: 120px 80px;
-}
-
-.supernova button {
+.starling button span {
   color: #E5348B;
 }
 
+.supernova .format-content {
+  text-align: left;
+}
+
+.supernova button {
+  color: #374A9A;
+}
+
 .supernova button span {
-  color: #4BCB8A;
+  color: #E5348B;
 }
 
 .seminars {
-  background: #374A9A;
-  border-radius: 20px;
-  padding: 60px;
+  background-image: url("/seminars-bg.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 200px;
 }
 
 .seminars-text {
@@ -1927,12 +2018,9 @@
   align-items: center;
   justify-content: center;
   max-width: 460px;
-  padding: 320px 100px;
+  padding: 250px 0px;
   gap: 20px;
-  background-image: url("/seminars-bg.svg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  
   font-family: "Montserrat", sans-serif;
   font-size: 18px;
   color: #000000;
@@ -1964,10 +2052,21 @@
   padding: 10px 20px;
 }
 
+
+.iceberg{
+  max-height: 800px;
+  margin-bottom: 200px;
+}
+
+
+.iceberg img {
+  height: 100%;
+}
+
 .apply-button button {
   background-image: url("/apply-button.svg");
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   font-size: 40px;
   font-family: "Dela Gothic One", sans-serif;
@@ -2335,5 +2434,458 @@
     text-transform: uppercase;
     cursor: pointer;
     width: 80%;
+  }
+
+  /* ===========================================
+     COURSES PAGE - MOBILE STYLES
+     =========================================== */
+
+  /* Header adjustments for mobile */
+  .courses-header {
+    background-size: cover;
+  }
+
+  .courses-header-text {
+    margin: 20px auto;
+    padding: 0 var(--mobile-padding);
+  }
+
+  .courses-header-text h1 {
+    font-size: 56px;
+    line-height: 1.1;
+  }
+
+  .courses-header-text h2 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  /* Motivation container mobile */
+  .motivation-container {
+    margin: 20px var(--mobile-padding);
+    max-width: 100%;
+  }
+
+  .motivation-container p {
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 8px 12px;
+    margin: 6px 0;
+  }
+
+  .motivation-container p.align-right:first-of-type {
+    margin-top: 16px;
+  }
+
+  /* Story container mobile - TV on top, text below */
+  .story-container {
+    flex-direction: column;
+    margin: 20px var(--mobile-padding);
+    gap: 0;
+  }
+
+  .sonchy-tv {
+    order: -1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .sonchy-tv img {
+    width: 60%;
+    max-width: 250px;
+    height: auto;
+  }
+
+  .story-text {
+    max-width: 100%;
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 16px;
+    margin-top: -10px;
+  }
+
+  .story-text section {
+    padding: 20px;
+    background-image: url('/story-bg-mobile.svg');
+    height: 376px;
+    justify-content: start;
+  }
+
+  .story-text p {
+    margin: 8px 0;
+  }
+
+  /* Points container mobile - keep in row but adjust */
+  .points-container {
+    flex-direction: row;
+    gap: 20px;
+    padding: 40px 20px;
+    margin: 20px 0;
+    background-size: cover;
+  }
+
+  .points-container div h3 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .points-container li {
+    font-size: 18px;
+    line-height: 1.4;
+    padding: 10px 2px;
+  }
+
+  /* Slider title mobile */
+  .slider-title {
+    padding: 0 var(--mobile-padding);
+  }
+
+  .slider-title h2 {
+    font-size: 36px;
+  }
+
+  /* Slider mobile - hide arrows, adjust sizes */
+  .slider {
+    width: 90%;
+  }
+
+  .slider-arrow {
+    display: none;
+  }
+
+  .slider-container {
+    padding: 20px;
+    margin: 0;
+  }
+
+  .slider-text-container {
+    height: auto;
+    min-height: 400px;
+  }
+
+  .slider-slide {
+    padding: 20px;
+  }
+
+  .slider-header {
+    font-size: 20px;
+  }
+
+  .slider-description {
+    font-size: 14px;
+  }
+
+  .slider-image {
+    height: 180px;
+    margin: 10px auto;
+  }
+
+  .slider-list li {
+    font-size: 14px;
+  }
+
+  /* Timeline mobile */
+  .timeline {
+    padding: 15px 20px;
+  }
+
+  .timeline h2 {
+    font-size: 28px;
+  }
+
+  .timeline p {
+    font-size: 20px;
+  }
+
+  /* Formats header mobile */
+  .formats-header h2 {
+    font-size: 24px;
+    padding: 15px;
+  }
+
+  /* Formats container mobile - stack vertically */
+  .formats-container {
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 var(--mobile-padding);
+  }
+
+  /* Format cards - mobile */
+  .format-card {
+    width: 100%;
+  }
+
+  .format-card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .format-content {
+    padding: 50px 30px;
+    gap: 12px;
+    font-size: 16px;
+  }
+
+  .format-content h3 {
+    font-size: 20px;
+  }
+
+  .format-content li {
+    font-size: 16px;
+  }
+
+  .format-content button {
+    font-size: 16px;
+    padding: 10px 20px 14px 20px;
+    max-width: 170px;
+  }
+
+  /* Seminars mobile */
+  .seminars {
+    padding: 20px;
+    margin: 20px var(--mobile-padding);
+  }
+
+  .seminars-text {
+    padding: 80px 30px;
+    max-width: 100%;
+    font-size: 14px;
+    gap: 15px;
+    background-size: cover;
+  }
+
+  .seminars-text h3 {
+    font-size: 24px;
+    margin: 0 0 20px 0;
+  }
+
+  .seminars-text p {
+    font-size: 14px;
+  }
+
+  /* Iceberg title mobile */
+  .iceberg-title h2 {
+    font-size: 24px;
+    padding: 8px 15px;
+  }
+
+  /* Iceberg image mobile */
+  .iceberg img {
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+  }
+
+  /* Apply button mobile */
+  .apply-button button {
+    font-size: 24px;
+    padding: 20px 60px;
+    background-size: contain;
+  }
+
+  .apply-button button:focus-visible {
+    outline: 3px solid var(--color-secondary);
+    outline-offset: 2px;
+  }
+
+  .apply-button button:active {
+    transform: scale(0.95);
+  }
+
+  /* Footer mobile */
+  .courses-footer {
+    flex-direction: column;
+    gap: 15px;
+    padding: 40px var(--mobile-padding) 60px;
+  }
+
+  .courses-footer a {
+    font-size: 18px;
+  }
+
+  /* Make sure courses page container is scrollable on mobile */
+  body.courses-page-background .app {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100vh;
+    scroll-behavior: smooth;
+  }
+
+  .courses-container {
+    padding-bottom: 20px;
+  }
+}
+
+/* ===========================================
+   COURSES PAGE - SMALL MOBILE (max-width: 480px)
+   =========================================== */
+@media (max-width: 480px) {
+  /* Header - even smaller for tiny screens */
+  .courses-header-text h1 {
+    font-size: 42px;
+    line-height: 1.1;
+  }
+
+  .courses-header-text h2 {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  /* Motivation - smaller text */
+  .motivation-container p {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  /* Story text - smaller */
+  .story-text {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  /* Points - smaller text, tighter layout */
+  .points-container {
+    gap: 10px;
+    padding: 30px 15px;
+  }
+
+  .points-container div h3 {
+    font-size: 22px;
+  }
+
+  .points-container li {
+    font-size: 14px;
+    padding: 8px 2px;
+  }
+
+  /* Slider title */
+  .slider-title {
+    padding: 0 20px;
+  }
+
+  .slider-title h2 {
+    font-size: 28px;
+  }
+
+  /* Slider - compact version */
+  .slider-container {
+    padding: 15px;
+  }
+
+  .slider-text-container {
+    min-height: 350px;
+  }
+
+  .slider-slide {
+    padding: 15px;
+  }
+
+  .slider-header {
+    font-size: 18px;
+  }
+
+  .slider-description {
+    font-size: 12px;
+  }
+
+  .slider-image {
+    height: 150px;
+  }
+
+  .slider-list li {
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  /* Timeline - smaller */
+  .timeline {
+    padding: 12px 15px;
+  }
+
+  .timeline h2 {
+    font-size: 22px;
+  }
+
+  .timeline p {
+    font-size: 16px;
+  }
+
+  /* Formats */
+  .formats-header h2 {
+    font-size: 20px;
+    padding: 12px;
+  }
+
+  .formats-container {
+    gap: 30px;
+  }
+
+  /* Format cards - small mobile */
+  .format-content {
+    padding: 40px 25px;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .format-content h3 {
+    font-size: 18px;
+  }
+
+  .format-content li {
+    font-size: 14px;
+  }
+
+  .format-content button {
+    font-size: 14px;
+    padding: 8px 16px 12px 16px;
+    max-width: 150px;
+  }
+
+  /* Seminars */
+  .seminars {
+    padding: 15px;
+  }
+
+  .seminars-text {
+    padding: 60px 20px;
+    font-size: 14px;
+  }
+
+  .seminars-text h3 {
+    font-size: 20px;
+    margin: 0 0 15px 0;
+  }
+
+  .seminars-text p {
+    font-size: 14px;
+  }
+
+  /* Iceberg */
+  .iceberg-title h2 {
+    font-size: 20px;
+    padding: 6px 12px;
+  }
+
+  .iceberg img {
+    width: 95%;
+    max-width: 350px;
+  }
+
+  /* Apply button */
+  .apply-button button {
+    font-size: 20px;
+    padding: 16px 40px;
+  }
+
+  /* Footer */
+  .courses-footer {
+    gap: 12px;
+    padding: 30px var(--mobile-padding) 50px;
+  }
+
+  .courses-footer a {
+    font-size: 16px;
   }
 }

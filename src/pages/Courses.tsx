@@ -76,7 +76,7 @@ const Courses = () => {
         }
     ]
 
-    // Apply consulting-specific background styling
+    // Apply courses-specific background styling
     useEffect(() => {
         document.body.classList.add('courses-page-background');
 
@@ -101,16 +101,14 @@ const Courses = () => {
 
                 <div className="motivation-container">
                     <p className="align-left">
-                        Как будто есть творческая искра, но чего-то не хватает?
-                    </p>
+                        Как будто есть предрасположенность к креативу,</p>
                     <p className="align-left">
-                        Сĸорее всего уверенности в себе, но этого я дать не могу.
+                        но что-то все равно останавливает? 
                     </p>
                     <p className="align-right">
-                        Зато могу обучить техникам, структуризировать процесс
-                    </p>
+                        Это скорее к психологу.</p>
                     <p className="align-right">
-                        и, может быть, вдохновить.
+                        А я могу дать теории, структуры, практику и хорошую атмосферу на занятиях  
                     </p>
                 </div>
 
@@ -185,49 +183,48 @@ const Courses = () => {
 
                 <div className="formats-container">
 
-                    <div className="base">
-                        <h3>Базёныш</h3>
-                        <ul>
-                            <li>7 лекций по 1,5 часа без семинаров!</li>
-                            <li>ответы на вопросы</li>
-                            <li>материалы, задания (без проверки)</li>
-                        </ul>
-                        <button type="button" className="base-button">КУПИТЬ ЗА <span>8900 р.</span></button>
+                    <div className="format-card base">
+                        <img src="/basenysh.svg" alt="" aria-hidden="true" />
+                        <div className="format-content">
+                            <h3>Базёныш</h3>
+                            <ul>
+                                <li>7 лекций по 1,5 часа без семинаров!</li>
+                                <li>ответы на вопросы</li>
+                                <li>материалы, задания (без проверки)</li>
+                            </ul>
+                            <a href="#apply"><button type="button" className="base-button">КУПИТЬ ЗА <span>8900 р.</span></button></a>
+                        </div>
                     </div>
 
-                    <div className="starling">
-                        <h3>Звёздочка</h3>
-                        <ul>
-                            <li>7 лекций по 1,5 часа</li>
-                            <li>6 практических семинаров</li>
-                            <li>группа из 10 человек</li>
-                            <li>отдельный чат</li>
-                            <li>проверка и обсуждение заданий</li>
-                        </ul>
-                        <button type="button" className="starling-button">КУПИТЬ ЗА <span>21900 р.</span></button>
+                    <div className="format-card starling">
+                        <img src="/starling.svg" alt="" aria-hidden="true" />
+                        <div className="format-content">
+                            <h3>Звёздочка</h3>
+                            <ul>
+                                <li>7 лекций по 1,5 часа</li>
+                                <li>6 практических семинаров</li>
+                                <li>группа из 10 человек</li>
+                                <li>отдельный чат</li>
+                                <li>проверка и обсуждение заданий</li>
+                            </ul>
+                            <a href="#apply"><button type="button" className="starling-button">КУПИТЬ ЗА <span>21900 р.</span></button></a>
+                        </div>
                     </div>
 
-                    <div className="supernova">
-
-                        <h3>Супернова</h3>
-
-                        <ul>
-
-                            <li>7 лекций</li>
-                            <li>6 практических семинаров</li>
-                            <li>2 индивидуальные сессии</li>
-                            <li>ответы в чате</li>
-                            <li>работа с личным запросом</li>
-                            <li>подборка материалов</li>
-
-                        </ul>
-                        <button
-                            type="button"
-                            className="supernova-button"
-                        >
-                            КУПИТЬ ЗА <span>34900 р.</span>
-                        </button>
-
+                    <div className="format-card supernova">
+                        <img src="/supernova.svg" alt="" aria-hidden="true" />
+                        <div className="format-content">
+                            <h3>Супернова</h3>
+                            <ul>
+                                <li>7 лекций</li>
+                                <li>6 практических семинаров</li>
+                                <li>2 индивидуальные сессии</li>
+                                <li>ответы в чате</li>
+                                <li>работа с личным запросом</li>
+                                <li>подборка материалов</li>
+                            </ul>
+                            <a href="#apply"><button type="button" className="supernova-button">КУПИТЬ ЗА <span>34900 р.</span></button></a>
+                        </div>
                     </div>
 
                 </div>
@@ -244,14 +241,14 @@ const Courses = () => {
                 </div>
 
                 <div className="iceberg-title">
-                    <h2>А что мне за это будет?</h2>
+                    <h2>И что мне за это будет?</h2>
                 </div>
 
                 <div className="iceberg">
                     <img src="/iceberg.png" alt="iceberg"></img>
                 </div>
 
-                <div className="apply-button">
+                <div id="apply" className="apply-button">
                     <button type={"button"}><a href="#formats">ЗАПИСАТЬСЯ НА КУРС</a></button>
                 </div>
 
