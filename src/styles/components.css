@@ -1471,6 +1471,29 @@
 
 
 
+/* Courses app container */
+.courses-app-container {
+  overflow: auto;
+  height: 100%;
+}
+
+/* Points container interactive cursor - desktop only */
+.points-interactive {
+  position: relative;
+}
+
+@media (min-width: 769px) {
+  .points-interactive {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23E5348B' d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'/%3E%3C/svg%3E") 0 24, auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .points-interactive {
+    cursor: default; /* No custom cursor on mobile */
+  }
+}
+
 .courses-header {
   font-family: 'Alumni Sans', sans-serif;
   color: #FFF4FA;
@@ -1618,108 +1641,118 @@
 }
 
 .points-container li {
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
   padding: 16px 2px;
   margin: 0;
   font-size: 32px;
   line-height: 70%;
+  z-index: 2;
+  position: relative;
 }
 
-.yes-words-container li {
+.points-container li::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.yes-words-container li::before {
   background-image: url("/yes-word.svg");
 }
 
-.no-words-container li {
+.no-words-container li::before {
   background-image: url("/no-word.svg");
 }
 
 /* Add random variations to yes-words */
-.yes-words-container li:nth-child(1) {
-  transform: rotate(-1.5deg) scale(1.02);
+.yes-words-container li:nth-child(1)::before {
+  transform: rotate(-2.8deg) scale(1.08);
+  background-position: 45% center;
+}
+
+.yes-words-container li:nth-child(2)::before {
+  transform: rotate(2.3deg) scale(0.93);
+  background-position: 55% center;
+}
+
+.yes-words-container li:nth-child(3)::before {
+  transform: rotate(-1.9deg) scale(1.1);
   background-position: 48% center;
 }
 
-.yes-words-container li:nth-child(2) {
-  transform: rotate(1deg) scale(0.98);
-  background-position: 52% center;
+.yes-words-container li:nth-child(4)::before {
+  transform: rotate(2.7deg) scale(0.92);
+  background-position: 46% center;
 }
 
-.yes-words-container li:nth-child(3) {
-  transform: rotate(-0.8deg) scale(1.05);
-  background-position: 50% center;
+.yes-words-container li:nth-child(5)::before {
+  transform: rotate(-2.4deg) scale(1.06);
+  background-position: 53% center;
 }
 
-.yes-words-container li:nth-child(4) {
-  transform: rotate(1.2deg) scale(0.96);
-  background-position: 49% center;
+.yes-words-container li:nth-child(6)::before {
+  transform: rotate(2.1deg) scale(0.95);
+  background-position: 44% center;
 }
 
-.yes-words-container li:nth-child(5) {
-  transform: rotate(-1deg) scale(1.03);
-  background-position: 51% center;
+.yes-words-container li:nth-child(7)::before {
+  transform: rotate(-2.9deg) scale(1.04);
+  background-position: 54% center;
 }
 
-.yes-words-container li:nth-child(6) {
-  transform: rotate(0.9deg) scale(0.99);
-  background-position: 48% center;
-}
-
-.yes-words-container li:nth-child(7) {
-  transform: rotate(-1.3deg) scale(1.01);
-  background-position: 52% center;
-}
-
-.yes-words-container li:nth-child(8) {
-  transform: rotate(1.5deg) scale(1.04);
-  background-position: 50% center;
+.yes-words-container li:nth-child(8)::before {
+  transform: rotate(3deg) scale(1.09);
+  background-position: 47% center;
 }
 
 /* Add random variations to no-words */
-.no-words-container li:nth-child(1) {
-  transform: rotate(1.2deg) scale(1.01);
-  background-position: 51% center;
+.no-words-container li:nth-child(1)::before {
+  transform: rotate(2.6deg) scale(1.07);
+  background-position: 54% center;
 }
 
-.no-words-container li:nth-child(2) {
-  transform: rotate(-1.5deg) scale(0.97);
-  background-position: 49% center;
+.no-words-container li:nth-child(2)::before {
+  transform: rotate(-2.9deg) scale(0.94);
+  background-position: 46% center;
 }
 
-.no-words-container li:nth-child(3) {
-  transform: rotate(0.8deg) scale(1.04);
+.no-words-container li:nth-child(3)::before {
+  transform: rotate(2.2deg) scale(1.1);
+  background-position: 55% center;
+}
+
+.no-words-container li:nth-child(4)::before {
+  transform: rotate(-2.5deg) scale(0.93);
+  background-position: 45% center;
+}
+
+.no-words-container li:nth-child(5)::before {
+  transform: rotate(2.8deg) scale(1.05);
   background-position: 52% center;
 }
 
-.no-words-container li:nth-child(4) {
-  transform: rotate(-1deg) scale(0.99);
+.no-words-container li:nth-child(6)::before {
+  transform: rotate(-2.1deg) scale(1.09);
+  background-position: 53% center;
+}
+
+.no-words-container li:nth-child(7)::before {
+  transform: rotate(2.4deg) scale(0.92);
+  background-position: 47% center;
+}
+
+.no-words-container li:nth-child(8)::before {
+  transform: rotate(-2.7deg) scale(1.06);
+  background-position: 56% center;
+}
+
+.no-words-container li:nth-child(9)::before {
+  transform: rotate(1.9deg) scale(1.04);
   background-position: 48% center;
-}
-
-.no-words-container li:nth-child(5) {
-  transform: rotate(1.3deg) scale(1.02);
-  background-position: 50% center;
-}
-
-.no-words-container li:nth-child(6) {
-  transform: rotate(-0.9deg) scale(1.05);
-  background-position: 51% center;
-}
-
-.no-words-container li:nth-child(7) {
-  transform: rotate(1.1deg) scale(0.98);
-  background-position: 49% center;
-}
-
-.no-words-container li:nth-child(8) {
-  transform: rotate(-1.4deg) scale(1.03);
-  background-position: 52% center;
-}
-
-.no-words-container li:nth-child(9) {
-  transform: rotate(0.7deg) scale(1.01);
-  background-position: 50% center;
 }
 
 .slider-title {
@@ -1805,7 +1838,6 @@
   flex-direction: column;
   gap: 0;
   padding: 30px;
-  width: 100%;
   color: #212121;
 }
 
@@ -1849,6 +1881,8 @@
   content: '•';
   position: absolute;
   left: 0;
+  top: 50%;
+  transform: translateY(-50%);
   color: #212121;
   font-size: 20px;
 }
@@ -2601,46 +2635,48 @@
 
   /* Header adjustments for mobile */
   .courses-header {
-    background-size: cover;
+    background-image: url('/courses-header-bg-mobile-2.svg');
+    background-size: 102% auto;
   }
 
   .courses-header-text {
-    margin: 20px auto;
+    margin: clamp(1rem, 3vw, 1.5rem) auto;
     padding: 0 var(--mobile-padding);
   }
 
   .courses-header-text h1 {
-    font-size: 56px;
+    font-size: clamp(2rem, 8vw + 0.5rem, 3.5rem);  /* 32px - 56px, более агрессивное уменьшение */
     line-height: 1.1;
   }
 
   .courses-header-text h2 {
-    font-size: 28px;
+    font-size: clamp(1rem, 4vw + 0.25rem, 1.75rem);  /* 16px - 28px, более агрессивное уменьшение */
     line-height: 1.2;
   }
 
   /* Motivation container mobile */
   .motivation-container {
-    margin: 20px var(--mobile-padding);
+    margin: clamp(1rem, 3vw, 1.5rem) var(--mobile-padding);
     max-width: 100%;
   }
 
   .motivation-container p {
-    font-size: 16px;
+    font-size: clamp(0.75rem, 2.5vw + 0.2rem, 1rem);  /* 12px - 16px, лучше на узких экранах */
     line-height: 1.5;
-    padding: 8px 12px;
-    margin: 6px 0;
+    padding: 0.5rem 0.75rem;
+    margin: 0.375rem 0;
   }
 
   .motivation-container p.align-right:first-of-type {
-    margin-top: 16px;
+    margin-top: 1rem;
   }
 
   /* Story container mobile - TV on top, text below */
   .story-container {
     flex-direction: column;
-    margin: 20px var(--mobile-padding);
+    margin: clamp(1rem, 3vw, 1.5rem) var(--mobile-padding);
     gap: 0;
+    margin-bottom: 0;
   }
 
   .sonchy-tv {
@@ -2651,50 +2687,93 @@
   }
 
   .sonchy-tv img {
-    width: 60%;
-    max-width: 250px;
+    width: clamp(50%, 15vw + 40%, 70%);  /* Scales with viewport */
+    max-width: none;  /* Remove fixed max-width */
     height: auto;
+    background-image: url('/sonchy-tv-mobile.svg');
   }
 
   .story-text {
     max-width: 100%;
-    margin-top: 20px;
-    font-size: 16px;
+    margin-top: clamp(1rem, 3vw, 1.5rem);
+    font-size: clamp(0.75rem, 2vw + 0.25rem, 1rem);  /* Уменьшается на узких экранах */
     line-height: 1.6;
-    padding: 16px;
-    margin-top: -10px;
+    padding: 1rem;
+    margin-top: -0.625rem;
   }
 
   .story-text section {
-    padding: 20px;
+    padding: clamp(1rem, 3vw, 1.5rem);
     background-image: url('/story-bg-mobile.svg');
-    height: 376px;
+    min-height: 23.5rem;  /* Use rem instead of fixed px */
+    height: auto;  /* Allow content to expand */
     justify-content: start;
   }
 
   .story-text p {
-    margin: 8px 0;
+    margin: 0.5rem 0;
   }
 
   /* Points container mobile - keep in row but adjust */
   .points-container {
     flex-direction: row;
-    gap: 20px;
-    padding: 40px 20px;
-    margin: 20px 0;
-    background-size: cover;
+    gap: clamp(0.25rem, 1vw, 0.5rem);
+    padding: clamp(1.5rem, 4vw, 2rem) clamp(0.75rem, 2vw, 1rem);
+    margin: 0.625rem 0;
+    background: none;
   }
 
   .points-container div h3 {
-    font-size: 28px;
+    font-size: clamp(1.75rem, 5.5vw + 0.3rem, 2.25rem);  /* ~28-36px, комфортнее на 420px */
     line-height: 1.2;
   }
 
   .points-container li {
-    font-size: 18px;
+    font-size: clamp(1rem, 3.2vw + 0.2rem, 1.125rem);  /* ~16-18px, комфортнее на 420px */
     line-height: 1.4;
-    padding: 10px 2px;
+    padding: 0.625rem 0.125rem;
+    z-index: 1;
   }
+
+  .points-container li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .yes-words-container li::before {
+    background-image: url("/yes-word.svg");
+  }
+
+  .no-words-container li::before {
+    background-image: url("/no-word.svg");
+  }
+
+  /* Apply transforms only to backgrounds on mobile */
+  .yes-words-container li:nth-child(1)::before { transform: rotate(-2.8deg) scale(1.08); background-position: 45% center; }
+  .yes-words-container li:nth-child(2)::before { transform: rotate(2.3deg) scale(0.93); background-position: 55% center; }
+  .yes-words-container li:nth-child(3)::before { transform: rotate(-1.9deg) scale(1.1); background-position: 48% center; }
+  .yes-words-container li:nth-child(4)::before { transform: rotate(2.7deg) scale(0.92); background-position: 46% center; }
+  .yes-words-container li:nth-child(5)::before { transform: rotate(-2.4deg) scale(1.06); background-position: 53% center; }
+  .yes-words-container li:nth-child(6)::before { transform: rotate(2.1deg) scale(0.95); background-position: 44% center; }
+  .yes-words-container li:nth-child(7)::before { transform: rotate(-2.9deg) scale(1.04); background-position: 54% center; }
+  .yes-words-container li:nth-child(8)::before { transform: rotate(3deg) scale(1.09); background-position: 47% center; }
+
+  .no-words-container li:nth-child(1)::before { transform: rotate(2.6deg) scale(1.07); background-position: 54% center; }
+  .no-words-container li:nth-child(2)::before { transform: rotate(-2.9deg) scale(0.94); background-position: 46% center; }
+  .no-words-container li:nth-child(3)::before { transform: rotate(2.2deg) scale(1.1); background-position: 55% center; }
+  .no-words-container li:nth-child(4)::before { transform: rotate(-2.5deg) scale(0.93); background-position: 45% center; }
+  .no-words-container li:nth-child(5)::before { transform: rotate(2.8deg) scale(1.05); background-position: 52% center; }
+  .no-words-container li:nth-child(6)::before { transform: rotate(-2.1deg) scale(1.09); background-position: 53% center; }
+  .no-words-container li:nth-child(7)::before { transform: rotate(2.4deg) scale(0.92); background-position: 47% center; }
+  .no-words-container li:nth-child(8)::before { transform: rotate(-2.7deg) scale(1.06); background-position: 56% center; }
+  .no-words-container li:nth-child(9)::before { transform: rotate(1.9deg) scale(1.04); background-position: 48% center; }
 
   /* Slider title mobile */
   .slider-title {
@@ -2702,7 +2781,7 @@
   }
 
   .slider-title h2 {
-    font-size: 36px;
+    font-size: clamp(1.75rem, 4vw + 0.5rem, 2.25rem);  /* Уменьшается на узких */
   }
 
   /* Slider mobile - hide arrows, adjust sizes */
@@ -2715,59 +2794,59 @@
   }
 
   .slider-container {
-    padding: 20px;
+    padding: clamp(1rem, 3vw, 1.5rem);
     margin: 0;
   }
 
   .slider-text-container {
     height: auto;
-    min-height: 400px;
+    min-height: clamp(20rem, 50vw, 25rem);
   }
 
   .slider-slide {
-    padding: 20px;
+    padding: clamp(1rem, 3vw, 1.5rem);
   }
 
   .slider-header {
-    font-size: 20px;
+    font-size: clamp(1rem, 2.5vw + 0.25rem, 1.25rem);  /* Уменьшается на узких */
   }
 
   .slider-description {
-    font-size: 14px;
+    font-size: clamp(0.7rem, 1.5vw + 0.2rem, 0.875rem);  /* Уменьшается на узких */
   }
 
   .slider-image {
-    height: 180px;
-    margin: 10px auto;
+    height: clamp(9rem, 25vw, 11.25rem);
+    margin: 0.625rem auto;
   }
 
   .slider-list li {
-    font-size: 14px;
+    font-size: clamp(0.7rem, 1.5vw + 0.2rem, 0.875rem);  /* Уменьшается на узких */
   }
 
   /* Timeline mobile */
   .timeline {
-    padding: 15px 20px;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem);
   }
 
   .timeline h2 {
-    font-size: 28px;
+    font-size: clamp(1.25rem, 3vw + 0.5rem, 1.75rem);  /* Уменьшается на узких */
   }
 
   .timeline p {
-    font-size: 20px;
+    font-size: clamp(0.875rem, 2.5vw + 0.25rem, 1.25rem);  /* Уменьшается на узких */
   }
 
   /* Formats header mobile */
   .formats-header h2 {
-    font-size: 24px;
-    padding: 15px;
+    font-size: clamp(1.125rem, 3vw + 0.25rem, 1.5rem);  /* Уменьшается на узких */
+    padding: clamp(0.75rem, 2vw, 1rem);
   }
 
   /* Formats container mobile - stack vertically */
   .formats-container {
     flex-direction: column;
-    gap: 40px;
+    gap: clamp(2rem, 5vw, 2.5rem);
     padding: 0 var(--mobile-padding);
   }
 
@@ -2782,29 +2861,29 @@
   }
 
   .format-content {
-    padding: 50px 30px;
-    gap: 12px;
-    font-size: 16px;
+    padding: clamp(2rem, 6vw, 3rem) clamp(1.5rem, 4vw, 2rem);
+    gap: clamp(0.5rem, 2vw, 0.75rem);
+    font-size: clamp(0.9rem, 2.8vw + 0.2rem, 1rem);  /* ~15-16px, комфортнее на 420px */
   }
 
   .format-content h3 {
-    font-size: 20px;
+    font-size: clamp(1.125rem, 3.2vw + 0.2rem, 1.25rem);  /* ~18-20px, комфортнее на 420px */
   }
 
   .format-content li {
-    font-size: 16px;
+    font-size: clamp(0.9rem, 2.8vw + 0.2rem, 1rem);  /* ~15-16px, комфортнее на 420px */
   }
 
   .format-content button {
-    font-size: 16px;
-    padding: 10px 20px 14px 20px;
-    max-width: 170px;
+    font-size: clamp(0.9rem, 2.8vw + 0.2rem, 1rem);  /* ~15-16px, комфортнее на 420px */
+    padding: 0.625rem 1.25rem 0.875rem 1.25rem;
+    max-width: clamp(9rem, 25vw, 10.625rem);
   }
 
   /* Seminars mobile */
   .seminars {
-    padding: 20px;
-    margin: 20px var(--mobile-padding);
+    padding: clamp(1rem, 3vw, 1.5rem);
+    margin: clamp(1rem, 3vw, 1.5rem) var(--mobile-padding);
   }
 
   /* Hide side people on mobile, keep only top and bottom */
@@ -2815,51 +2894,51 @@
     display: none;
   }
 
-  /* Adjust size for mobile */
+  /* Adjust size for mobile - use viewport units */
   .seminars-person {
-    width: 200px;
-    height: 197px;
+    width: clamp(10rem, 25vw, 12.5rem);
+    height: clamp(9.8rem, 24.5vw, 12.3rem);
   }
 
   .seminars-person:nth-child(4) {
-    width: 280px;
-    height: 280px;
+    width: clamp(15rem, 35vw, 17.5rem);
+    height: clamp(15rem, 35vw, 17.5rem);
   }
 
   .seminars-text {
-    padding: 80px 30px;
+    padding: clamp(4rem, 10vw, 5rem) clamp(1.5rem, 4vw, 2rem);
     max-width: 100%;
-    font-size: 14px;
-    gap: 15px;
+    font-size: clamp(0.85rem, 2.2vw + 0.2rem, 0.9375rem);  /* ~14-15px, комфортнее на 420px */
+    gap: clamp(0.75rem, 2vw, 1rem);
     background-size: cover;
   }
 
   .seminars-text h3 {
-    font-size: 24px;
-    margin: 0 0 20px 0;
+    font-size: clamp(1.25rem, 3.8vw + 0.2rem, 1.5rem);  /* ~20-24px, комфортнее на 420px */
+    margin: 0 0 clamp(1rem, 3vw, 1.5rem) 0;
   }
 
   .seminars-text p {
-    font-size: 14px;
+    font-size: clamp(0.85rem, 2.2vw + 0.2rem, 0.9375rem);  /* ~14-15px, комфортнее на 420px */
   }
 
   /* Iceberg title mobile */
   .iceberg-title h2 {
-    font-size: 24px;
-    padding: 8px 15px;
+    font-size: clamp(1.125rem, 3vw + 0.25rem, 1.5rem);  /* Уменьшается на узких */
+    padding: 0.5rem clamp(0.75rem, 2vw, 1rem);
   }
 
   /* Iceberg image mobile */
   .iceberg img {
     width: 90%;
-    max-width: 400px;
+    max-width: none;  /* Remove fixed max-width */
     height: auto;
   }
 
   /* Apply button mobile */
   .apply-button button {
-    font-size: 24px;
-    padding: 20px 60px;
+    font-size: clamp(1.125rem, 3vw + 0.25rem, 1.5rem);  /* Уменьшается на узких */
+    padding: clamp(1rem, 3vw, 1.5rem) clamp(3rem, 8vw, 4rem);
     background-size: contain;
   }
 
@@ -2875,12 +2954,12 @@
   /* Footer mobile */
   .courses-footer {
     flex-direction: column;
-    gap: 15px;
-    padding: 40px var(--mobile-padding) 60px;
+    gap: clamp(0.75rem, 2vw, 1rem);
+    padding: clamp(2rem, 5vw, 2.5rem) 0 clamp(3rem, 8vw, 4rem);
   }
 
   .courses-footer a {
-    font-size: 18px;
+    font-size: clamp(0.875rem, 2.5vw + 0.25rem, 1.125rem);  /* Уменьшается на узких */
   }
 
   /* Make sure courses page container is scrollable on mobile */
@@ -2889,10 +2968,11 @@
     overflow-x: hidden;
     height: 100vh;
     scroll-behavior: smooth;
-  }
-
-  .courses-container {
-    padding-bottom: 20px;
+    background-image: url('/courses-bg-mobile.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-attachment: local;
   }
 }
 
@@ -2902,128 +2982,151 @@
 @media (max-width: 480px) {
   /* Header - even smaller for tiny screens */
   .courses-header-text h1 {
-    font-size: 42px;
+    font-size: clamp(1.75rem, 6vw + 0.75rem, 2.625rem);  /* 28px - 42px, лучше уменьшается */
     line-height: 1.1;
   }
 
   .courses-header-text h2 {
-    font-size: 20px;
+    font-size: clamp(0.875rem, 3vw + 0.35rem, 1.25rem);  /* 14px - 20px, лучше уменьшается */
     line-height: 1.2;
   }
 
   /* Motivation - smaller text */
+  .motivation-container{
+    width: 90%;
+    margin: clamp(1rem, 3vw, 1.5rem) 0;
+  }
+
   .motivation-container p {
-    font-size: 14px;
-    padding: 6px 10px;
+    font-size: clamp(0.625rem, 1.5vw + 0.2rem, 0.75rem);  /* 10px - 12px, теперь масштабируется */
+    padding: 0.375rem 0.625rem;
   }
 
   /* Story text - smaller */
   .story-text {
-    font-size: 15px;
-    padding: 12px;
+    font-size: clamp(0.75rem, 2vw + 0.3rem, 0.9375rem);  /* Теперь уменьшается на узких */
+    padding: 0.75rem;
   }
 
   /* Points - smaller text, tighter layout */
   .points-container {
-    gap: 10px;
-    padding: 30px 15px;
+    gap: clamp(0.125rem, 0.8vw, 0.25rem);
+    padding: clamp(1.5rem, 4vw, 1.875rem) clamp(0.75rem, 2vw, 0.9375rem);
+    padding-top: 0;
   }
 
   .points-container div h3 {
-    font-size: 22px;
+    font-size: clamp(1.5rem, 5vw + 0.3rem, 1.875rem);  /* ~24-30px, для узких экранов */
   }
 
   .points-container li {
-    font-size: 14px;
-    padding: 8px 2px;
+    font-size: clamp(0.85rem, 3vw + 0.2rem, 1rem);  /* ~14-16px, для узких экранов */
+    padding: 0.25rem 0.125rem;
+    z-index: 1;
   }
 
   /* Slider title */
   .slider-title {
-    padding: 0 20px;
+    padding: 0 clamp(3.5rem, 15vw, 4.375rem);
+    z-index: 2;
+  }
+
+  .slider {
+    margin-top: clamp(-4rem, -12vw, -3.75rem);
   }
 
   .slider-title h2 {
-    font-size: 28px;
+    font-size: clamp(1.75rem, 6vw + 0.75rem, 2.5rem);  /* Теперь уменьшается */
   }
 
   /* Slider - compact version */
   .slider-container {
-    padding: 15px;
+    padding: clamp(0.75rem, 3vw, 0.9375rem);
   }
 
   .slider-text-container {
-    min-height: 350px;
+    min-height: clamp(25rem, 90vw, 26.875rem);
+    background-image: url('/story-bg-mobile.svg');
   }
 
   .slider-slide {
-    padding: 15px;
+    padding: clamp(1.5rem, 6vw, 1.875rem);
   }
 
   .slider-header {
-    font-size: 18px;
+    font-size: clamp(1.125rem, 4vw + 0.5rem, 1.625rem);  /* Теперь уменьшается */
   }
 
   .slider-description {
-    font-size: 12px;
+    font-size: clamp(0.65rem, 1.5vw + 0.2rem, 0.75rem);  /* Теперь уменьшается */
   }
 
   .slider-image {
-    height: 150px;
+    height: clamp(8rem, 31vw, 9.375rem);
   }
 
   .slider-list li {
-    font-size: 12px;
-    gap: 8px;
+    font-size: clamp(0.7rem, 2vw + 0.25rem, 0.9375rem);  /* Теперь уменьшается */
+    gap: clamp(0.4rem, 1.5vw, 0.5rem);
   }
 
   /* Timeline - smaller */
   .timeline {
-    padding: 12px 15px;
+    padding: clamp(2.5rem, 9.5vw, 2.8125rem) clamp(3.5rem, 13.5vw, 4.0625rem) clamp(3.5rem, 13.5vw, 4.0625rem);
+    background-size: contain;
+    margin-bottom: 0;
+    background-image: url("/timeline-mobile.svg");
   }
 
   .timeline h2 {
-    font-size: 22px;
+    font-size: clamp(1rem, 3.5vw + 0.35rem, 1.375rem);  /* Теперь уменьшается */
   }
 
   .timeline p {
-    font-size: 16px;
+    font-size: clamp(0.75rem, 2.5vw + 0.25rem, 1rem);  /* Теперь уменьшается */
   }
 
   /* Formats */
   .formats-header h2 {
-    font-size: 20px;
-    padding: 12px;
+    font-size: clamp(1.125rem, 4vw + 0.5rem, 1.625rem);  /* Теперь уменьшается */
+    padding: clamp(0.6rem, 2.5vw, 0.75rem);
   }
 
   .formats-container {
-    gap: 30px;
+    gap: clamp(1.5rem, 6vw, 1.875rem);
+    margin-bottom: clamp(5rem, 21vw, 6.25rem);
   }
 
   /* Format cards - small mobile */
   .format-content {
-    padding: 40px 25px;
-    gap: 10px;
-    font-size: 14px;
+    padding: clamp(2rem, 8vw, 2.5rem) clamp(1.25rem, 5vw, 1.5625rem);
+    gap: clamp(0.5rem, 2vw, 0.625rem);
+    font-size: clamp(0.8rem, 2.5vw + 0.2rem, 0.875rem);  /* ~13-14px, для узких экранов */
   }
 
   .format-content h3 {
-    font-size: 18px;
+    font-size: clamp(1rem, 3vw + 0.2rem, 1.125rem);  /* ~16-18px, для узких экранов */
   }
 
   .format-content li {
-    font-size: 14px;
+    font-size: clamp(0.8rem, 2.5vw + 0.2rem, 0.875rem);  /* ~13-14px, для узких экранов */
   }
 
   .format-content button {
-    font-size: 14px;
-    padding: 8px 16px 12px 16px;
-    max-width: 150px;
+    font-size: clamp(0.8rem, 2.5vw + 0.2rem, 0.875rem);  /* ~13-14px, для узких экранов */
+    padding: 0.5rem 1rem 0.75rem 1rem;
+    max-width: clamp(8rem, 31vw, 9.375rem);
   }
 
   /* Seminars */
   .seminars {
-    padding: 15px;
+    padding: 0;
+    margin: 0;
+    margin-bottom: clamp(8rem, 12.5vw, 3.75rem);
+    width: 90%;
+    background-image: url("/seminars-bg-mobile.svg");
+    background-size: 100% auto;
+    min-height: clamp(45rem, 154vw, 46.25rem);
   }
 
   /* Hide side people on small mobile, keep only top and bottom */
@@ -3036,53 +3139,66 @@
 
   /* Adjust size for small mobile */
   .seminars-person {
-    width: 180px;
-    height: 177px;
+    width: clamp(9rem, 37.5vw, 11.25rem);
+    height: clamp(8.85rem, 37vw, 11.0625rem);
+  }
+
+  .seminars-person:nth-child(1) {
+    top: -11%;
   }
 
   .seminars-person:nth-child(4) {
-    width: 250px;
-    height: 250px;
+    width: clamp(18rem, 52vw, 15.625rem);
+    height: clamp(18rem, 52vw, 15.625rem);
+    bottom: -19%;
+    left: 60%;
   }
 
   .seminars-text {
-    padding: 60px 20px;
-    font-size: 14px;
+    padding: 0;
+    font-size: clamp(0.725rem, 2.2vw + 0.15rem, 0.8rem);  /* ~12px, для узких экранов */
+    max-width: 75%;
   }
 
   .seminars-text h3 {
-    font-size: 20px;
-    margin: 0 0 15px 0;
+    font-size: clamp(1.125rem, 3.5vw + 0.2rem, 1.375rem);  /* ~18-22px, для узких экранов */
+    margin: -30% 0 clamp(0.75rem, 3vw, 0.9375rem) 0;
   }
 
   .seminars-text p {
-    font-size: 14px;
+    font-size: clamp(0.725rem, 2.2vw + 0.15rem, 0.8rem);  /* ~12px, для узких экранов */
   }
 
   /* Iceberg */
+  .iceberg {
+    margin-bottom: clamp(1rem, 4vw, 1.25rem);
+    display: flex;
+    justify-content: center;
+  }
+
   .iceberg-title h2 {
-    font-size: 20px;
-    padding: 6px 12px;
+    font-size: clamp(1rem, 3vw + 0.35rem, 1.25rem);  /* Теперь уменьшается */
+    padding: 0.375rem 0.75rem;
   }
 
   .iceberg img {
     width: 95%;
-    max-width: 350px;
+    max-width: none;  /* Remove fixed max-width */
   }
 
   /* Apply button */
   .apply-button button {
-    font-size: 20px;
-    padding: 16px 40px;
+    font-size: clamp(1rem, 3vw + 0.35rem, 1.25rem);  /* Теперь уменьшается */
+    padding: clamp(0.875rem, 3.3vw, 1rem) clamp(2rem, 8.3vw, 2.5rem);
   }
 
   /* Footer */
   .courses-footer {
-    gap: 12px;
-    padding: 30px var(--mobile-padding) 50px;
+    gap: clamp(0.6rem, 2.5vw, 0.75rem);
+    padding: clamp(1.5rem, 6.25vw, 1.875rem) 0 clamp(2.5rem, 10.4vw, 3.125rem);
   }
 
   .courses-footer a {
-    font-size: 16px;
+    font-size: clamp(0.8rem, 2.5vw + 0.25rem, 1rem);  /* Теперь уменьшается */
   }
 }

@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useState, useRef, useMemo} from "react";
 import Slider from "../components/Slider.tsx";
 
 // Type for mouse trail point
@@ -7,6 +7,11 @@ interface TrailPoint {
     y: number;
     timestamp: number;
 }
+
+// Constants for mouse trail - moved outside component
+const THROTTLE_MS = 8; // ~120fps for smoother trail
+const TRAIL_LIFETIME_MS = 3500; // 3.5 seconds
+const MAX_POINTS = 400; // More points for smoother curve
 
 const Courses = () => {
 
@@ -83,13 +88,25 @@ const Courses = () => {
         }
     ]
 
-    // Mouse trail state and refs
+    // Detect if device is mobile/touch-enabled
+    const isMobile = useRef<boolean>(false);
+
+    useEffect(() => {
+        // Check for mobile device on mount
+        const checkMobile = () => {
+            return (
+                'ontouchstart' in window ||
+                navigator.maxTouchPoints > 0 ||
+                window.matchMedia('(max-width: 768px)').matches
+            );
+        };
+        isMobile.current = checkMobile();
+    }, []);
+
+    // Mouse trail state and refs - only used on desktop
     const [trailPoints, setTrailPoints] = useState<TrailPoint[]>([]);
     const lastAddTimeRef = useRef<number>(0);
     const containerRef = useRef<HTMLDivElement>(null);
-    const THROTTLE_MS = 8; // ~120fps for smoother trail
-    const TRAIL_LIFETIME_MS = 3500; // 3.5 seconds
-    const MAX_POINTS = 400; // More points for smoother curve
 
     // Apply courses-specific background styling
     useEffect(() => {
@@ -101,8 +118,10 @@ const Courses = () => {
         };
     }, []);
 
-    // Auto-cleanup old trail points
+    // Auto-cleanup old trail points - ONLY on desktop
     useEffect(() => {
+        if (isMobile.current) return; // Skip on mobile
+
         const interval = setInterval(() => {
             const now = Date.now();
             setTrailPoints(prev => {
@@ -112,10 +131,12 @@ const Courses = () => {
         }, 100); // Check every 100ms
 
         return () => clearInterval(interval);
-    }, [TRAIL_LIFETIME_MS]);
+    }, []); // Empty dependencies - constants don't change
 
-    // Mouse move handler with throttle
+    // Mouse move handler with throttle - ONLY for desktop
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (isMobile.current) return; // Skip on mobile
+
         const now = Date.now();
 
         // Throttle: only add point if enough time has passed
@@ -143,39 +164,43 @@ const Courses = () => {
         }
     };
 
-    // Generate smooth SVG path from points using quadratic curves
-    const generateSmoothPath = (points: TrailPoint[]): string => {
-        if (points.length < 2) return '';
+    // Generate smooth SVG path from points using quadratic curves - memoized
+    const trailPath = useMemo(() => {
+        const generateSmoothPath = (points: TrailPoint[]): string => {
+            if (points.length < 2) return '';
 
-        let path = `M ${points[0].x} ${points[0].y}`;
+            let path = `M ${points[0].x} ${points[0].y}`;
 
-        // Create smooth curve through points using quadratic Bezier curves
-        for (let i = 1; i < points.length; i++) {
-            const current = points[i];
-            const previous = points[i - 1];
+            // Create smooth curve through points using quadratic Bezier curves
+            for (let i = 1; i < points.length; i++) {
+                const current = points[i];
+                const previous = points[i - 1];
 
-            // Control point is midpoint between current and previous
-            const midX = (previous.x + current.x) / 2;
-            const midY = (previous.y + current.y) / 2;
+                // Control point is midpoint between current and previous
+                const midX = (previous.x + current.x) / 2;
+                const midY = (previous.y + current.y) / 2;
 
-            if (i === 1) {
-                // First segment: line to midpoint
-                path += ` L ${midX} ${midY}`;
-            } else {
-                // Subsequent segments: quadratic curve
-                path += ` Q ${previous.x} ${previous.y} ${midX} ${midY}`;
+                if (i === 1) {
+                    // First segment: line to midpoint
+                    path += ` L ${midX} ${midY}`;
+                } else {
+                    // Subsequent segments: quadratic curve
+                    path += ` Q ${previous.x} ${previous.y} ${midX} ${midY}`;
+                }
             }
-        }
 
-        // Final point
-        const lastPoint = points[points.length - 1];
-        path += ` L ${lastPoint.x} ${lastPoint.y}`;
+            // Final point
+            const lastPoint = points[points.length - 1];
+            path += ` L ${lastPoint.x} ${lastPoint.y}`;
 
-        return path;
-    };
+            return path;
+        };
+
+        return generateSmoothPath(trailPoints);
+    }, [trailPoints]);
 
     return (
-        <div className="app" style={{ overflow: 'auto', height: '100%' }}>
+        <div className="app courses-app-container">
 
             <header className="courses-header">
                 <div className="courses-header-text">
@@ -221,16 +246,15 @@ const Courses = () => {
             </div>
 
                 <div
-                    className="points-container"
+                    className="points-container points-interactive"
                     ref={containerRef}
                     onMouseMove={handleMouseMove}
-                    style={{
-                        position: 'relative',
-                        cursor: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23E5348B' d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'/%3E%3C/svg%3E") 0 24, auto`
-                    }}
+                    aria-label="Интерактивная область - проведите мышкой для эффекта"
+                    role="region"
                 >
                     {/* SVG overlay for mouse trail - exclude vertical padding */}
                     <svg
+                        aria-hidden="true"
                         style={{
                             position: 'absolute',
                             top: '90px',
@@ -269,7 +293,7 @@ const Courses = () => {
 
                         {trailPoints.length > 1 && (
                             <path
-                                d={generateSmoothPath(trailPoints)}
+                                d={trailPath}
                                 stroke="url(#trailGradient)"
                                 strokeWidth="40"
                                 fill="none"
@@ -283,7 +307,7 @@ const Courses = () => {
 
                     <div className="no-words-container">
                         <h3>в этом курсе<br/>нет слов: </h3>
-                        <ul>
+                        <ul aria-label="Список слов, которых нет в курсе">
                             <li>вдохновение</li>
                             <li>дисциплина</li>
                             <li>ресурс</li>
@@ -298,7 +322,7 @@ const Courses = () => {
 
                     <div className="yes-words-container">
                         <h3>зато<br/>есть слова:</h3>
-                        <ul>
+                        <ul aria-label="Список слов, которые есть в курсе">
                             <li>референсы</li>
                             <li>анализ</li>
                             <li>поструктуруализм</li>
@@ -319,8 +343,12 @@ const Courses = () => {
                 <Slider slides={slides}></Slider>
 
                 <div className="timeline">
-                    <h2>СТАРТ - 6 НОЯБРЯ</h2>
-                    <h2>ФИНАЛ - 13 ДЕКАБРЯ</h2>
+                    <time dateTime="2024-11-06">
+                        <h2>СТАРТ - 6 НОЯБРЯ</h2>
+                    </time>
+                    <time dateTime="2024-12-13">
+                        <h2>ФИНАЛ - 13 ДЕКАБРЯ</h2>
+                    </time>
                     <p>лекции по субботам</p>
                 </div>
 
@@ -331,38 +359,46 @@ const Courses = () => {
                 <div className="formats-container">
 
                     <div className="format-card base">
-                        <img src="/basenysh.svg" alt="" aria-hidden="true" />
+                        <img src="/basenysh.svg" alt="Базёныш формат" />
                         <div className="format-content">
                             <h3>Базёныш</h3>
-                            <ul>
+                            <ul aria-label="Что включено в формат Базёныш">
                                 <li>7 лекций по 1,5 часа без семинаров!</li>
                                 <li>ответы на вопросы</li>
                                 <li>материалы, задания (без проверки)</li>
                             </ul>
-                            <a href="#apply"><button type="button" className="base-button">КУПИТЬ ЗА <span>8900 р.</span></button></a>
+                            <a href="#apply" aria-label="Купить формат Базёныш за 8900 рублей">
+                                <button type="button" className="base-button">
+                                    КУПИТЬ ЗА <span aria-label="8900 рублей">8900 р.</span>
+                                </button>
+                            </a>
                         </div>
                     </div>
 
                     <div className="format-card starling">
-                        <img src="/starling.svg" alt="" aria-hidden="true" />
+                        <img src="/starling.svg" alt="Звёздочка формат" />
                         <div className="format-content">
                             <h3>Звёздочка</h3>
-                            <ul>
+                            <ul aria-label="Что включено в формат Звёздочка">
                                 <li>7 лекций по 1,5 часа</li>
                                 <li>6 практических семинаров</li>
                                 <li>группа из 10 человек</li>
                                 <li>отдельный чат</li>
                                 <li>проверка и обсуждение заданий</li>
                             </ul>
-                            <a href="#apply"><button type="button" className="starling-button">КУПИТЬ ЗА <span>21900 р.</span></button></a>
+                            <a href="#apply" aria-label="Купить формат Звёздочка за 21900 рублей">
+                                <button type="button" className="starling-button">
+                                    КУПИТЬ ЗА <span aria-label="21900 рублей">21900 р.</span>
+                                </button>
+                            </a>
                         </div>
                     </div>
 
                     <div className="format-card supernova">
-                        <img src="/supernova.svg" alt="" aria-hidden="true" />
+                        <img src="/supernova.svg" alt="Супернова формат" />
                         <div className="format-content">
                             <h3>Супернова</h3>
-                            <ul>
+                            <ul aria-label="Что включено в формат Супернова">
                                 <li>7 лекций</li>
                                 <li>6 практических семинаров</li>
                                 <li>2 индивидуальные сессии</li>
@@ -370,7 +406,11 @@ const Courses = () => {
                                 <li>работа с личным запросом</li>
                                 <li>подборка материалов</li>
                             </ul>
-                            <a href="#apply"><button type="button" className="supernova-button">КУПИТЬ ЗА <span>34900 р.</span></button></a>
+                            <a href="#apply" aria-label="Купить формат Супернова за 34900 рублей">
+                                <button type="button" className="supernova-button">
+                                    КУПИТЬ ЗА <span aria-label="34900 рублей">34900 р.</span>
+                                </button>
+                            </a>
                         </div>
                     </div>
 
@@ -408,8 +448,6 @@ const Courses = () => {
                 </div>
 
                 <footer className="courses-footer">
-                    <a href="">О проекте</a>
-                    <a href="/">FAQ</a>
                     <a href="mailto:sonchy@gmail.com">sonchy@gmail.com</a>
                 </footer>
 

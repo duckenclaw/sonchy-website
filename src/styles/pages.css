@@ -43,3 +43,9 @@ body.courses-page-background {
   background-color: #FED0ED;
 }
 
+@media (max-width: 768px) {
+  body.courses-page-background {
+    background-image: none;
+  }
+}
+
