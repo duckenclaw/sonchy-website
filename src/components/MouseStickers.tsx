@@ -12,29 +12,32 @@ interface Sticker {
 }
 
 // Constants
-const THROTTLE_MS = 50; // Add sticker every 50ms when moving
+const THROTTLE_MS = 30; // Add sticker every 30ms when moving (было 50ms)
 const STICKER_LIFETIME_MS = 2500; // 2.5 seconds before fade
 const FADE_DURATION_MS = 500; // 0.5 seconds fade out
 const MIN_SIZE = 15;
 const MAX_SIZE = 80;
 
-// Colors from the site
+// Colors - пастельная палитра в вайбе сайта и детских рисунков (без #7856A8 и #FFAFE4)
 const COLORS = [
-    '#7856A8',  // фиолетовый основной
     '#392962',  // темно-фиолетовый
-    '#C4DEF8',  // светло-голубой
-    '#FFAFE4',  // розовый
+    '#C4DEF8',  // светло-голубой пастельный
     '#FFF4FA',  // светло-розовый
     '#FED0ED',  // светло-розовый 2
-    '#E5348B',  // ярко-розовый
-    '#F7BFDC',  // из star.svg
-    '#FF6ECE',  // ярко-розовый из title-bg-main.svg
+    '#F7BFDC',  // пастельный розовый из star.svg
     '#936ED4',  // темный пастельный фиолетовый
-    '#CE9DD9',  // wisteria
+    '#CE9DD9',  // wisteria пастельный
     '#B399D4',  // светлый пастельный фиолетовый
     '#F48BA9',  // vanilla ice розовый
     '#bd98e0',  // средний фиолетовый
     '#F3C6F2',  // очень светлый розово-фиолетовый
+    '#4BCB8A',  // зеленый из дизайна (контраст)
+    '#3EC07E',  // светлый зеленый из дизайна
+    '#A8E6CF',  // пастельный мятный
+    '#FFD3B6',  // пастельный персиковый
+    '#FFAAA5',  // пастельный коралловый
+    '#E5348B',  // ярко-розовый акцент
+    '#FF6ECE',  // ярко-розовый акцент 2
 ];
 
 const MouseStickers = () => {
