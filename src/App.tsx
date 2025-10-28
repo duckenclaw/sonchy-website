@@ -10,6 +10,7 @@ import educationLogo from '/education.png'
 import servicesLogo from '/services.png'
 import aboutLogo from '/about.png'
 import Courses from "./pages/Courses.tsx";
+import MouseStickers from "./components/MouseStickers.tsx";
 
 function App() {
   const blocks = [
@@ -19,7 +20,7 @@ function App() {
       description: "лекции, материалы, курсы",
       alt: "education",
       position: "left" as const,
-      route: "education"
+      route: "courses"
     },
     {
       image: servicesLogo,
@@ -41,6 +42,7 @@ function App() {
 
   const HomePage = () => (
     <div className="app">
+      <MouseStickers />
       <Header currentPage="СОНЧИ УТОЧКИНА" />
       <MainPage blocks={blocks} />
     </div>

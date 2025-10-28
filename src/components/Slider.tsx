@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 interface SlideData {
   header: string;
@@ -13,6 +13,8 @@ interface SliderProps {
 
 const Slider = ({ slides }: SliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
 
   const handlePrevious = () => {
     setCurrentIndex((prevIndex) =>
@@ -30,6 +32,30 @@ const Slider = ({ slides }: SliderProps) => {
     setCurrentIndex(index);
   };
 
+  const handleSlideClick = () => {
+    handleNext();
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current - touchEndX.current > 50) {
+      // Свайп влево - следующий слайд
+      handleNext();
+    }
+
+    if (touchStartX.current - touchEndX.current < -50) {
+      // Свайп вправо - предыдущий слайд
+      handlePrevious();
+    }
+  };
+
   return (
     <div className="slider">
       <button
@@ -43,7 +69,14 @@ const Slider = ({ slides }: SliderProps) => {
 
       <div className="slider-container">
         <div className="slider-text-container">
-          <div className="slider-slide">
+          <div
+            className="slider-slide"
+            onClick={handleSlideClick}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{ cursor: 'pointer' }}
+          >
             <h3 className="slider-header">{slides[currentIndex].header}</h3>
             <p className="slider-description">{slides[currentIndex].description}</p>
             <img

@@ -5,6 +5,8 @@
   align-self: center;
   text-align: center;
   text-wrap: nowrap;
+  position: relative;
+  z-index: 1;
 }
 
 .header-container {
@@ -238,6 +240,8 @@
   transition: all 0.3s ease;
   text-decoration: none;
   color: inherit;
+  position: relative;
+  z-index: 1;
 }
 
 .nav-block:hover {
