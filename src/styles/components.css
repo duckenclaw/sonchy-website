@@ -1530,6 +1530,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 80%;
 }
 
 .motivation-container p {
@@ -1632,6 +1633,93 @@
 
 .no-words-container li {
   background-image: url("/no-word.svg");
+}
+
+/* Add random variations to yes-words */
+.yes-words-container li:nth-child(1) {
+  transform: rotate(-1.5deg) scale(1.02);
+  background-position: 48% center;
+}
+
+.yes-words-container li:nth-child(2) {
+  transform: rotate(1deg) scale(0.98);
+  background-position: 52% center;
+}
+
+.yes-words-container li:nth-child(3) {
+  transform: rotate(-0.8deg) scale(1.05);
+  background-position: 50% center;
+}
+
+.yes-words-container li:nth-child(4) {
+  transform: rotate(1.2deg) scale(0.96);
+  background-position: 49% center;
+}
+
+.yes-words-container li:nth-child(5) {
+  transform: rotate(-1deg) scale(1.03);
+  background-position: 51% center;
+}
+
+.yes-words-container li:nth-child(6) {
+  transform: rotate(0.9deg) scale(0.99);
+  background-position: 48% center;
+}
+
+.yes-words-container li:nth-child(7) {
+  transform: rotate(-1.3deg) scale(1.01);
+  background-position: 52% center;
+}
+
+.yes-words-container li:nth-child(8) {
+  transform: rotate(1.5deg) scale(1.04);
+  background-position: 50% center;
+}
+
+/* Add random variations to no-words */
+.no-words-container li:nth-child(1) {
+  transform: rotate(1.2deg) scale(1.01);
+  background-position: 51% center;
+}
+
+.no-words-container li:nth-child(2) {
+  transform: rotate(-1.5deg) scale(0.97);
+  background-position: 49% center;
+}
+
+.no-words-container li:nth-child(3) {
+  transform: rotate(0.8deg) scale(1.04);
+  background-position: 52% center;
+}
+
+.no-words-container li:nth-child(4) {
+  transform: rotate(-1deg) scale(0.99);
+  background-position: 48% center;
+}
+
+.no-words-container li:nth-child(5) {
+  transform: rotate(1.3deg) scale(1.02);
+  background-position: 50% center;
+}
+
+.no-words-container li:nth-child(6) {
+  transform: rotate(-0.9deg) scale(1.05);
+  background-position: 51% center;
+}
+
+.no-words-container li:nth-child(7) {
+  transform: rotate(1.1deg) scale(0.98);
+  background-position: 49% center;
+}
+
+.no-words-container li:nth-child(8) {
+  transform: rotate(-1.4deg) scale(1.03);
+  background-position: 52% center;
+}
+
+.no-words-container li:nth-child(9) {
+  transform: rotate(0.7deg) scale(1.01);
+  background-position: 50% center;
 }
 
 .slider-title {

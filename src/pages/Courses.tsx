@@ -1,5 +1,12 @@
-import {useEffect} from "react";
+import {useEffect, useState, useRef} from "react";
 import Slider from "../components/Slider.tsx";
+
+// Type for mouse trail point
+interface TrailPoint {
+    x: number;
+    y: number;
+    timestamp: number;
+}
 
 const Courses = () => {
 
@@ -76,6 +83,14 @@ const Courses = () => {
         }
     ]
 
+    // Mouse trail state and refs
+    const [trailPoints, setTrailPoints] = useState<TrailPoint[]>([]);
+    const lastAddTimeRef = useRef<number>(0);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const THROTTLE_MS = 8; // ~120fps for smoother trail
+    const TRAIL_LIFETIME_MS = 3500; // 3.5 seconds
+    const MAX_POINTS = 400; // More points for smoother curve
+
     // Apply courses-specific background styling
     useEffect(() => {
         document.body.classList.add('courses-page-background');
@@ -85,6 +100,79 @@ const Courses = () => {
             document.body.classList.remove('courses-page-background');
         };
     }, []);
+
+    // Auto-cleanup old trail points
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const now = Date.now();
+            setTrailPoints(prev => {
+                // Remove points older than TRAIL_LIFETIME_MS
+                return prev.filter(point => now - point.timestamp < TRAIL_LIFETIME_MS);
+            });
+        }, 100); // Check every 100ms
+
+        return () => clearInterval(interval);
+    }, [TRAIL_LIFETIME_MS]);
+
+    // Mouse move handler with throttle
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const now = Date.now();
+
+        // Throttle: only add point if enough time has passed
+        if (now - lastAddTimeRef.current < THROTTLE_MS) {
+            return;
+        }
+
+        lastAddTimeRef.current = now;
+
+        // Get coordinates relative to the container
+        if (containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top - 90; // Adjust for SVG top offset (90px)
+
+            // Only add point if within SVG bounds (exclude top/bottom padding)
+            if (y >= 0 && y <= rect.height - 180) {
+                // Add new point
+                setTrailPoints(prev => {
+                    const newPoints = [...prev, { x, y, timestamp: now }];
+                    // Limit to max points
+                    return newPoints.length > MAX_POINTS ? newPoints.slice(-MAX_POINTS) : newPoints;
+                });
+            }
+        }
+    };
+
+    // Generate smooth SVG path from points using quadratic curves
+    const generateSmoothPath = (points: TrailPoint[]): string => {
+        if (points.length < 2) return '';
+
+        let path = `M ${points[0].x} ${points[0].y}`;
+
+        // Create smooth curve through points using quadratic Bezier curves
+        for (let i = 1; i < points.length; i++) {
+            const current = points[i];
+            const previous = points[i - 1];
+
+            // Control point is midpoint between current and previous
+            const midX = (previous.x + current.x) / 2;
+            const midY = (previous.y + current.y) / 2;
+
+            if (i === 1) {
+                // First segment: line to midpoint
+                path += ` L ${midX} ${midY}`;
+            } else {
+                // Subsequent segments: quadratic curve
+                path += ` Q ${previous.x} ${previous.y} ${midX} ${midY}`;
+            }
+        }
+
+        // Final point
+        const lastPoint = points[points.length - 1];
+        path += ` L ${lastPoint.x} ${lastPoint.y}`;
+
+        return path;
+    };
 
     return (
         <div className="app" style={{ overflow: 'auto', height: '100%' }}>
@@ -106,9 +194,9 @@ const Courses = () => {
                         но что-то все равно останавливает? 
                     </p>
                     <p className="align-right">
-                        Это скорее к психологу.</p>
+                        Это скорее к психологу. А я могу дать теории, структуры,</p>
                     <p className="align-right">
-                        А я могу дать теории, структуры, практику и хорошую атмосферу на занятиях  
+                        практику и хорошую атмосферу на занятиях.
                     </p>
                 </div>
 
@@ -132,7 +220,66 @@ const Courses = () => {
 
             </div>
 
-                <div className="points-container">
+                <div
+                    className="points-container"
+                    ref={containerRef}
+                    onMouseMove={handleMouseMove}
+                    style={{
+                        position: 'relative',
+                        cursor: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23E5348B' d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'/%3E%3C/svg%3E") 0 24, auto`
+                    }}
+                >
+                    {/* SVG overlay for mouse trail - exclude vertical padding */}
+                    <svg
+                        style={{
+                            position: 'absolute',
+                            top: '90px',
+                            bottom: '90px',
+                            left: 0,
+                            right: 0,
+                            width: '100%',
+                            height: 'calc(100% - 180px)',
+                            pointerEvents: 'none',
+                            zIndex: 10
+                        }}
+                    >
+                        {/* Gradient: left = pink, right = green, sharp transition in middle */}
+                        {/* gradientUnits="userSpaceOnUse" makes gradient relative to SVG coordinates, not the line itself */}
+                        <defs>
+                            <linearGradient
+                                id="trailGradient"
+                                x1="0"
+                                y1="0"
+                                x2={containerRef.current?.getBoundingClientRect().width || 0}
+                                y2="0"
+                                gradientUnits="userSpaceOnUse"
+                            >
+                                <stop offset="0%" stopColor="#FFAFE4" />
+                                <stop offset="48%" stopColor="#FFAFE4" />
+                                <stop offset="52%" stopColor="#87E0B3" />
+                                <stop offset="100%" stopColor="#87E0B3" />
+                            </linearGradient>
+
+                            {/* Subtle rough edges filter - rare light notches like yes-word.svg */}
+                            <filter id="roughEdges">
+                                <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" result="noise" />
+                                <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G" />
+                            </filter>
+                        </defs>
+
+                        {trailPoints.length > 1 && (
+                            <path
+                                d={generateSmoothPath(trailPoints)}
+                                stroke="url(#trailGradient)"
+                                strokeWidth="40"
+                                fill="none"
+                                strokeLinecap="square"
+                                strokeLinejoin="miter"
+                                opacity="0.5"
+                                filter="url(#roughEdges)"
+                            />
+                        )}
+                    </svg>
 
                     <div className="no-words-container">
                         <h3>в этом курсе<br/>нет слов: </h3>
