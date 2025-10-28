@@ -2098,6 +2098,75 @@
   display: flex;
   justify-content: center;
   margin-bottom: 200px;
+  position: relative;
+}
+
+.seminars-people {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.seminars-person {
+  position: absolute;
+  width: 280px;
+  height: 276px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Person 1 - сверху по середине */
+.seminars-person:nth-child(1) {
+  top: -13%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url('/person-1.svg');
+}
+
+/* Person 2 - справа сверху */
+.seminars-person:nth-child(2) {
+  top: 5%;
+  right: 22%;
+  background-image: url('/person-2.svg');
+}
+
+/* Person 3 - справа снизу */
+.seminars-person:nth-child(3) {
+  bottom: 15%;
+  right: 19.4%;
+  background-image: url('/person-3.svg');
+}
+
+/* Person 4 - снизу по середине */
+.seminars-person:nth-child(4) {
+  bottom: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url('/person-4.svg');
+  width: 400px;
+  height: 400px;
+}
+
+/* Person 5 - слева снизу */
+.seminars-person:nth-child(5) {
+  bottom: 3%;
+  left: 19.5%;
+  background-image: url('/person-5.svg');
+  width: 340px;
+  height: 340px;
+  rotate: -10deg;
+}
+
+/* Person 6 - слева сверху */
+.seminars-person:nth-child(6) {
+  top: 19%;
+  left: 19.5%;
+  background-image: url('/person-6.svg');
 }
 
 .seminars-text {
@@ -2108,7 +2177,9 @@
   max-width: 460px;
   padding: 250px 0px;
   gap: 20px;
-  
+  position: relative;
+  z-index: 1;
+
   font-family: "Montserrat", sans-serif;
   font-size: 18px;
   color: #000000;
@@ -2736,6 +2807,25 @@
     margin: 20px var(--mobile-padding);
   }
 
+  /* Hide side people on mobile, keep only top and bottom */
+  .seminars-person:nth-child(2),
+  .seminars-person:nth-child(3),
+  .seminars-person:nth-child(5),
+  .seminars-person:nth-child(6) {
+    display: none;
+  }
+
+  /* Adjust size for mobile */
+  .seminars-person {
+    width: 200px;
+    height: 197px;
+  }
+
+  .seminars-person:nth-child(4) {
+    width: 280px;
+    height: 280px;
+  }
+
   .seminars-text {
     padding: 80px 30px;
     max-width: 100%;
@@ -2934,6 +3024,25 @@
   /* Seminars */
   .seminars {
     padding: 15px;
+  }
+
+  /* Hide side people on small mobile, keep only top and bottom */
+  .seminars-person:nth-child(2),
+  .seminars-person:nth-child(3),
+  .seminars-person:nth-child(5),
+  .seminars-person:nth-child(6) {
+    display: none;
+  }
+
+  /* Adjust size for small mobile */
+  .seminars-person {
+    width: 180px;
+    height: 177px;
+  }
+
+  .seminars-person:nth-child(4) {
+    width: 250px;
+    height: 250px;
   }
 
   .seminars-text {

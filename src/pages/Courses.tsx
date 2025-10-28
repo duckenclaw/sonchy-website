@@ -14,7 +14,7 @@ const Courses = () => {
         {
             header: "1. Творцов нет, только креаторы:",
             description: "Cтереотипы, которые вредят профессии.",
-            image: "/theme0.png",
+            image: "/theme0.svg",
             points: [
                 "чем креатор отличается от творца?",
                 "как устроена креативная экономика?",
@@ -377,6 +377,14 @@ const Courses = () => {
                 </div>
 
                 <div className="seminars">
+                    <div className="seminars-people">
+                        <div className="seminars-person"></div>
+                        <div className="seminars-person"></div>
+                        <div className="seminars-person"></div>
+                        <div className="seminars-person"></div>
+                        <div className="seminars-person"></div>
+                        <div className="seminars-person"></div>
+                    </div>
                     <div className="seminars-text">
                         <h3>А что на семинарах?</h3>
                         <p>Честно говоря, я все это затеяла ради самих семинаров.</p>
