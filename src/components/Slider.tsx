@@ -13,23 +13,46 @@ interface SliderProps {
 
 const Slider = ({ slides }: SliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState<number | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [direction, setDirection] = useState<'left' | 'right'>('right');
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
 
   const handlePrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
-    );
+    if (isAnimating) return;
+    setDirection('left');
+    setPrevIndex(currentIndex);
+    setIsAnimating(true);
+    setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+    setTimeout(() => {
+      setPrevIndex(null);
+      setIsAnimating(false);
+    }, 500);
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === slides.length - 1 ? 0 : prevIndex + 1
-    );
+    if (isAnimating) return;
+    setDirection('right');
+    setPrevIndex(currentIndex);
+    setIsAnimating(true);
+    setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    setTimeout(() => {
+      setPrevIndex(null);
+      setIsAnimating(false);
+    }, 500);
   };
 
   const handleDotClick = (index: number) => {
+    if (isAnimating || index === currentIndex) return;
+    setDirection(index > currentIndex ? 'right' : 'left');
+    setPrevIndex(currentIndex);
+    setIsAnimating(true);
     setCurrentIndex(index);
+    setTimeout(() => {
+      setPrevIndex(null);
+      setIsAnimating(false);
+    }, 500);
   };
 
   const handleSlideClick = () => {
@@ -68,15 +91,34 @@ const Slider = ({ slides }: SliderProps) => {
       </button>
 
       <div className="slider-container">
-        <div className="slider-text-container">
-          <div
-            className="slider-slide"
-            onClick={handleSlideClick}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            style={{ cursor: 'pointer' }}
-          >
+        <div
+          className="slider-text-container"
+          onClick={handleSlideClick}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          style={{ cursor: 'pointer' }}
+        >
+          {/* Previous slide - exiting */}
+          {prevIndex !== null && (
+            <div className={`slider-slide slide-exit-${direction}`}>
+              <h3 className="slider-header">{slides[prevIndex].header}</h3>
+              <p className="slider-description">{slides[prevIndex].description}</p>
+              <img
+                src={slides[prevIndex].image}
+                alt={slides[prevIndex].header}
+                className="slider-image"
+              />
+              <ul className="slider-list">
+                {slides[prevIndex].points.map((point, pointIndex) => (
+                  <li key={pointIndex}>{point}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Current slide - entering or static */}
+          <div className={`slider-slide ${isAnimating ? `slide-enter-${direction}` : ''}`}>
             <h3 className="slider-header">{slides[currentIndex].header}</h3>
             <p className="slider-description">{slides[currentIndex].description}</p>
             <img
