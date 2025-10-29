@@ -1599,7 +1599,7 @@
   line-height: 90%;
   border-radius: 20px;
   color: #212121;
-  max-width: 560px;
+  max-width: 750px;
   margin-top: 64px;
   padding: 12px 24px;
 }
@@ -1608,9 +1608,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 12px 24px;
+  padding: 80px 24px;
   background-image: url('/story-bg.svg');
-  background-size: contain;
+  background-size: 100% auto;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -2333,6 +2333,17 @@
   height: 100%;
 }
 
+.apply-button {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+}
+
 .apply-button button {
   background-image: url("/apply-button.svg");
   background-position: center;
@@ -2341,6 +2352,80 @@
   font-size: 40px;
   font-family: "Dela Gothic One", sans-serif;
   padding: 40px 150px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+}
+
+.apply-button button:hover {
+  transform: scale(1.05);
+}
+
+/* Rocket launch animation */
+.apply-button button.launching {
+  animation: rocketLaunch 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes rocketLaunch {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  15% {
+    transform: translateX(10vw) translateY(-15px) rotate(3deg);
+  }
+  30% {
+    transform: translateX(20vw) translateY(10px) rotate(-2deg);
+  }
+  45% {
+    transform: translateX(35vw) translateY(-8px) rotate(4deg);
+  }
+  60% {
+    transform: translateX(50vw) translateY(12px) rotate(-3deg);
+  }
+  75% {
+    transform: translateX(70vw) translateY(-5px) rotate(5deg);
+  }
+  100% {
+    transform: translateX(120vw) translateY(15px) rotate(10deg);
+  }
+}
+
+/* Stars trail */
+.apply-button .rocket-star {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  animation: starFade 1.6s ease-out forwards;
+  z-index: 5;
+  filter: hue-rotate(var(--star-hue, 0deg)) brightness(1.3) saturate(1.4);
+}
+
+@keyframes starFade {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(var(--star-rotation, 0deg));
+  }
+  10% {
+    opacity: 0.2;
+    transform: scale(0.6) rotate(calc(var(--star-rotation, 0deg) + 60deg));
+  }
+  25% {
+    opacity: 0.8;
+    transform: scale(1) rotate(calc(var(--star-rotation, 0deg) + 150deg));
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1) rotate(calc(var(--star-rotation, 0deg) + 240deg));
+  }
+  75% {
+    opacity: 0.6;
+    transform: scale(0.9) rotate(calc(var(--star-rotation, 0deg) + 300deg));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.3) rotate(calc(var(--star-rotation, 0deg) + 360deg));
+  }
 }
 
 .apply-button button a {
@@ -2350,14 +2435,12 @@
 
 .courses-footer {
   width: 100%;
-  background-color: #FFF4FA;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 20px;
   padding: 70px 0 100px 0;
-  border-top: 1px solid #000000;
   margin-top: 40px;
 }
 
@@ -2722,12 +2805,12 @@
   }
 
   .courses-header-text h1 {
-    font-size: clamp(2rem, 8vw + 0.5rem, 3.5rem);  /* 32px - 56px, более агрессивное уменьшение */
+    font-size: clamp(2.75rem, 10vw + 0.5rem, 4.5rem);  /* 44px - 72px, более крупный текст */
     line-height: 1.1;
   }
 
   .courses-header-text h2 {
-    font-size: clamp(1rem, 4vw + 0.25rem, 1.75rem);  /* 16px - 28px, более агрессивное уменьшение */
+    font-size: clamp(1.5rem, 5vw + 0.25rem, 2.5rem);  /* 24px - 40px, более крупный текст */
     line-height: 1.2;
   }
 
@@ -3022,13 +3105,20 @@
     background-size: contain;
   }
 
+  .apply-button button:hover {
+    transform: scale(1.03);
+  }
+
   .apply-button button:focus-visible {
     outline: 3px solid var(--color-secondary);
     outline-offset: 2px;
   }
 
-  .apply-button button:active {
-    transform: scale(0.95);
+  /* Stars smaller on mobile - adjust size directly */
+  .apply-button .rocket-star {
+    width: 60% !important;
+    height: 60% !important;
+    margin-top: -30px;
   }
 
   /* Footer mobile */
@@ -3062,12 +3152,12 @@
 @media (max-width: 480px) {
   /* Header - even smaller for tiny screens */
   .courses-header-text h1 {
-    font-size: clamp(1.75rem, 6vw + 0.75rem, 2.625rem);  /* 28px - 42px, лучше уменьшается */
+    font-size: clamp(2.25rem, 8vw + 0.75rem, 3.5rem);  /* 36px - 56px, больше для маленьких экранов */
     line-height: 1.1;
   }
 
   .courses-header-text h2 {
-    font-size: clamp(0.875rem, 3vw + 0.35rem, 1.25rem);  /* 14px - 20px, лучше уменьшается */
+    font-size: clamp(1.125rem, 4vw + 0.35rem, 1.75rem);  /* 18px - 28px, больше для маленьких экранов */
     line-height: 1.2;
   }
 

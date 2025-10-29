@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface SlideData {
   header: string;
@@ -18,6 +18,20 @@ const Slider = ({ slides }: SliderProps) => {
   const [direction, setDirection] = useState<'left' | 'right'>('right');
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
+
+  // Preload images for current, next and previous slides
+  useEffect(() => {
+    const indicesToPreload = [
+      currentIndex,
+      (currentIndex + 1) % slides.length, // next
+      (currentIndex - 1 + slides.length) % slides.length, // previous
+    ];
+
+    indicesToPreload.forEach((index) => {
+      const img = new Image();
+      img.src = slides[index].image;
+    });
+  }, [currentIndex, slides.length]);
 
   const handlePrevious = () => {
     if (isAnimating) return;

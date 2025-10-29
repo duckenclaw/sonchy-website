@@ -14,6 +14,9 @@ const TRAIL_LIFETIME_MS = 3500; // 3.5 seconds
 const MAX_POINTS = 400; // More points for smoother curve
 
 const Courses = () => {
+    // State for rocket launch animation
+    const [isLaunching, setIsLaunching] = useState(false);
+    const [stars, setStars] = useState<{ id: number; left: number; top: number; hueRotate: number; size: number; delay: number; rotation: number }[]>([]);
 
     const slides = [
         {
@@ -228,7 +231,7 @@ const Courses = () => {
                 <div className="story-container">
 
                     <div className="sonchy-tv">
-                        <img src="/sonchy-tv.png" alt="sonchy-tv"/>
+                        <img src="/sonchy-tv.svg" alt="sonchy-tv"/>
                     </div>
 
                     <div className="story-text">
@@ -367,7 +370,7 @@ const Courses = () => {
                                 <li>ответы на вопросы</li>
                                 <li>материалы, задания (без проверки)</li>
                             </ul>
-                            <a href="#apply" aria-label="Купить формат Базёныш за 8900 рублей">
+                            <a href="https://payform.ru/i89Gnmq/" aria-label="Купить формат Базёныш за 8900 рублей">
                                 <button type="button" className="base-button">
                                     КУПИТЬ ЗА <span aria-label="8900 рублей">8900 р.</span>
                                 </button>
@@ -444,11 +447,59 @@ const Courses = () => {
                 </div>
 
                 <div id="apply" className="apply-button">
-                    <button type={"button"}><a href="#formats">ЗАПИСАТЬСЯ НА КУРС</a></button>
+                    <button
+                        type={"button"}
+                        className={isLaunching ? 'launching' : ''}
+                        onClick={() => {
+                            setIsLaunching(true);
+
+                            // Generate stars trail - more stars, scattered along the path
+                            const hueRotations = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]; // Different hues for variety
+                            const newStars = Array.from({ length: 40 }, (_, i) => {
+                                const progress = i / 40; // 0 to 1
+                                return {
+                                    id: Date.now() + i,
+                                    left: 20 + progress * 100, // Stars spread from 20% to 120% (до края и дальше)
+                                    top: 50 + (Math.random() - 0.5) * 40, // Scattered vertically more
+                                    hueRotate: hueRotations[Math.floor(Math.random() * hueRotations.length)],
+                                    size: 30 + Math.random() * 50, // 30px to 80px (больше!)
+                                    delay: i * 0.04, // Longer animation
+                                    rotation: Math.random() * 360
+                                };
+                            });
+                            setStars(newStars);
+
+                            // Navigate after animation
+                            setTimeout(() => {
+                                window.location.href = 'https://payform.ru/i89Gnmq/';
+                            }, 2000);
+                        }}
+                    >
+                        <a href="https://payform.ru/i89Gnmq/" onClick={(e) => e.preventDefault()}>
+                            ЗАПИСАТЬСЯ НА КУРС
+                        </a>
+                    </button>
+                    {/* Stars trail */}
+                    {stars.map((star) => (
+                        <img
+                            key={star.id}
+                            src="/star.svg"
+                            className="rocket-star"
+                            style={{
+                                left: `${star.left}%`,
+                                top: `${star.top}%`,
+                                width: `${star.size}px`,
+                                height: `${star.size}px`,
+                                '--star-hue': `${star.hueRotate}deg`,
+                                '--star-rotation': `${star.rotation}deg`,
+                                animationDelay: `${star.delay}s`
+                            } as React.CSSProperties}
+                            alt=""
+                        />
+                    ))}
                 </div>
 
                 <footer className="courses-footer">
-                    <a href="mailto:sonchy@gmail.com">sonchy@gmail.com</a>
                 </footer>
 
             </div>
