@@ -1841,13 +1841,13 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 30px;
+  padding: 5% 10%;
   color: #212121;
   position: absolute;
   top: 0;
   left: 0;
-  width: 92%;
-  height: 100%;
+  width: 80%;
+  height: 84%;
 }
 
 /* Slide Animations - Exit (old slide leaving) */
@@ -3051,8 +3051,17 @@
     font-size: clamp(1.4rem, 4.5vw + 0.3rem, 1.6rem);  /* ~22-26px, немного поменьше */
     -webkit-tap-highlight-color: transparent;
     outline: none;
+    border: none;
+    box-shadow: none;
     padding: 0.625rem 1.25rem 0.875rem 1.25rem;
     max-width: clamp(9rem, 25vw, 10.625rem);
+  }
+
+  .format-content button:focus,
+  .format-content button:active {
+    outline: none;
+    border: none;
+    box-shadow: none;
   }
 
   /* Seminars mobile */
@@ -3157,7 +3166,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top center;
-    background-attachment: fixed;
+    background-attachment: local;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: scroll-position;
   }
 }
 

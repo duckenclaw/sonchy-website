@@ -24,6 +24,7 @@ const Slider = ({ slides }: SliderProps) => {
     const indicesToPreload = [
       currentIndex,
       (currentIndex + 1) % slides.length, // next
+      (currentIndex + 2) % slides.length, // next
       (currentIndex - 1 + slides.length) % slides.length, // previous
     ];
 
