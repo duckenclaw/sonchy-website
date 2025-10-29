@@ -118,11 +118,13 @@ const Slider = ({ slides }: SliderProps) => {
             <div className={`slider-slide slide-exit-${direction}`}>
               <h3 className="slider-header">{slides[prevIndex].header}</h3>
               <p className="slider-description">{slides[prevIndex].description}</p>
-              <img
-                src={slides[prevIndex].image}
-                alt={slides[prevIndex].header}
-                className="slider-image"
-              />
+              <div className="slider-image-container">
+                <img
+                  src={slides[prevIndex].image}
+                  alt={slides[prevIndex].header}
+                  className="slider-image"
+                />
+              </div>
               <ul className="slider-list">
                 {slides[prevIndex].points.map((point, pointIndex) => (
                   <li key={pointIndex}>{point}</li>
@@ -135,11 +137,13 @@ const Slider = ({ slides }: SliderProps) => {
           <div className={`slider-slide ${isAnimating ? `slide-enter-${direction}` : ''}`}>
             <h3 className="slider-header">{slides[currentIndex].header}</h3>
             <p className="slider-description">{slides[currentIndex].description}</p>
-            <img
-              src={slides[currentIndex].image}
-              alt={slides[currentIndex].header}
-              className="slider-image"
-            />
+            <div className="slider-image-container">
+              <img
+                src={slides[currentIndex].image}
+                alt={slides[currentIndex].header}
+                className="slider-image"
+              />
+            </div>
             <ul className="slider-list">
               {slides[currentIndex].points.map((point, pointIndex) => (
                 <li key={pointIndex}>{point}</li>
