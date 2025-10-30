@@ -472,7 +472,7 @@ const Courses = () => {
                             });
                             setStars(newStars);
 
-                            // Navigate after animation
+                            // Scroll to formats section after animation
                             setTimeout(() => {
                                 window.location.href = 'https://payform.ru/5c9GSt3/';
                             }, 2000);
