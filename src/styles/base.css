@@ -79,7 +79,6 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-attachment: fixed;
 }
 
 #root {
@@ -132,7 +131,8 @@ button {
     min-height: 100vh;
     height: 100vh;
     width: 100vw;
-    position: fixed;
+    position: absolute;
+    background-attachment: scroll;
   }
 
   #root {

@@ -370,7 +370,7 @@ const Courses = () => {
                                 <li>ответы на вопросы</li>
                                 <li>материалы, задания (без проверки)</li>
                             </ul>
-                            <a href="https://payform.ru/i89Gnmq/" aria-label="Купить формат Базёныш за 8900 рублей">
+                            <a href="https://payform.ru/5c9GSt3/" aria-label="Купить формат Базёныш за 8900 рублей">
                                 <button type="button" className="base-button">
                                     КУПИТЬ ЗА <span aria-label="8900 рублей">8900 р.</span>
                                 </button>
@@ -389,12 +389,13 @@ const Courses = () => {
                                 <li>отдельный чат</li>
                                 <li>проверка и обсуждение заданий</li>
                             </ul>
-                            <a href="#apply" aria-label="Купить формат Звёздочка за 21900 рублей">
+                            <a href="https://payform.ru/9v9GSvu/" aria-label="Купить формат Звёздочка за 21900 рублей">
                                 <button type="button" className="starling-button">
                                     КУПИТЬ ЗА <span aria-label="21900 рублей">21900 р.</span>
                                 </button>
                             </a>
                         </div>
+                        <img src="/info-box-green.svg" alt="всего 8 мест!" className="info-box info-box-green" />
                     </div>
 
                     <div className="format-card supernova">
@@ -409,12 +410,13 @@ const Courses = () => {
                                 <li>работа с личным запросом</li>
                                 <li>подборка материалов</li>
                             </ul>
-                            <a href="#apply" aria-label="Купить формат Супернова за 34900 рублей">
+                            <a href="https://payform.ru/u49GSq6/" aria-label="Купить формат Супернова за 34900 рублей">
                                 <button type="button" className="supernova-button">
                                     КУПИТЬ ЗА <span aria-label="34900 рублей">34900 р.</span>
                                 </button>
                             </a>
                         </div>
+                        <img src="/info-box-pink.svg" alt="всего 3 места!" className="info-box info-box-pink" />
                     </div>
 
                 </div>
@@ -436,6 +438,7 @@ const Courses = () => {
                         <p className="align-right">Я подготовила этюды и упражнения на каждую тему, но оставила фокус на том, чтобы за эти полторы недели вы узнали о себе чуть больше.</p>
                         <p>ну и конечно, у меня есть коллекция прекрасной чуши, на которой забавно тренироваться</p>
                     </div>
+                    <img src="/info-box-seminar.svg" className="info-box info-box-seminar" />
                 </div>
 
                 <div className="iceberg-title">
@@ -471,11 +474,11 @@ const Courses = () => {
 
                             // Navigate after animation
                             setTimeout(() => {
-                                window.location.href = 'https://payform.ru/i89Gnmq/';
+                                window.location.href = 'https://payform.ru/5c9GSt3/';
                             }, 2000);
                         }}
                     >
-                        <a href="https://payform.ru/i89Gnmq/" onClick={(e) => e.preventDefault()}>
+                        <a href="https://payform.ru/5c9GSt3/" onClick={(e) => e.preventDefault()}>
                             ЗАПИСАТЬСЯ НА КУРС
                         </a>
                     </button>

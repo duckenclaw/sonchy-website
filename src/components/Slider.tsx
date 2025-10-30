@@ -19,20 +19,13 @@ const Slider = ({ slides }: SliderProps) => {
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
 
-  // Preload images for current, next and previous slides
+  // Preload all images on mount to avoid loading delays
   useEffect(() => {
-    const indicesToPreload = [
-      currentIndex,
-      (currentIndex + 1) % slides.length, // next
-      (currentIndex + 2) % slides.length, // next
-      (currentIndex - 1 + slides.length) % slides.length, // previous
-    ];
-
-    indicesToPreload.forEach((index) => {
+    slides.forEach((slide) => {
       const img = new Image();
-      img.src = slides[index].image;
+      img.src = slide.image;
     });
-  }, [currentIndex, slides.length]);
+  }, [slides]);
 
   const handlePrevious = () => {
     if (isAnimating) return;
