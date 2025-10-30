@@ -469,13 +469,16 @@ const Courses = () => {
                             });
                             setStars(newStars);
 
-                            // Navigate after animation
+                            // Scroll to formats section after animation
                             setTimeout(() => {
-                                window.location.href = 'https://payform.ru/i89Gnmq/';
+                                const formatsSection = document.getElementById('formats');
+                                if (formatsSection) {
+                                    formatsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
                             }, 2000);
                         }}
                     >
-                        <a href="https://payform.ru/i89Gnmq/" onClick={(e) => e.preventDefault()}>
+                        <a href={"#formats"} onClick={(e) => e.preventDefault()}>
                             ЗАПИСАТЬСЯ НА КУРС
                         </a>
                     </button>
