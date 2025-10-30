@@ -370,7 +370,7 @@ const Courses = () => {
                                 <li>ответы на вопросы</li>
                                 <li>материалы, задания (без проверки)</li>
                             </ul>
-                            <a href="https://payform.ru/5c9GSt3/" aria-label="Купить формат Базёныш за 8900 рублей">
+                            <a href="https://payform.ru/l59GUqm/" aria-label="Купить формат Базёныш за 8900 рублей">
                                 <button type="button" className="base-button">
                                     КУПИТЬ ЗА <span aria-label="8900 рублей">8900 р.</span>
                                 </button>
@@ -435,7 +435,7 @@ const Courses = () => {
                         <p>Честно говоря, я все это затеяла ради самих семинаров.</p>
                         <p>По выходным мы будем обсуждать креативные задачки, обсуждать ваши проекты, рассматривать как справились с заданиями. Это всегда очень очень поддерживающая и интересная атмосфера, по которой
                             я скучаю и как лектор, и как студентка.</p>
-                        <p className="align-right">Я подготовила этюды и упражнения на каждую тему, но оставила фокус на том, чтобы за эти полторы недели вы узнали о себе чуть больше.</p>
+                        <p className="align-right">Я подготовила этюды и упражнения на каждую тему, но оставила фокус на том, чтобы за эти полтора месяца вы узнали о себе чуть больше.</p>
                         <p>ну и конечно, у меня есть коллекция прекрасной чуши, на которой забавно тренироваться</p>
                     </div>
                     <img src="/info-box-seminar.svg" className="info-box info-box-seminar" />
@@ -474,11 +474,11 @@ const Courses = () => {
 
                             // Scroll to formats section after animation
                             setTimeout(() => {
-                                window.location.href = 'https://payform.ru/5c9GSt3/';
+                                window.location.href = 'https://payform.ru/l59GUqm/';
                             }, 2000);
                         }}
                     >
-                        <a href="https://payform.ru/5c9GSt3/" onClick={(e) => e.preventDefault()}>
+                        <a href="https://payform.ru/l59GUqm/" onClick={(e) => e.preventDefault()}>
                             ЗАПИСАТЬСЯ НА КУРС
                         </a>
                     </button>
