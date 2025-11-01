@@ -2098,6 +2098,7 @@
   text-wrap: wrap;
   font-family: "Dela Gothic One", sans-serif;
   font-size: 18px;
+  min-height: 60px;
 }
 
 /* Format card - контейнер с SVG */
