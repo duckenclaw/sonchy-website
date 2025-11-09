@@ -372,7 +372,7 @@ const Courses = () => {
                             </ul>
                             <a href="" aria-label="Купить формат Базёныш за 8900 рублей">
                                 <button type="button" className="base-button">
-                                    КУПИТЬ ЗА <span aria-label="8900 рублей">8900 р.</span>
+                                    Sold out!
                                 </button>
                             </a>
                         </div>
@@ -479,7 +479,7 @@ const Courses = () => {
                         }}
                     >
                         <a href="" onClick={(e) => e.preventDefault()}>
-                            ЗАПИСАТЬСЯ НА КУРС
+                            Sold out!
                         </a>
                     </button>
                     {/* Stars trail */}
