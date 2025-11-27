@@ -20,13 +20,9 @@ const LectureModal = ({ lecture, isOpen, position, onClose, onBuyClick }: Lectur
     };
 
     const generateRandomRotation = useCallback(() => {
-        const random = Math.random();
-        if (random < 0.8) {
-            return Math.random() < 0.5
-                ? Math.floor(Math.random() * 21)
-                : Math.floor(Math.random() * 21) + 340;
-        }
-        return Math.floor(Math.random() * 319) + 21;
+        return Math.random() < 0.5
+            ? Math.floor(Math.random() * 21)
+            : Math.floor(Math.random() * 21) + 340;
     }, []);
 
     useEffect(() => {

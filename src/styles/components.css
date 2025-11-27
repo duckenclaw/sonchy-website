@@ -3704,7 +3704,7 @@
 
 /* Название снаружи белого блока */
 .lecture-card-title {
-  font-family: "Neucha", cursive;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
   color: var(--font-color-main);
@@ -3713,14 +3713,14 @@
 }
 
 .lecture-card-description {
-  font-family: "Neucha", cursive;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.9rem;
   color: var(--font-color-main);
   line-height: 1.4;
 }
 
 .lecture-card-price {
-  font-family: "Neucha", cursive;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--font-color-main);
@@ -3732,7 +3732,7 @@
 }
 
 .lecture-details-button {
-  font-family: "Neucha", cursive;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.3rem;
   font-weight: 400;
   padding: 1rem 2rem;
@@ -3906,7 +3906,7 @@
 }
 
 .lecture-modal-title {
-  font-family: "Neucha", cursive;
+  font-family: "Montserrat", sans-serif;
   font-size: 2rem;
   font-weight: 400;
   color: #392962;
@@ -3933,7 +3933,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Neucha", cursive;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.2rem;
   color: #232B36;
 }
@@ -3974,7 +3974,7 @@
 }
 
 .lecture-modal-description {
-  font-family: "Neucha", cursive;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.1rem;
   color: #232B36;
   line-height: 1.6;
@@ -3990,14 +3990,14 @@
 }
 
 .lecture-modal-price {
-  font-family: "Neucha", cursive;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: #232B36;
 }
 
 .lecture-modal-buy-button {
-  font-family: "Neucha", cursive;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.3rem;
   font-weight: 400;
   padding: 1rem 2rem;
@@ -4075,18 +4075,10 @@
     margin-bottom: 1rem;
   }
 
-  /* Слайдер показывает по 1 карточке с CSS scroll-snap */
+  /* Слайдер показывает по 1 карточке, скролл отключен - только стрелочки */
   .lecture-slider-container {
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
     width: 100%;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-  }
-
-  .lecture-slider-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
   }
 
   .lecture-slider-cards {
@@ -4131,12 +4123,12 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 90%;
+    width: 75%;
     max-width: none;
     height: auto;
-    max-height: 90vh;
+    max-height: 70vh;
     overflow-y: auto;
-    padding: 3rem 2rem;
+    padding: 2rem 1.5rem;
   }
 
   .lecture-modal.show {
@@ -4159,30 +4151,36 @@
   }
 
   .lecture-modal-image-placeholder {
-    height: 280px;
+    height: 200px;
   }
 
   .lecture-modal-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: white;
   }
 
   .lecture-modal-description {
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 0.9rem;
+    line-height: 1.4;
   }
 
   .lecture-modal-price {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   .lecture-modal-close {
-    font-size: 3rem;
-    width: 50px;
-    height: 50px;
-    top: 0.5rem;
-    right: 0.5rem;
+    font-size: 2.5rem;
+    width: 45px;
+    height: 45px;
+    top: 0.3rem;
+    right: 0.3rem;
     color: white;
+  }
+
+  /* Убираем overflow у education-page для мобильных - скролл через .app */
+  .education-page {
+    overflow: visible;
+    min-height: auto;
   }
 }
 
