@@ -1,46 +1,41 @@
+import { useCallback } from 'react';
+import type { LectureData } from '../types/lecture';
+
 interface LectureCardProps {
-    id: number;
-    title: string;
-    description: string;
-    price: string;
-    images: string[];
-    position: number; // 0, 1, 2, или 3
+    lecture: LectureData;
     onDetailsClick: () => void;
     onBuyClick: () => void;
 }
 
 const LectureCard = ({
-    title,
-    position,
+    lecture,
     onDetailsClick,
     onBuyClick
 }: LectureCardProps) => {
-    const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        // Проверяем, что клик не был на кнопке "КУПИТЬ"
+    const handleCardClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
         const target = e.target as HTMLElement;
         if (!target.closest('.lecture-buy-button')) {
             onDetailsClick();
         }
-    };
+    }, [onDetailsClick]);
+
+    const handleBuyClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+        onBuyClick();
+    }, [onBuyClick]);
 
     return (
         <div className="lecture-card" onClick={handleCardClick}>
-            {/* Белая рамка с картинкой внутри */}
             <div className="lecture-card-frame">
                 <div className="lecture-card-image-placeholder"></div>
             </div>
 
-            {/* Название снаружи белого блока */}
-            <h3 className="lecture-card-title">{title}</h3>
+            <h3 className="lecture-card-title">{lecture.title}</h3>
 
-            {/* Кнопка */}
             <button
                 type="button"
                 className="lecture-buy-button"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    onBuyClick();
-                }}
+                onClick={handleBuyClick}
             >
                 КУПИТЬ
             </button>

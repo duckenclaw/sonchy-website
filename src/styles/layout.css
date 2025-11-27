@@ -44,7 +44,8 @@
 /* Pages wrappers */
 .services-page,
 .consulting-page,
-.lectures-page {
+.lectures-page,
+.education-page {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -54,7 +55,8 @@
 
 .services-container,
 .consulting-container,
-.lectures-page-container {
+.lectures-page-container,
+.education-page-container {
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
@@ -150,6 +152,20 @@
     padding-right: 0.5rem;
     padding-top: 0;
     padding-bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .education-page {
+    padding: 0;
+    align-items: flex-start;
+  }
+
+  .education-page-container {
+    padding-left: var(--mobile-padding);
+    padding-right: var(--mobile-padding);
+    padding-top: 1rem;
+    padding-bottom: 2rem;
     width: 100%;
     box-sizing: border-box;
   }

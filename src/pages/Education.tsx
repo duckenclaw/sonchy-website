@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useCallback, useMemo } from 'react';
 import Header from '../components/Header.tsx';
 import LectureSlider from '../components/LectureSlider.tsx';
 import LectureModal from '../components/LectureModal.tsx';
@@ -7,15 +6,13 @@ import { useBodyClass } from '../hooks/useBodyClass';
 import type { LectureData } from '../types/lecture';
 
 const Education = () => {
-    const navigate = useNavigate();
     useBodyClass('consulting-page-background');
 
     const [selectedLecture, setSelectedLecture] = useState<LectureData | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalPosition, setModalPosition] = useState(0);
 
-    // Данные для 6 лекций
-    const lectures: LectureData[] = [
+    const lectures: LectureData[] = useMemo(() => [
         {
             id: 1,
             title: 'ЛЕКЦИЯ 1',
@@ -58,29 +55,27 @@ const Education = () => {
             price: '2200₽',
             images: ['image1.svg', 'image2.svg', 'image3.svg']
         }
-    ];
+    ], []);
 
-    const handleLectureDetailsClick = (lecture: LectureData, position: number) => {
+    const handleLectureDetailsClick = useCallback((lecture: LectureData, position: number) => {
         setSelectedLecture(lecture);
         setModalPosition(position);
         setIsModalOpen(true);
-    };
+    }, []);
 
-    const handleLectureBuyClick = (lecture: LectureData) => {
+    const handleLectureBuyClick = useCallback((lecture: LectureData) => {
         console.log('Покупка лекции:', lecture.title);
-        // Здесь будет логика покупки
-    };
+    }, []);
 
-    const handleModalBuyClick = () => {
+    const handleModalBuyClick = useCallback(() => {
         if (selectedLecture) {
             console.log('Покупка из модалки:', selectedLecture.title);
-            // Здесь будет логика покупки
         }
-    };
+    }, [selectedLecture]);
 
-    const handleModalClose = () => {
+    const handleModalClose = useCallback(() => {
         setIsModalOpen(false);
-    };
+    }, []);
 
     return (
         <div className="app">
