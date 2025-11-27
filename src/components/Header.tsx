@@ -16,6 +16,7 @@ const Header = ({ currentPage }: HeaderProps) => {
   const getHeaderTitleClass = () => {
     if (currentPage === PageType.CONSULTING) return "header-title-consulting";
     if (currentPage === PageType.SERVICES) return "header-title-services";
+    if (currentPage === "ОБУЧЕНИЕ") return "header-title-education";
     return "header-title-main";
   };
 

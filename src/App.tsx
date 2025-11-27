@@ -10,6 +10,7 @@ import educationLogo from '/education.png'
 import servicesLogo from '/services.png'
 import aboutLogo from '/about.png'
 import Courses from "./pages/Courses.tsx";
+import Education from "./pages/Education.tsx";
 import MouseStickers from "./components/MouseStickers.tsx";
 
 function App() {
@@ -55,7 +56,8 @@ function App() {
       <Route path="/services/consulting" element={<Consulting />} />
       <Route path="/services/lectures" element={<Lectures />} />
       <Route path="/services/projects" element={<Projects />} />
-        <Route path="/courses" element={<Courses />} />
+      <Route path="/courses" element={<Courses />} />
+      <Route path="/education" element={<Education />} />
       <Route path="/:section" element={<BlankPage />} />
     </Routes>
   )

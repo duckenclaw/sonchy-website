@@ -38,6 +38,10 @@
   background-image: url('/title-bg-main.svg');
 }
 
+.header-title-education {
+  background-image: url('/title-bg-mobile.svg');
+}
+
 .header-title-main {
   background-image: url('/title-bg-main.svg');
 }
@@ -159,6 +163,13 @@
     background-position: center;
   }
 
+  .header-title-education {
+    background-image: url('/title-bg-mobile.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   .header-title-main {
     background-image: url('/title-bg-main.svg');
     background-size: contain;
@@ -204,6 +215,13 @@
   }
 
   .header-title-consulting {
+    background-image: url('/title-bg-mobile.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .header-title-education {
     background-image: url('/title-bg-mobile.svg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -3449,5 +3467,595 @@
 
   .courses-footer a {
     font-size: clamp(0.8rem, 2.5vw + 0.25rem, 1rem);  /* Теперь уменьшается */
+  }
+}
+/* ====================
+   EDUCATION PAGE STYLES
+   ==================== */
+
+/* Education Page Layout */
+.education-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.education-page-container {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* Education Header */
+.education-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.education-back-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--font-color-main);
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: transform 0.2s;
+}
+
+.education-back-button:hover {
+  transform: scale(1.1);
+}
+
+.education-title-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.education-title {
+  font-family: "Neucha", cursive;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--font-color-main);
+  background: url('/title-bg-services.svg') no-repeat center;
+  background-size: contain;
+  padding: 1rem 3rem;
+}
+
+.education-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.education-nav-button {
+  font-family: "Neucha", cursive;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0.5rem 1.5rem;
+  background: white;
+  border: 2px solid #6B4C9A;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--font-color-main);
+}
+
+.education-nav-button:hover {
+  background: #6B4C9A;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Education Content */
+.education-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.education-section-header {
+  text-align: center;
+}
+
+.education-section-header h2 {
+  font-family: "Neucha", cursive;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--font-color-main);
+  background: url('/bg-nav-title.svg') no-repeat center;
+  background-size: contain;
+  padding: 1rem 2rem;
+  display: inline-block;
+}
+
+/* ====================
+   LECTURE SLIDER STYLES
+   ==================== */
+
+/* Внешний контейнер */
+.lecture-slider-outer {
+  width: 100%;
+}
+
+/* Контейнер со стрелками снаружи */
+.lecture-slider {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+/* Фиолетовый блок с заголовком и карточками внутри */
+.lecture-slider-wrapper {
+  background: url('/education-lectures-block.svg') no-repeat center;
+  background-size: 100% 100%;
+  padding: 3rem 2rem 4rem 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Заголовок "ЛЕКЦИИ" внутри фиолетового блока */
+.lecture-slider-title {
+  font-family: "Neucha", cursive;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #392962;
+  background: url('/title-bg-consulting.svg') no-repeat center;
+  background-size: contain;
+  padding: 1rem 3rem;
+  text-align: center;
+  margin: 0;
+}
+
+.lecture-slider-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1rem;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.lecture-slider-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.lecture-slider-arrow:not(:disabled):hover {
+  transform: scale(1.2);
+}
+
+.lecture-slider-arrow img {
+  width: 40px;
+  height: 40px;
+}
+
+.lecture-slider-arrow-right img {
+  transform: rotate(180deg);
+}
+
+.lecture-slider-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+.lecture-slider-cards {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.5s ease-in-out;
+}
+
+.lecture-slider-cards .lecture-card {
+  flex: 0 0 calc((100% - 4.5rem) / 4);
+  width: calc((100% - 4.5rem) / 4);
+}
+
+/* ====================
+   LECTURE CARD STYLES
+   ==================== */
+
+.lecture-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.lecture-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Белая рамка - только для картинки */
+.lecture-card-frame {
+  background: url('/education-lecture.svg') no-repeat center;
+  background-size: 100% 100%;
+  padding: 2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.lecture-card-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+/* Название снаружи белого блока */
+.lecture-card-title {
+  font-family: "Neucha", cursive;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--font-color-main);
+  text-align: center;
+  margin: 0;
+}
+
+.lecture-card-description {
+  font-family: "Neucha", cursive;
+  font-size: 0.9rem;
+  color: var(--font-color-main);
+  line-height: 1.4;
+}
+
+.lecture-card-price {
+  font-family: "Neucha", cursive;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--font-color-main);
+  text-align: center;
+}
+
+.lecture-card .lecture-buy-button {
+  margin-top: auto;
+}
+
+.lecture-details-button {
+  font-family: "Neucha", cursive;
+  font-size: 1.3rem;
+  font-weight: 400;
+  padding: 1rem 2rem;
+  background: url('/education-lectures-more-info.svg') no-repeat center;
+  background-size: 100% 100%;
+  color: #FFF4FA;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 55px;
+}
+
+.lecture-details-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.lecture-buy-button {
+  font-family: "Neucha", cursive;
+  font-size: 1.3rem;
+  font-weight: 400;
+  padding: 1rem 2rem;
+  background: url('/portfolio-button.svg') no-repeat center;
+  background-size: 100% 100%;
+  color: #392962;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 55px;
+}
+
+.lecture-buy-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.95);
+}
+
+/* ====================
+   LECTURE MODAL STYLES
+   ==================== */
+
+.lecture-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+}
+
+.lecture-modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lecture-modal {
+  background-color: transparent;
+  background-image: url('/education-lecture-modal-window.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  max-width: 655px;
+  width: 655px;
+  height: 779px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 4rem 3rem;
+  transform: scale(0) rotate(0deg);
+  opacity: 0;
+  transition: none;
+}
+
+.lecture-modal.show {
+  animation: comicZoom 0.5s linear forwards;
+}
+
+@keyframes comicZoom {
+  0% {
+    transform: translate(var(--modal-start-x, 0), var(--modal-start-y, 0)) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(calc(var(--modal-start-x, 0) * 0.5), calc(var(--modal-start-y, 0) * 0.5)) scale(0.5) rotate(360deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(calc(720deg + var(--modal-random-rotate, 0deg)));
+    opacity: 1;
+  }
+}
+
+.lecture-modal.rotate-normal {
+  animation: rotateToNormal 0.4s ease-out forwards !important;
+  transform: translate(0, 0) scale(1) rotate(calc(720deg + var(--modal-random-rotate, 0deg)));
+}
+
+@keyframes rotateToNormal {
+  from {
+    transform: translate(0, 0) scale(1) rotate(calc(720deg + var(--modal-random-rotate, 0deg)));
+  }
+  to {
+    transform: translate(0, 0) scale(1) rotate(720deg);
+  }
+}
+
+.lecture-modal-rotate-button {
+  position: absolute;
+  top: 50%;
+  right: -220px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  width: 200px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+  transition: transform 0.2s ease-out;
+}
+
+.lecture-modal-rotate-button:hover {
+  transform: translateY(-50%) scale(1.15);
+}
+
+.lecture-modal-rotate-button:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+.lecture-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: #232B36;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.lecture-modal-close:hover {
+  transform: scale(1.2);
+}
+
+.lecture-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.lecture-modal-title {
+  font-family: "Neucha", cursive;
+  font-size: 2rem;
+  font-weight: 400;
+  color: #392962;
+  text-align: center;
+  margin: 0;
+}
+
+.lecture-modal-image-slider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lecture-modal-image-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lecture-modal-image-placeholder {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Neucha", cursive;
+  font-size: 1.2rem;
+  color: #232B36;
+}
+
+.lecture-modal-image-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.lecture-modal-image-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #C4DEF8;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lecture-modal-image-dot.active {
+  background: #6B4C9A;
+  transform: scale(1.3);
+}
+
+.lecture-modal-image-arrow {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #232B36;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.lecture-modal-image-arrow:hover {
+  transform: scale(1.2);
+}
+
+.lecture-modal-description {
+  font-family: "Neucha", cursive;
+  font-size: 1.1rem;
+  color: #232B36;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.lecture-modal-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.lecture-modal-price {
+  font-family: "Neucha", cursive;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #232B36;
+}
+
+.lecture-modal-buy-button {
+  font-family: "Neucha", cursive;
+  font-size: 1.3rem;
+  font-weight: 400;
+  padding: 1rem 2rem;
+  background: url('/portfolio-button.svg') no-repeat center;
+  background-size: 100% 100%;
+  color: #392962;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 55px;
+}
+
+.lecture-modal-buy-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.95);
+}
+
+/* ====================
+   RESPONSIVE STYLES
+   ==================== */
+
+@media (max-width: 1200px) {
+  .lecture-slider-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .lecture-slider-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .education-nav {
+    flex-direction: column;
+  }
+
+  .education-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .lecture-slider-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-slider-arrow img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .education-title {
+    font-size: 1.8rem;
+    padding: 0.75rem 2rem;
+  }
+
+  .lecture-modal {
+    padding: 2rem 1.5rem;
+  }
+
+  .lecture-modal-image-placeholder {
+    height: 200px;
   }
 }
