@@ -2035,7 +2035,7 @@
   background-position: center;
   background-repeat: no-repeat;
   text-align: center;
-  padding: 20px 80px;
+  padding: 20px 110px;
   margin-bottom: 100px;
 }
 
@@ -2115,8 +2115,8 @@
   background-size: cover;
   text-wrap: wrap;
   font-family: "Dela Gothic One", sans-serif;
-  font-size: 18px;
-  min-height: 60px;
+  font-size: 16px;
+  min-height: 80px;
 }
 
 /* Format card - контейнер с SVG */
@@ -2233,6 +2233,15 @@
   color: #E5348B;
 }
 
+/* Цветные акценты для цен */
+.price-pink {
+  color: #E5348B;
+}
+
+.price-green {
+  color: #3EC07E;
+}
+
 /* Info box элементы для starling и supernova */
 .info-box {
   position: absolute;
@@ -2242,6 +2251,19 @@
   height: auto;
   pointer-events: none;
   right: -5%;
+}
+.info-box-green {
+  bottom: -40px;
+  right: -10%;
+}
+.info-box-green-text {
+
+  rotate: -17deg;
+  bottom: -6px;
+  right: -14%;
+  color: #3EC07E;
+  font-size: 12pt;
+  font-family: "Dela Gothic One";
 }
 
 .info-box-seminar {
@@ -3113,6 +3135,7 @@
     bottom: -20px;
   }
 
+
   .info-box-seminar {
     width: 50%;
     top: 0%;
@@ -3384,6 +3407,11 @@
       width: 50%;
     }
 
+    .info-box.info-box-green-text {
+      bottom: 10px ;
+      right: -15%;
+    }
+    
   /* Seminars */
   .seminars {
     padding: 0;

@@ -346,11 +346,11 @@ const Courses = () => {
                 <Slider slides={slides}></Slider>
 
                 <div className="timeline">
-                    <time dateTime="2024-11-06">
-                        <h2>СТАРТ - 6 НОЯБРЯ</h2>
+                    <time dateTime="2026-01-22">
+                        <h2>СТАРТ - 22 Января</h2>
                     </time>
-                    <time dateTime="2024-12-13">
-                        <h2>ФИНАЛ - 13 ДЕКАБРЯ</h2>
+                    <time dateTime="2026-03-05">
+                        <h2>ФИНАЛ - 5 Марта</h2>
                     </time>
                     <p>лекции по субботам</p>
                 </div>
@@ -370,9 +370,9 @@ const Courses = () => {
                                 <li>ответы на вопросы</li>
                                 <li>материалы, задания (без проверки)</li>
                             </ul>
-                            <a href="" aria-label="Купить формат Базёныш за 8900 рублей">
+                            <a href="https://payform.ru/4fa09hh/" aria-label="Купить формат Базёныш за 9900 рублей">
                                 <button type="button" className="base-button">
-                                    Sold out!
+                                    Купить за <span className="price-pink">9900 р.</span>
                                 </button>
                             </a>
                         </div>
@@ -389,13 +389,14 @@ const Courses = () => {
                                 <li>отдельный чат</li>
                                 <li>проверка и обсуждение заданий</li>
                             </ul>
-                            <a href="" aria-label="Купить формат Звёздочка за 21900 рублей">
+                            <a href="https://payform.ru/8ua09lA/" aria-label="Купить формат Звёздочка за 22900 рублей">
                                 <button type="button" className="starling-button">
-                                    Sold out!
+                                    Купить за <span className="price-green">22900 р.</span>
                                 </button>
                             </a>
                         </div>
-                        <img src="/info-box-green.svg" alt="всего 8 мест!" className="info-box info-box-green" />
+                        <img src="/info-box-green.svg" alt="всего 15 мест!" className="info-box info-box-green" />
+                        <p className="info-box info-box-green info-box-green-text">Всего 15 мест!</p>
                     </div>
 
                     <div className="format-card supernova">
@@ -410,9 +411,9 @@ const Courses = () => {
                                 <li>работа с личным запросом</li>
                                 <li>подборка материалов</li>
                             </ul>
-                            <a href="" aria-label="Купить формат Супернова за 34900 рублей">
+                            <a href="https://payform.ru/cda09nr/" aria-label="Купить формат Супернова за 35900 рублей">
                                 <button type="button" className="supernova-button">
-                                    Sold out!
+                                    Купить за <span className="price-green">35900 р.</span>
                                 </button>
                             </a>
                         </div>
@@ -474,12 +475,12 @@ const Courses = () => {
 
                             // Scroll to formats section after animation
                             setTimeout(() => {
-                                window.location.href = '';
+                                window.location.href = 'https://payform.ru/4fa09hh/';
                             }, 2000);
                         }}
                     >
-                        <a href="" onClick={(e) => e.preventDefault()}>
-                            Sold out!
+                        <a href="https://payform.ru/4fa09hh/" onClick={(e) => e.preventDefault()}>
+                            Записаться на курс
                         </a>
                     </button>
                     {/* Stars trail */}
