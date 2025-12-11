@@ -2222,7 +2222,7 @@
 }
 
 .starling-button {
-  min-height: 58px;
+  min-height: 58px !important;
 }
 
 .supernova .format-content {
