@@ -389,9 +389,9 @@ const Courses = () => {
                                 <li>отдельный чат</li>
                                 <li>проверка и обсуждение заданий</li>
                             </ul>
-                            <a href="https://payform.ru/8ua09lA/" aria-label="Купить формат Звёздочка за 22900 рублей">
+                            <a href="#" aria-label="Купить формат Звёздочка за 22900 рублей">
                                 <button type="button" className="starling-button">
-                                    Купить за <span className="price-green">22900 р.</span>
+                                    Sold Out!
                                 </button>
                             </a>
                         </div>
