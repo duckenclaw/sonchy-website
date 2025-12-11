@@ -2221,6 +2221,10 @@
   color: #E5348B;
 }
 
+.starling-button {
+  min-height: 58px;
+}
+
 .supernova .format-content {
   text-align: left;
 }
