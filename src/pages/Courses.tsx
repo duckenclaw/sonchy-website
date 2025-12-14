@@ -390,7 +390,7 @@ const Courses = () => {
                                 <li>проверка и обсуждение заданий</li>
                             </ul>
                             <a href="#" aria-label="Купить формат Звёздочка за 22900 рублей">
-                                <button type="button" className="starling-button">
+                                <button type="button" className="sould-out-button">
                                     Sold Out!
                                 </button>
                             </a>
@@ -412,8 +412,8 @@ const Courses = () => {
                                 <li>подборка материалов</li>
                             </ul>
                             <a href="https://payform.ru/cda09nr/" aria-label="Купить формат Супернова за 35900 рублей">
-                                <button type="button" className="supernova-button">
-                                    Купить за <span className="price-green">35900 р.</span>
+                                <button type="button" className="sould-out-button">
+                                    Sold Out!
                                 </button>
                             </a>
                         </div>
