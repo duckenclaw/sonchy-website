@@ -370,9 +370,9 @@ const Courses = () => {
                                 <li>ответы на вопросы</li>
                                 <li>материалы, задания (без проверки)</li>
                             </ul>
-                            <a href="https://payform.ru/4fa09hh/" aria-label="Купить формат Базёныш за 9900 рублей">
-                                <button type="button" className="base-button">
-                                    Купить за <span className="price-pink">9900 р.</span>
+                            <a href="#" aria-label="Купить формат Базёныш за 9900 рублей">
+                                <button type="button" className="sold-out-button">
+                                    Sold Out!
                                 </button>
                             </a>
                         </div>
@@ -475,12 +475,12 @@ const Courses = () => {
 
                             // Scroll to formats section after animation
                             setTimeout(() => {
-                                window.location.href = 'https://payform.ru/4fa09hh/';
+                                window.location.href = '#';
                             }, 2000);
                         }}
                     >
-                        <a href="https://payform.ru/4fa09hh/" onClick={(e) => e.preventDefault()}>
-                            Записаться на курс
+                        <a href="#" onClick={(e) => e.preventDefault()}>
+                            Sold Out!
                         </a>
                     </button>
                     {/* Stars trail */}
