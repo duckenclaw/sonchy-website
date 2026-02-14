@@ -119,11 +119,18 @@ const LectureModal = ({ lecture, isOpen, position, onClose, onBuyClick }: Lectur
                         )}
 
                         <div className="lecture-modal-image-container">
-                            <img
-                                src={lecture.images[currentImageIndex]}
-                                alt={`Изображение ${currentImageIndex + 1}`}
-                                className="lecture-modal-image"
-                            />
+                            <div className="lecture-modal-image-track"
+                                style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+                            >
+                                {lecture.images.map((src, index) => (
+                                    <img
+                                        key={index}
+                                        src={src}
+                                        alt={`Изображение ${index + 1}`}
+                                        className="lecture-modal-image"
+                                    />
+                                ))}
+                            </div>
                             {lecture.images.length > 1 && (
                                 <div className="lecture-modal-image-dots">
                                     {lecture.images.map((_, index) => (
