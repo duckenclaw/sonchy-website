@@ -3935,7 +3935,7 @@
 .lecture-modal-content {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 
@@ -3951,7 +3951,14 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-bottom: 2rem;
+}
+
+.lecture-modal-image-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 .lecture-modal-image-track {
@@ -3987,11 +3994,15 @@
 .lecture-modal-image-dot {
   width: 12px;
   height: 12px;
+  aspect-ratio: 1;
   border-radius: 50%;
   background: transparent;
   border: 2px solid #6B4C9A;
   cursor: pointer;
   transition: all 0.2s;
+  box-sizing: content-box;
+  padding: 0;
+  flex-shrink: 0;
 }
 
 .lecture-modal-image-dot.active {
@@ -4003,15 +4014,26 @@
 .lecture-modal-image-arrow {
   background: none;
   border: none;
-  font-size: 2rem;
-  color: #232B36;
+  color: #6B4C9A;
   cursor: pointer;
-  padding: 0.5rem;
-  transition: transform 0.2s;
+  padding: 0.25rem;
+  transition: transform 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lecture-modal-image-arrow svg {
+  display: block;
 }
 
 .lecture-modal-image-arrow:hover {
-  transform: scale(1.2);
+  transform: scale(1.15);
+}
+
+.lecture-modal-image-arrow:active {
+  transform: scale(0.85);
 }
 
 .lecture-modal-description {
@@ -4157,111 +4179,135 @@
     font-size: 1.1rem;
   }
 
-  /* Модальное окно на мобильных */
+  /* Модальное окно на мобильных — полноэкранный режим */
   .lecture-modal-overlay {
-    padding: 1rem;
-    align-items: flex-start;
-    padding-top: 3dvh;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   .lecture-modal {
-    width: 90%;
+    width: 100%;
     max-width: none;
-    height: auto;
+    height: 100dvh;
     max-height: none;
-    overflow: visible;
-    padding: 2rem 1.5rem 0;
+    overflow: hidden;
+    padding: 0;
+    border-radius: 0;
+    background-image: none;
+    background-color: #C4DEF8;
     display: flex;
     flex-direction: column;
   }
 
   .lecture-modal.show {
-    animation: comicZoomMobile 0.5s linear forwards;
+    animation: comicZoomMobile 0.45s ease-out forwards;
   }
 
   @keyframes comicZoomMobile {
     0% {
-      transform: scale(0) rotate(0deg);
+      transform: scale(0);
       opacity: 0;
     }
-    50% {
-      transform: scale(0.5) rotate(360deg);
+    60% {
+      transform: scale(1.05);
       opacity: 1;
     }
     100% {
-      transform: scale(1) rotate(calc(720deg + var(--modal-random-rotate, 0deg)));
+      transform: scale(1);
       opacity: 1;
     }
   }
 
-  .lecture-modal-image {
-    height: clamp(100px, 20dvh, 200px);
-  }
-
-  .lecture-modal-image-placeholder {
-    height: clamp(100px, 20dvh, 200px);
-  }
-
-  .lecture-modal-image-container {
-    padding-bottom: 0.5rem;
+  .lecture-modal-close {
+    position: relative;
+    top: auto;
+    right: auto;
+    align-self: flex-end;
+    font-size: 2rem;
+    width: 44px;
+    height: 44px;
+    color: #232B36;
+    margin: 0.75rem 1rem 0 0;
+    flex-shrink: 0;
+    z-index: 10;
   }
 
   .lecture-modal-content {
-    gap: 0.5rem;
     flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    padding: 0 1.25rem;
+    min-height: 0;
   }
 
   .lecture-modal-image-slider {
-    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .lecture-modal-image-container {
+    padding-bottom: 0;
+  }
+
+  .lecture-modal-image {
+    height: clamp(180px, 38dvh, 400px);
+    object-fit: contain;
+  }
+
+  .lecture-modal-image-placeholder {
+    height: clamp(180px, 38dvh, 400px);
+  }
+
+  .lecture-modal-image-nav {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    gap: 0.5rem;
   }
 
   .lecture-modal-image-arrow {
-    font-size: 1.5rem;
     padding: 0.25rem;
   }
 
-  .lecture-modal-description {
-    font-size: 0.75rem;
-    line-height: 1.3;
-  }
-
-  .lecture-modal-price {
-    font-size: 1rem;
-  }
-
-  .lecture-modal-footer {
-    gap: 0.25rem;
-    margin-top: auto;
-    transform: translateY(1.5rem);
-  }
-
-  .lecture-modal-buy-button {
-    font-size: 1.6rem;
-    padding: 0.8rem 2.5rem 1rem;
-    min-height: 45px;
-  }
-
-  .lecture-modal-close {
-    font-size: 1.5rem;
-    width: 30px;
-    height: 30px;
-    top: 0.5rem;
-    right: 0.75rem;
-    color: #232B36;
+  .lecture-modal-image-arrow svg {
+    width: 10px;
+    height: 16px;
   }
 
   .lecture-modal-image-dots {
-    gap: 0.3rem;
+    gap: 0.4rem;
   }
 
   .lecture-modal-image-dot {
-    width: 8px;
+    width: 10px;
     height: 10px;
-    min-width: 8px;
-    min-height: 10px;
-    border: 1px solid #6B4C9A;
+  }
+
+  .lecture-modal-description {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+    padding: 1rem 0 0.5rem;
+  }
+
+  .lecture-modal-price {
+    font-size: 1.2rem;
+  }
+
+  .lecture-modal-footer {
+    gap: 0.75rem;
+    margin-top: 0;
+    padding-bottom: 2.5rem;
+    flex-shrink: 0;
+    transform: none;
+  }
+
+  .lecture-modal-buy-button {
+    font-size: 1.8rem;
+    padding: 0.8rem 3rem 1.2rem;
+    min-height: 50px;
   }
 
   .lecture-buy-button {
@@ -4294,46 +4340,3 @@
   }
 }
 
-/* Очень маленькие экраны по высоте (iPhone SE, landscape и т.д.) */
-@media (max-width: 768px) and (max-height: 700px) {
-  .lecture-modal {
-    padding: 1.5rem 1.2rem 0;
-  }
-
-  .lecture-modal-image {
-    height: clamp(80px, 16dvh, 130px);
-  }
-
-  .lecture-modal-image-placeholder {
-    height: clamp(80px, 16dvh, 130px);
-  }
-
-  .lecture-modal-description {
-    font-size: 0.7rem;
-    line-height: 1.2;
-  }
-
-  .lecture-modal-close {
-    font-size: 1.3rem;
-    top: 0.3rem;
-    right: 0.5rem;
-  }
-
-  .lecture-modal-content {
-    gap: 0.3rem;
-  }
-
-  .lecture-modal-image-container {
-    padding-bottom: 0.3rem;
-  }
-
-  .lecture-modal-price {
-    font-size: 0.9rem;
-  }
-
-  .lecture-modal-buy-button {
-    font-size: 1.4rem;
-    padding: 0.6rem 2rem 0.8rem;
-    min-height: 40px;
-  }
-}

@@ -107,17 +107,6 @@ const LectureModal = ({ lecture, isOpen, position, onClose, onBuyClick }: Lectur
 
                 <div className="lecture-modal-content">
                     <div className="lecture-modal-image-slider">
-                        {lecture.images.length > 1 && (
-                            <button
-                                type="button"
-                                className="lecture-modal-image-arrow lecture-modal-image-arrow-left"
-                                onClick={handlePreviousImage}
-                                aria-label="Previous image"
-                            >
-                                ←
-                            </button>
-                        )}
-
                         <div className="lecture-modal-image-container">
                             <div className="lecture-modal-image-track"
                                 style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
@@ -131,34 +120,46 @@ const LectureModal = ({ lecture, isOpen, position, onClose, onBuyClick }: Lectur
                                     />
                                 ))}
                             </div>
-                            {lecture.images.length > 1 && (
-                                <div className="lecture-modal-image-dots">
-                                    {lecture.images.map((_, index) => (
-                                        <button
-                                            key={index}
-                                            type="button"
-                                            className={`lecture-modal-image-dot ${
-                                                index === currentImageIndex ? 'active' : ''
-                                            }`}
-                                            onClick={() => setCurrentImageIndex(index)}
-                                            aria-label={`Go to image ${index + 1}`}
-                                        />
-                                    ))}
-                                </div>
-                            )}
                         </div>
+                    </div>
 
-                        {lecture.images.length > 1 && (
+                    {lecture.images.length > 1 && (
+                        <div className="lecture-modal-image-nav">
+                            <button
+                                type="button"
+                                className="lecture-modal-image-arrow lecture-modal-image-arrow-left"
+                                onClick={handlePreviousImage}
+                                aria-label="Previous image"
+                            >
+                                <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 2L2 10L10 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                            </button>
+                            <div className="lecture-modal-image-dots">
+                                {lecture.images.map((_, index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        className={`lecture-modal-image-dot ${
+                                            index === currentImageIndex ? 'active' : ''
+                                        }`}
+                                        onClick={() => setCurrentImageIndex(index)}
+                                        aria-label={`Go to image ${index + 1}`}
+                                    />
+                                ))}
+                            </div>
                             <button
                                 type="button"
                                 className="lecture-modal-image-arrow lecture-modal-image-arrow-right"
                                 onClick={handleNextImage}
                                 aria-label="Next image"
                             >
-                                →
+                                <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 2L10 10L2 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
                             </button>
-                        )}
-                    </div>
+                        </div>
+                    )}
 
                     <p className="lecture-modal-description">{lecture.description}</p>
 
