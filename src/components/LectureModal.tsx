@@ -106,8 +106,6 @@ const LectureModal = ({ lecture, isOpen, position, onClose, onBuyClick }: Lectur
                 </button>
 
                 <div className="lecture-modal-content">
-                    <h2 className="lecture-modal-title">{lecture.title}</h2>
-
                     <div className="lecture-modal-image-slider">
                         {lecture.images.length > 1 && (
                             <button
@@ -121,9 +119,11 @@ const LectureModal = ({ lecture, isOpen, position, onClose, onBuyClick }: Lectur
                         )}
 
                         <div className="lecture-modal-image-container">
-                            <div className="lecture-modal-image-placeholder">
-                                <p>Изображение {currentImageIndex + 1}</p>
-                            </div>
+                            <img
+                                src={lecture.images[currentImageIndex]}
+                                alt={`Изображение ${currentImageIndex + 1}`}
+                                className="lecture-modal-image"
+                            />
                             {lecture.images.length > 1 && (
                                 <div className="lecture-modal-image-dots">
                                     {lecture.images.map((_, index) => (
@@ -162,7 +162,7 @@ const LectureModal = ({ lecture, isOpen, position, onClose, onBuyClick }: Lectur
                             className="lecture-modal-buy-button"
                             onClick={onBuyClick}
                         >
-                            КУПИТЬ ЗА
+                            КУПИТЬ
                         </button>
                     </div>
                 </div>

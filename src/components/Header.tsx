@@ -24,6 +24,8 @@ const Header = ({ currentPage }: HeaderProps) => {
   const navButtons = [
     { title: "Главная", route: ROUTES.HOME },
     { title: "Услуги", route: ROUTES.SERVICES },
+    { title: "Обучение", route: ROUTES.EDUCATION },
+    { title: "Курсы", route: ROUTES.COURSES },
     { title: "Контакты", route: ROUTES.CONTACTS }
   ];
 

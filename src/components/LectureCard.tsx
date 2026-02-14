@@ -27,10 +27,17 @@ const LectureCard = ({
     return (
         <div className="lecture-card" onClick={handleCardClick}>
             <div className="lecture-card-frame">
-                <div className="lecture-card-image-placeholder"></div>
+                {lecture.coverImage ? (
+                    <img
+                        src={lecture.coverImage}
+                        alt=""
+                        className="lecture-card-cover-image"
+                    />
+                ) : (
+                    <div className="lecture-card-image-placeholder"></div>
+                )}
             </div>
 
-            <h3 className="lecture-card-title">{lecture.title}</h3>
 
             <button
                 type="button"

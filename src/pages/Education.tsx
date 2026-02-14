@@ -15,45 +15,19 @@ const Education = () => {
     const lectures: LectureData[] = useMemo(() => [
         {
             id: 1,
-            title: 'ЛЕКЦИЯ 1',
-            description: 'Сейчас только перевожу продукты в доме, но меня научили адаптировать стиль к любому жанру текста, что помогло в работе.',
-            price: '1000₽',
-            images: ['image1.svg', 'image2.svg', 'image3.svg']
+            description: 'Авторская методика по созданию персонажей и личных брендов — луковица персонажа. Проверила её на 100+ консультациях. Сейчас ее преподают в геймдизайнерских школах, пишут о ней статьи и уже заказали написать о ней книгу.',
+            price: '1990 ₽',
+            coverImage: '/education-lecture-1.png',
+            buyLink: 'https://payform.ru/q0aFt9g/',
+            images: ['/education-lecture-onion-1.png', '/education-lecture-onion-2.png', '/education-lecture-onion-3.png', '/education-lecture-onion-4.png']
         },
         {
             id: 2,
-            title: 'ЛЕКЦИЯ 2',
-            description: 'Описание лекции 2. Здесь будет информация о содержании лекции.',
-            price: '1200₽',
-            images: ['image1.svg', 'image2.svg']
-        },
-        {
-            id: 3,
-            title: 'ЛЕКЦИЯ 3',
-            description: 'Описание лекции 3. Здесь будет информация о содержании лекции.',
-            price: '1500₽',
-            images: ['image1.svg', 'image2.svg', 'image3.svg', 'image4.svg']
-        },
-        {
-            id: 4,
-            title: 'ЛЕКЦИЯ 4',
-            description: 'Описание лекции 4. Здесь будет информация о содержании лекции.',
-            price: '1800₽',
-            images: ['image1.svg']
-        },
-        {
-            id: 5,
-            title: 'ЛЕКЦИЯ 5',
-            description: 'Описание лекции 5. Здесь будет информация о содержании лекции.',
-            price: '2000₽',
-            images: ['image1.svg', 'image2.svg']
-        },
-        {
-            id: 6,
-            title: 'ЛЕКЦИЯ 6',
-            description: 'Описание лекции 6. Здесь будет информация о содержании лекции.',
-            price: '2200₽',
-            images: ['image1.svg', 'image2.svg', 'image3.svg']
+            description: 'Ваш любимый, но не такой уж важный сторителлинг. Разбираем, как он устроен, как работает, и учимся применять мои любимые структуры. Никаких пересказов Воглера, Макки и популярных базовых книг.',
+            price: '1990 ₽',
+            coverImage: '/education-lecture-2.png',
+            buyLink: 'https://payform.ru/4paFtcg/',
+            images: ['/education-lecture-storytelling-1.png', '/education-lecture-storytelling-2.png', '/education-lecture-storytelling-3.png']
         }
     ], []);
 
@@ -64,12 +38,14 @@ const Education = () => {
     }, []);
 
     const handleLectureBuyClick = useCallback((lecture: LectureData) => {
-        console.log('Покупка лекции:', lecture.title);
+        if (lecture.buyLink) {
+            window.open(lecture.buyLink, '_blank');
+        }
     }, []);
 
     const handleModalBuyClick = useCallback(() => {
-        if (selectedLecture) {
-            console.log('Покупка из модалки:', selectedLecture.title);
+        if (selectedLecture?.buyLink) {
+            window.open(selectedLecture.buyLink, '_blank');
         }
     }, [selectedLecture]);
 

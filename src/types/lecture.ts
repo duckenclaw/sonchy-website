@@ -1,7 +1,8 @@
 export interface LectureData {
     id: number;
-    title: string;
     description: string;
     price: string;
+    coverImage?: string;
+    buyLink: string;
     images: string[];
 }

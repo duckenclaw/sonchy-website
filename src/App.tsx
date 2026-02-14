@@ -21,7 +21,7 @@ function App() {
       description: "лекции, материалы, курсы",
       alt: "education",
       position: "left" as const,
-      route: "courses"
+      route: "education"
     },
     {
       image: servicesLogo,

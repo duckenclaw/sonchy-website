@@ -5,6 +5,7 @@ export const ROUTES = {
   CONSULTING: 'services/consulting',
   LECTURES: 'services/lectures',
   PROJECTS: 'services/projects',
+  EDUCATION: 'education',
   COURSES: 'courses',
 } as const;
 
