@@ -16,17 +16,17 @@ const Education = () => {
         {
             id: 1,
             description: 'Авторская методика по созданию персонажей и личных брендов — луковица персонажа. Проверила её на 100+ консультациях. Сейчас ее преподают в геймдизайнерских школах, пишут о ней статьи и уже заказали написать о ней книгу.',
-            price: '1990 ₽',
+            price: '2590 ₽',
             coverImage: '/education-lecture-1.png',
-            buyLink: 'https://payform.ru/q0aFt9g/',
+            buyLink: 'https://payform.ru/bgaHn87/',
             images: ['/education-lecture-onion-1.png', '/education-lecture-onion-2.png', '/education-lecture-onion-3.png', '/education-lecture-onion-4.png']
         },
         {
             id: 2,
             description: 'Ваш любимый, но не такой уж важный сторителлинг. Разбираем, как он устроен, как работает, и учимся применять мои любимые структуры. Никаких пересказов Воглера, Макки и популярных базовых книг.',
-            price: '1990 ₽',
+            price: '2590 ₽',
             coverImage: '/education-lecture-2.png',
-            buyLink: 'https://payform.ru/4paFtcg/',
+            buyLink: 'https://payform.ru/83aHn6j/',
             images: ['/education-lecture-storytelling-1.png', '/education-lecture-storytelling-2.png', '/education-lecture-storytelling-3.png']
         }
     ], []);
