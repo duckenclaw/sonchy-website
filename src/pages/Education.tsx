@@ -19,7 +19,7 @@ const Education = () => {
             price: '2590 ₽',
             coverImage: '/education-lecture-1.png',
             buyLink: 'https://payform.ru/bgaHn87/',
-            images: ['/education-lecture-onion-1.png', '/education-lecture-onion-2.png', '/education-lecture-onion-3.png', '/education-lecture-onion-4.png']
+            images: ['/education-lecture-onion-1-new.png', '/education-lecture-onion-2.png', '/education-lecture-onion-3.png', '/education-lecture-onion-4.png']
         },
         {
             id: 2,
@@ -27,7 +27,7 @@ const Education = () => {
             price: '2590 ₽',
             coverImage: '/education-lecture-2.png',
             buyLink: 'https://payform.ru/83aHn6j/',
-            images: ['/education-lecture-storytelling-1.png', '/education-lecture-storytelling-2.png', '/education-lecture-storytelling-3.png']
+            images: ['/education-lecture-storytelling-1-new.png', '/education-lecture-storytelling-2.png', '/education-lecture-storytelling-3.png']
         },
         {
             id: 3,
