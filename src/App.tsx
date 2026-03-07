@@ -26,7 +26,7 @@ function App() {
     {
       image: servicesLogo,
       title: "УСЛУГИ",
-      description: "жаль, вы ещё не знаете,<br/>как со мной приятно",
+      description: "воркшопы, лекции,<br/>консультации",
       alt: "services",
       position: "right" as const,
       route: "services"
