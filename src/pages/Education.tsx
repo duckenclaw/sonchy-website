@@ -28,6 +28,22 @@ const Education = () => {
             coverImage: '/education-lecture-2.png',
             buyLink: 'https://payform.ru/83aHn6j/',
             images: ['/education-lecture-storytelling-1.png', '/education-lecture-storytelling-2.png', '/education-lecture-storytelling-3.png']
+        },
+        {
+            id: 3,
+            description: 'Популярная тема личного бренда, но с фокусом на органику, основные принципы, а не типологии и инструкции. Хорошо подходит, если хотите начать блог и считаете, что нужно как-то по-особому изменить свою личность. (спойлер: нет)',
+            price: '1990 ₽',
+            coverImage: '/education-lecture-3.png',
+            buyLink: 'https://payform.ru/4qaSsns/',
+            images: ['/education-lecture-brend-1.png', '/education-lecture-brend-2.png', '/education-lecture-brend-3.png', '/education-lecture-brend-4.png']
+        },
+        {
+            id: 4,
+            description: 'Нарративные пространства - это теория позволяющая создавать как уникальные миры, так и блоги или бренд. Это альтернатива классическим методам работы через персонажа или анализ аудитории. Обычно, это первое что я преподаю для креативщиков.',
+            price: '1990 ₽',
+            coverImage: '/education-lecture-4.png',
+            buyLink: 'https://payform.ru/e5aSssr/',
+            images: ['/education-lecture-narrative-1.png', '/education-lecture-narrative-2.png', '/education-lecture-narrative-3.png', '/education-lecture-narrative-4.png']
         }
     ], []);
 
