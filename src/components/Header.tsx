@@ -23,6 +23,7 @@ const Header = ({ currentPage }: HeaderProps) => {
   // Всегда используем одинаковые 3 кнопки навигации
   const navButtons = [
     { title: "Главная", route: ROUTES.HOME },
+    { title: "Обо мне", route: ROUTES.ABOUT },
     { title: "Услуги", route: ROUTES.SERVICES },
     { title: "Обучение", route: ROUTES.EDUCATION },
     { title: "Курсы", route: ROUTES.COURSES },

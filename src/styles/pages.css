@@ -49,3 +49,15 @@ body.courses-page-background {
   }
 }
 
+body.about-page-background {
+  background-color: #7856A8;
+  background-image: url('/bg-about.svg');
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+body.about-page-background .header h1 {
+  color: #392962;
+}
+
