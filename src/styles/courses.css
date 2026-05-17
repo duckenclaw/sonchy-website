@@ -1,0 +1,842 @@
+/* ============================================================
+   Courses page redesign — "WRITER SUMMER" intensive
+   All rules scoped under .courses2-app to prevent leakage.
+   ============================================================ */
+
+@font-face {
+    font-family: 'Dela Gothic One Local';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/DelaGothicOne-Regular.ttf') format('truetype');
+}
+
+.courses2-app {
+    --c2-page-bg: #F8F3EB;
+    --c2-purple-bg: #B885EA;
+    --c2-purple-light: #DCC4F2;
+    --c2-purple-mid: #A989D1;
+    --c2-purple-deep: #4A1E9E;
+    --c2-purple-footer: #B79CDB;
+    --c2-cream: #F8F3EB;
+    --c2-cream-card: #FBF1C7;
+    --c2-cream-card-soft: #FFF7D6;
+    --c2-event-bg: #FFF5DA;
+    --c2-green: #1E7B3A;
+    --c2-green-deep: #14572A;
+    --c2-green-bg-light: #C9E5D2;
+    --c2-green-bg-deep: #4A8C5F;
+    --c2-pink-heading: #CF0874;
+    --c2-pink-bullet: #A31261;
+    --c2-pink-soft: #F7C8DC;
+    --c2-pink-panel: #F8C8DC;
+    --c2-red: #D43A3A;
+    --c2-orange: #E78B26;
+    --c2-yellow-tape: #F8D86C;
+    --c2-yellow-pill: #F4E08A;
+    --c2-blue-tape: #5B73C5;
+    --c2-brown: #5C3A1A;
+    --c2-plan-header: #312FC3;
+
+    font-family: 'Montserrat', sans-serif;
+    color: #222;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--c2-cream);
+    overflow-x: hidden;
+}
+
+.courses2-app * {
+    box-sizing: border-box;
+}
+
+.courses2-app > * {
+    flex-shrink: 0;
+}
+
+.courses2-app h1,
+.courses2-app h2,
+.courses2-app h3 {
+    font-family: 'Alumni Sans', sans-serif;
+    margin: 0;
+    line-height: 1;
+}
+
+.courses2-app p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ---------- 1. HEADER ---------- */
+.c2-header {
+    position: relative;
+    width: 100%;
+    min-height: 600px;
+    padding: 60px 80px 100px;
+    background: radial-gradient(ellipse 120% 100% at 50% 0%, #B885EA 0%, #C9A0EE 30%, #E0C7F2 60%, #F8F3EB 100%);
+    overflow: hidden;
+}
+
+.c2-header-bg-loops {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(ellipse 200px 80px at 10% 18%, transparent 38%, #E8C75A 39%, #E8C75A 40%, transparent 41%),
+        radial-gradient(ellipse 350px 40px at 30% 32%, transparent 49%, #E8C75A 50%, #E8C75A 51%, transparent 52%),
+        radial-gradient(ellipse 600px 80px at 70% 92%, transparent 49%, #E8C75A 50%, #E8C75A 51%, transparent 52%);
+    opacity: 0.7;
+}
+
+.c2-title-cloud {
+    position: relative;
+    margin: 0 auto;
+    width: min(720px, 70vw);
+    aspect-ratio: 5 / 3;
+    background: url('/courses/title-bg.svg') center/contain no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 8% 12%;
+}
+
+.c2-title-cloud h1 {
+    font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 110px);
+    color: var(--c2-green);
+    letter-spacing: 0.02em;
+    line-height: 1;
+}
+
+.c2-title-cloud .c2-subtitle {
+    margin-top: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: clamp(16px, 1.6vw, 24px);
+    color: var(--c2-green);
+}
+
+.c2-header-bottom {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 80px;
+    gap: 40px;
+}
+
+.c2-header-lead {
+    max-width: 420px;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #2B1F00;
+    position: relative;
+}
+
+.c2-header-lead::before {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 8px;
+    width: 18px;
+    height: 18px;
+    background-image:
+        linear-gradient(135deg, transparent 45%, #E8B82A 45%, #E8B82A 55%, transparent 55%),
+        linear-gradient(45deg, transparent 45%, #E8B82A 45%, #E8B82A 55%, transparent 55%);
+    background-size: 14px 3px, 3px 14px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.c2-header-deco {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    flex-shrink: 0;
+}
+
+.c2-header-pill {
+    position: absolute;
+    background: var(--c2-yellow-pill);
+    border: 2px solid var(--c2-green-deep);
+    border-radius: 999px;
+    padding: 8px 22px;
+    font-family: 'Alumni Sans', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--c2-green);
+    transform: rotate(-8deg);
+}
+
+.c2-header-pill.c2-pill-writer { top: 30px; right: 30px; transform: rotate(8deg); }
+.c2-header-pill.c2-pill-summer { top: 110px; right: 90px; transform: rotate(-6deg); }
+
+.c2-header-deco-sun {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    top: 90px;
+    left: 0;
+    background: url('/courses/sun-header-decoration.svg') center/contain no-repeat;
+}
+
+.c2-header-deco-pen {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 0;
+    background: url('/courses/pen-header-decoration.svg') center/contain no-repeat;
+}
+
+/* ---------- 2. ABOUT (3 info cards) ---------- */
+.c2-about {
+    position: relative;
+    padding: 80px 80px 60px;
+    background: var(--c2-cream);
+}
+
+.c2-about-deco {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.6;
+    z-index: 0;
+}
+
+.c2-about-deco-1 { top: 40px; left: 20px; width: 140px; height: 140px;
+    background: url('/courses/about-decoration1.svg') center/contain no-repeat; }
+.c2-about-deco-2 { top: 200px; left: 80px; width: 120px; height: 120px;
+    background: url('/courses/about-decoration2.svg') center/contain no-repeat; }
+.c2-about-deco-3 { top: 230px; right: 60px; width: 160px; height: 160px;
+    background: url('/courses/about-decoration3.svg') center/contain no-repeat; }
+
+.c2-about-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.c2-about-card {
+    background: var(--c2-cream-card);
+    border-radius: 20px;
+    padding: 28px 36px;
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+.c2-about-card.c2-about-card-wide { grid-column: 1 / -1; }
+
+.c2-about-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.c2-about-card.c2-about-pink h3 { color: var(--c2-pink-heading); }
+.c2-about-card.c2-about-pink { border-color: var(--c2-pink-heading); }
+.c2-about-card.c2-about-orange h3 { color: var(--c2-orange); }
+.c2-about-card.c2-about-orange { border-color: var(--c2-orange); }
+.c2-about-card.c2-about-purple h3 { color: #6B4FC6; }
+.c2-about-card.c2-about-purple { border-color: #6B4FC6; }
+
+.c2-about-card p {
+    font-size: 15px;
+    color: #2a2a2a;
+}
+
+.c2-about-card p strong { font-weight: 700; color: #1a1a1a; }
+
+/* ---------- 3. CALENDAR ---------- */
+.c2-calendar-section {
+    position: relative;
+    padding: 60px 80px;
+    background: var(--c2-cream);
+}
+
+.c2-section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.c2-section-title h2 {
+    font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4vw, 56px);
+    color: var(--c2-green);
+    letter-spacing: 0.02em;
+}
+
+.c2-section-title .c2-subdate {
+    display: block;
+    margin-top: 6px;
+    font-family: 'Alumni Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(22px, 2.6vw, 36px);
+    color: var(--c2-green);
+}
+
+.c2-calendar-panel {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--c2-pink-panel);
+    border-radius: 28px;
+    padding: 50px 36px 36px;
+}
+
+.c2-calendar-tape {
+    position: absolute;
+    width: 60px;
+    height: 24px;
+    background: var(--c2-yellow-tape);
+    opacity: 0.85;
+    border-radius: 2px;
+}
+
+.c2-calendar-tape.t-tl { top: -12px; left: 32px; transform: rotate(-20deg); }
+.c2-calendar-tape.t-tr { top: -12px; right: 40px; transform: rotate(18deg); }
+.c2-calendar-tape.t-bl { bottom: -12px; left: 50%; transform: translateX(-50%) rotate(-6deg); }
+
+.c2-calendar-month {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.c2-calendar-month-scribble {
+    position: absolute;
+    inset: -16px 0 -16px 0;
+    background: url('/courses/calendar-title-decoration.svg') center/contain no-repeat;
+    pointer-events: none;
+}
+
+.c2-calendar-month span {
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--c2-purple-deep);
+    letter-spacing: 0.05em;
+}
+
+.c2-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    background: transparent;
+    padding: 6px;
+    border-radius: 16px;
+}
+
+.c2-calendar-dow,
+.c2-calendar-cell {
+    padding: 10px 8px;
+    min-height: 130px;
+    position: relative;
+    text-align: left;
+    background: #FFFFFF;
+    border-radius: 10px;
+}
+
+.c2-calendar-cell.c-event {
+    background: var(--c2-event-bg);
+}
+
+.c2-calendar-dow {
+    min-height: auto;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--c2-pink-bullet);
+    padding: 10px 4px;
+    background: transparent;
+}
+
+.c2-calendar-num {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #5a3848;
+}
+
+.c2-calendar-cell.c-muted .c2-calendar-num { color: #b88da0; }
+
+.c2-day-img {
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 4px auto 0;
+    object-fit: contain;
+}
+
+.c2-day-label {
+    display: block;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.c2-day-label.lbl-pink { color: var(--c2-pink-heading); }
+.c2-day-label.lbl-purple { color: var(--c2-purple-deep); }
+.c2-day-label.lbl-orange { color: var(--c2-orange); }
+.c2-day-label.lbl-green { color: var(--c2-green); }
+.c2-day-label.lbl-red { color: var(--c2-red); }
+
+.c2-calendar-notes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 24px;
+    padding: 0 12px;
+}
+
+.c2-calendar-notes ul {
+    list-style: disc;
+    padding-left: 18px;
+    margin: 0;
+}
+
+.c2-calendar-notes li {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--c2-pink-bullet);
+    line-height: 1.6;
+}
+
+.c2-calendar-notes ul { color: var(--c2-pink-bullet); }
+
+/* ---------- 4. CARDS (Кому подойдёт?) ---------- */
+.c2-cards-section {
+    position: relative;
+    padding: 60px 40px 40px;
+    background: var(--c2-cream);
+}
+
+.c2-cards-bg {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.c2-cards-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.c2-cards-bg > .c2-cards-row {
+    position: relative;
+    z-index: 1;
+}
+
+.c2-cards-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 40px 0;
+}
+
+.c2-sticky {
+    position: relative;
+    width: 240px;
+    min-height: 240px;
+    padding: 40px 24px 28px;
+    background-image:
+        repeating-linear-gradient(180deg, transparent 0, transparent 22px, rgba(0,0,0,0.08) 22px, rgba(0,0,0,0.08) 23px);
+    background-color: #FCFCF6;
+    box-shadow: 4px 6px 14px rgba(0,0,0,0.18);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.c2-sticky.c2-sticky-yellow {
+    background-color: var(--c2-cream-card-soft);
+}
+
+.c2-sticky.s-rot-1 { transform: rotate(-3deg); }
+.c2-sticky.s-rot-2 { transform: rotate(2deg) translateY(-14px); }
+.c2-sticky.s-rot-3 { transform: rotate(-1deg) translateY(10px); }
+
+.c2-sticky-tape {
+    position: absolute;
+    top: -10px;
+    left: 30%;
+    width: 60px;
+    height: 22px;
+    opacity: 0.85;
+    border-radius: 2px;
+}
+
+.c2-sticky-tape.tape-blue { background: var(--c2-blue-tape); transform: rotate(-12deg); }
+.c2-sticky-tape.tape-pink { background: var(--c2-pink-heading); transform: rotate(8deg); }
+.c2-sticky-tape.tape-yellow { background: var(--c2-yellow-tape); transform: rotate(-6deg); }
+
+.c2-sticky h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 18px;
+    letter-spacing: 0.04em;
+}
+
+.c2-sticky.s-novichku h4 { color: var(--c2-red); }
+.c2-sticky.s-probuyushchemu h4 { color: var(--c2-purple-deep); }
+.c2-sticky.s-pishushchemu h4 { color: var(--c2-purple-deep); }
+
+.c2-sticky p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #1a1a1a;
+}
+
+.c2-sticky-underline {
+    margin-top: 16px;
+    height: 2px;
+    width: 70%;
+    border-radius: 1px;
+}
+
+.c2-sticky.s-novichku .c2-sticky-underline { background: var(--c2-red); }
+.c2-sticky.s-probuyushchemu .c2-sticky-underline { background: var(--c2-orange); }
+.c2-sticky.s-pishushchemu .c2-sticky-underline {
+    background: none;
+    height: 8px;
+    background-image: radial-gradient(circle at 0 4px, transparent 50%, var(--c2-purple-deep) 51%, var(--c2-purple-deep) 52%, transparent 53%);
+    background-size: 12px 8px;
+    background-repeat: repeat-x;
+}
+
+.c2-cta-wrap {
+    text-align: center;
+    margin: 50px auto 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.c2-cta-pill {
+    position: relative;
+    display: inline-block;
+    background: var(--c2-purple-deep);
+    color: #fff;
+    border: 2px solid var(--c2-brown);
+    border-radius: 16px;
+    padding: 22px 64px;
+    font-family: 'Dela Gothic One', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.15s ease;
+    line-height: 1.2;
+}
+
+.c2-cta-pill:hover { transform: translateY(-2px); }
+.c2-cta-pill.launching { animation: c2-launch 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+@keyframes c2-launch {
+    0% { transform: translateY(0) scale(1); }
+    20% { transform: translateY(-6px) scale(1.05); }
+    100% { transform: translateY(-220px) scale(0.6); opacity: 0; }
+}
+
+.c2-cta-disclaimer {
+    max-width: 640px;
+    margin: 24px auto 0;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.c2-rocket-star {
+    position: absolute;
+    pointer-events: none;
+    filter: hue-rotate(var(--star-hue, 0deg));
+    opacity: 0;
+    animation: c2-star-fly 1.6s ease-out forwards;
+    transform-origin: center;
+}
+
+@keyframes c2-star-fly {
+    0% { opacity: 0; transform: translate(0, 0) rotate(var(--star-rotation, 0deg)) scale(0.4); }
+    20% { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--star-tx, 0), var(--star-ty, -260px)) rotate(calc(var(--star-rotation, 0deg) + 360deg)) scale(1.2); }
+}
+
+/* ---------- 5. BOOK ---------- */
+.c2-book-section {
+    padding: 80px 40px 100px;
+    background: linear-gradient(180deg,
+        var(--c2-cream) 0%,
+        var(--c2-green-bg-light) 12%,
+        var(--c2-green-bg-deep) 50%,
+        var(--c2-green-bg-light) 88%,
+        var(--c2-cream) 100%);
+    text-align: center;
+}
+
+.c2-book-section img {
+    max-width: min(900px, 90vw);
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
+/* ---------- 6. PLAN ---------- */
+.c2-plan-section {
+    position: relative;
+    padding: 60px 40px 80px;
+    background: var(--c2-cream);
+}
+
+.c2-plan-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.1fr;
+    column-gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.c2-plan-header {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 12px 4px;
+    margin-bottom: 12px;
+    border-bottom: 2px dotted #999;
+    text-align: center;
+}
+
+.c2-plan-header.ph-purple,
+.c2-plan-header.ph-orange,
+.c2-plan-header.ph-green {
+    color: var(--c2-plan-header);
+    border-color: var(--c2-plan-header);
+}
+
+.c2-plan-row {
+    display: contents;
+}
+
+.c2-plan-cell {
+    padding: 16px 6px 24px;
+    border-bottom: 1px solid #d8d2c2;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #2a2a2a;
+}
+
+.c2-plan-cell-title {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+}
+
+.c2-plan-cell-num {
+    color: var(--c2-pink-heading);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.c2-plan-cell-name {
+    color: var(--c2-pink-heading);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.c2-plan-cell-body {
+    margin-top: 6px;
+    color: #2a2a2a;
+}
+
+.c2-plan-cell-center {
+    color: #4a4a4a;
+    text-align: left;
+    font-size: 13px;
+}
+
+.c2-plan-cell-right ul {
+    list-style: disc;
+    padding-left: 18px;
+    margin: 0;
+    font-weight: 700;
+}
+
+.c2-plan-cell-right li {
+    line-height: 1.5;
+    margin-bottom: 2px;
+}
+
+/* placeholder hooks for future decorations */
+.c2-plan-deco { position: absolute; pointer-events: none; }
+
+/* ---------- 7. PARTICIPATE ---------- */
+.c2-participate-section {
+    position: relative;
+    padding: 80px 40px 60px;
+    background: var(--c2-cream);
+    text-align: center;
+}
+
+.c2-participate-bg {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 40px 80px;
+}
+
+.c2-participate-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.c2-participate-bg > *:not(.c2-participate-bg-img) {
+    position: relative;
+    z-index: 1;
+}
+
+.c2-participate-bg h2,
+.c2-participate-bg h1 {
+    font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
+    font-weight: 400;
+    font-size: clamp(28px, 4vw, 48px);
+    color: var(--c2-brown);
+    letter-spacing: 0.03em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+}
+
+.c2-participate-bg h1 {
+    margin-bottom: 36px;
+}
+
+.c2-footer-purple {
+    width: 100%;
+    min-height: 140px;
+    flex-shrink: 0;
+    background: var(--c2-purple-footer);
+}
+
+/* ---------- DOODLES (background decorations) ---------- */
+.c2-doodles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.c2-doodle {
+    position: absolute;
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+.courses2-app {
+    position: relative;
+}
+
+/* Make sure sections sit above doodles */
+.courses2-app > header,
+.courses2-app > section,
+.courses2-app > .c2-trail-section,
+.courses2-app > .c2-footer-purple {
+    position: relative;
+    z-index: 1;
+}
+
+/* But let cream-bg sections show doodles through their background */
+.c2-about,
+.c2-calendar-section,
+.c2-cards-section,
+.c2-plan-section,
+.c2-participate-section {
+    background: transparent !important;
+}
+
+/* ---------- MOUSE TRAIL CONTAINER ---------- */
+.c2-trail-section {
+    position: relative;
+}
+
+.c2-trail-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.c2-trail-section > *:not(.c2-trail-svg) {
+    position: relative;
+    z-index: 2;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+    .c2-header { padding: 40px 24px 60px; min-height: auto; }
+    .c2-title-cloud { width: 100%; padding: 12% 14%; }
+    .c2-header-bottom { flex-direction: column; align-items: flex-start; }
+    .c2-header-deco { width: 220px; height: 160px; align-self: center; }
+    .c2-header-lead { padding-left: 30px; }
+
+    .c2-about { padding: 50px 20px; }
+    .c2-about-grid { grid-template-columns: 1fr; }
+    .c2-about-deco { opacity: 0.3; }
+
+    .c2-calendar-section { padding: 40px 16px; }
+    .c2-calendar-panel { padding: 40px 14px 28px; }
+    .c2-calendar-dow,
+    .c2-calendar-cell { min-height: 60px; padding: 6px 4px; font-size: 11px; }
+    .c2-calendar-num { font-size: 14px; }
+    .c2-day-img { width: 24px; height: 24px; }
+    .c2-day-label { font-size: 8px; }
+    .c2-calendar-notes { grid-template-columns: 1fr; gap: 12px; }
+    .c2-calendar-notes li { font-size: 13px; }
+
+    .c2-cards-section { padding: 40px 16px; }
+    .c2-cards-row { gap: 18px; padding: 24px 0; }
+    .c2-sticky { width: 100%; max-width: 280px; }
+    .c2-cta-pill { padding: 18px 40px; font-size: 20px; }
+
+    .c2-book-section { padding: 40px 20px; }
+
+    .c2-plan-section { padding: 40px 20px; }
+    .c2-plan-grid { grid-template-columns: 1fr; column-gap: 0; }
+    .c2-plan-header { text-align: left; }
+    .c2-plan-cell { padding: 10px 4px; }
+
+    .c2-participate-section { padding: 50px 20px 40px; }
+    .c2-participate-bg { padding: 60px 20px; }
+    .c2-footer-purple { height: 100px; }
+}

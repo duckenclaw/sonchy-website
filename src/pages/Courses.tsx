@@ -1,513 +1,503 @@
-import {useEffect, useState, useRef, useMemo} from "react";
-import Slider from "../components/Slider.tsx";
+import { useEffect, useState, useRef, useMemo, useCallback, ReactNode } from "react";
+import "../styles/courses.css";
 
-// Type for mouse trail point
 interface TrailPoint {
     x: number;
     y: number;
     timestamp: number;
 }
 
-// Constants for mouse trail - moved outside component
-const THROTTLE_MS = 8; // ~120fps for smoother trail
-const TRAIL_LIFETIME_MS = 3500; // 3.5 seconds
-const MAX_POINTS = 400; // More points for smoother curve
+const THROTTLE_MS = 8;
+const TRAIL_LIFETIME_MS = 3500;
+const MAX_POINTS = 400;
 
-const Courses = () => {
-    // State for rocket launch animation
-    const [isLaunching, setIsLaunching] = useState(false);
-    const [stars, setStars] = useState<{ id: number; left: number; top: number; hueRotate: number; size: number; delay: number; rotation: number }[]>([]);
+interface TrailSectionProps {
+    className?: string;
+    isMobile: boolean;
+    children: ReactNode;
+}
 
-    const slides = [
-        {
-            header: "1. Творцов нет, только креаторы:",
-            description: "Cтереотипы, которые вредят профессии.",
-            image: "/theme0.svg",
-            points: [
-                "чем креатор отличается от творца?",
-                "как устроена креативная экономика?",
-                "можно ли натренировать креативность?"
-            ]
-        },
-        {
-            header: "2. Как продать вселенную:",
-            description: "Ипотека волшебных мест и медиа пространств.",
-            image: "/theme1.png",
-            points: [
-                "как создавать миры и продавать их?",
-                "как увидеть нарративное пространство?",
-                "как маленькая метафора превращается в реалистичный мир?"
-            ]
-        },
-        {
-            header: "3. Люди такие пешки:",
-            description: "Инструменты создания персонажей, аналитика аудитории и набор маленького манипулятора",
-            image: "/theme2.png",
-            points: [
-                "как найти грань между личностью и персонажем?",
-                "что действительно нужно знать об аудитории?",
-                "что мы все на самом деле хотим и как это обернуть в свою пользу?"
-            ]
-        },
-        {
-            header: "4. Сюжетный поворот не туда:",
-            description: "Изучаем всё, что делает сюжет захватывающим. От структуры до байтов.",
-            image: "/theme3.png",
-            points: [
-                "как вызывать большие эмоции небольшими деталями?",
-                "от каких историй невозможно оторваться?",
-                "какие тендеции есть в сторителлинге?"
-            ]
-        },
-        {
-            header: "5. Грязно символически:",
-            description: "Анатомия метафор и символов, и как найти в них смысл, даже если его нет.",
-            image: "/theme4.png",
-            points: [
-                "что создаёт вторые смыслы?",
-                "как работает метафорическое мышление у человека?",
-                "как грамотно нагрузить отсылками и символами?"
-            ]
-        },
-        {
-            header: "6. Перестать быть душнилой:",
-            description: "как работать с информацией так, чтобы было интересно не только тебе?",
-            image: "/theme5.png",
-            points: [
-                "где найти актуальные и интересные источники?",
-                "как вызывать интерес к самой банальной теме?",
-                "как устроен жанр нонфикшна и как он продолжает равиватся в видео, контенте и тд?"
-            ]
-        },
-        {
-            header: "7. Берём и делаем:",
-            description: "СЕКРЕТНАЯ ЛЕКЦИЯ!",
-            image: "/theme6.png",
-            points: [
-                "что это за лекция?",
-                "почему она секретная?",
-                "и почему мне так интересно?"
-            ]
-        }
-    ]
-
-    // Detect if device is mobile/touch-enabled
-    const isMobile = useRef<boolean>(false);
-
-    useEffect(() => {
-        // Check for mobile device on mount
-        const checkMobile = () => {
-            return (
-                'ontouchstart' in window ||
-                navigator.maxTouchPoints > 0 ||
-                window.matchMedia('(max-width: 768px)').matches
-            );
-        };
-        isMobile.current = checkMobile();
-    }, []);
-
-    // Mouse trail state and refs - only used on desktop
+const TrailSection = ({ className = "", isMobile, children }: TrailSectionProps) => {
     const [trailPoints, setTrailPoints] = useState<TrailPoint[]>([]);
     const lastAddTimeRef = useRef<number>(0);
     const containerRef = useRef<HTMLDivElement>(null);
+    const gradientId = useMemo(() => `c2-trail-grad-${Math.random().toString(36).slice(2, 9)}`, []);
+    const filterId = useMemo(() => `c2-rough-${Math.random().toString(36).slice(2, 9)}`, []);
 
-    // Apply courses-specific background styling
     useEffect(() => {
-        document.body.classList.add('courses-page-background');
-
-        // Cleanup function to remove the class when component unmounts
-        return () => {
-            document.body.classList.remove('courses-page-background');
-        };
-    }, []);
-
-    // Auto-cleanup old trail points - ONLY on desktop
-    useEffect(() => {
-        if (isMobile.current) return; // Skip on mobile
-
+        if (isMobile) return;
         const interval = setInterval(() => {
             const now = Date.now();
-            setTrailPoints(prev => {
-                // Remove points older than TRAIL_LIFETIME_MS
-                return prev.filter(point => now - point.timestamp < TRAIL_LIFETIME_MS);
-            });
-        }, 100); // Check every 100ms
-
+            setTrailPoints(prev => prev.filter(p => now - p.timestamp < TRAIL_LIFETIME_MS));
+        }, 100);
         return () => clearInterval(interval);
-    }, []); // Empty dependencies - constants don't change
+    }, [isMobile]);
 
-    // Mouse move handler with throttle - ONLY for desktop
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (isMobile.current) return; // Skip on mobile
-
+        if (isMobile) return;
         const now = Date.now();
-
-        // Throttle: only add point if enough time has passed
-        if (now - lastAddTimeRef.current < THROTTLE_MS) {
-            return;
-        }
-
+        if (now - lastAddTimeRef.current < THROTTLE_MS) return;
         lastAddTimeRef.current = now;
 
-        // Get coordinates relative to the container
         if (containerRef.current) {
             const rect = containerRef.current.getBoundingClientRect();
             const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top - 90; // Adjust for SVG top offset (90px)
-
-            // Only add point if within SVG bounds (exclude top/bottom padding)
-            if (y >= 0 && y <= rect.height - 180) {
-                // Add new point
-                setTrailPoints(prev => {
-                    const newPoints = [...prev, { x, y, timestamp: now }];
-                    // Limit to max points
-                    return newPoints.length > MAX_POINTS ? newPoints.slice(-MAX_POINTS) : newPoints;
-                });
-            }
+            const y = e.clientY - rect.top;
+            setTrailPoints(prev => {
+                const next = [...prev, { x, y, timestamp: now }];
+                return next.length > MAX_POINTS ? next.slice(-MAX_POINTS) : next;
+            });
         }
     };
 
-    // Generate smooth SVG path from points using quadratic curves - memoized
     const trailPath = useMemo(() => {
-        const generateSmoothPath = (points: TrailPoint[]): string => {
-            if (points.length < 2) return '';
-
-            let path = `M ${points[0].x} ${points[0].y}`;
-
-            // Create smooth curve through points using quadratic Bezier curves
-            for (let i = 1; i < points.length; i++) {
-                const current = points[i];
-                const previous = points[i - 1];
-
-                // Control point is midpoint between current and previous
-                const midX = (previous.x + current.x) / 2;
-                const midY = (previous.y + current.y) / 2;
-
-                if (i === 1) {
-                    // First segment: line to midpoint
-                    path += ` L ${midX} ${midY}`;
-                } else {
-                    // Subsequent segments: quadratic curve
-                    path += ` Q ${previous.x} ${previous.y} ${midX} ${midY}`;
-                }
-            }
-
-            // Final point
-            const lastPoint = points[points.length - 1];
-            path += ` L ${lastPoint.x} ${lastPoint.y}`;
-
-            return path;
-        };
-
-        return generateSmoothPath(trailPoints);
+        if (trailPoints.length < 2) return "";
+        let path = `M ${trailPoints[0].x} ${trailPoints[0].y}`;
+        for (let i = 1; i < trailPoints.length; i++) {
+            const current = trailPoints[i];
+            const previous = trailPoints[i - 1];
+            const midX = (previous.x + current.x) / 2;
+            const midY = (previous.y + current.y) / 2;
+            if (i === 1) path += ` L ${midX} ${midY}`;
+            else path += ` Q ${previous.x} ${previous.y} ${midX} ${midY}`;
+        }
+        const last = trailPoints[trailPoints.length - 1];
+        path += ` L ${last.x} ${last.y}`;
+        return path;
     }, [trailPoints]);
 
-    return (
-        <div className="app courses-app-container">
+    const width = containerRef.current?.getBoundingClientRect().width || 0;
 
-            <header className="courses-header">
-                <div className="courses-header-text">
-                    <h2>КУРС!</h2>
-                    <h1>ТВОРЧЕСТВО БЕЗ ТРАВМЫ</h1>
-                    <h2>неужели я могу<br/>быть креатором?</h2>
+    return (
+        <div
+            ref={containerRef}
+            className={`c2-trail-section ${className}`}
+            onMouseMove={handleMouseMove}
+        >
+            <svg className="c2-trail-svg" aria-hidden="true">
+                <defs>
+                    <linearGradient id={gradientId} x1="0" y1="0" x2={width} y2="0" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#FFAFE4" />
+                        <stop offset="48%" stopColor="#FFAFE4" />
+                        <stop offset="52%" stopColor="#87E0B3" />
+                        <stop offset="100%" stopColor="#87E0B3" />
+                    </linearGradient>
+                    <filter id={filterId}>
+                        <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G" />
+                    </filter>
+                </defs>
+                {trailPoints.length > 1 && (
+                    <path
+                        d={trailPath}
+                        stroke={`url(#${gradientId})`}
+                        strokeWidth="40"
+                        fill="none"
+                        strokeLinecap="square"
+                        strokeLinejoin="miter"
+                        opacity="0.5"
+                        filter={`url(#${filterId})`}
+                    />
+                )}
+            </svg>
+            {children}
+        </div>
+    );
+};
+
+type LaunchTarget = "cards" | "participate" | null;
+
+interface StarData {
+    id: number;
+    tx: number;
+    ty: number;
+    hueRotate: number;
+    size: number;
+    delay: number;
+    rotation: number;
+    startLeft: number;
+    startTop: number;
+}
+
+const Courses = () => {
+    const isMobile = useRef<boolean>(false);
+    const [launching, setLaunching] = useState<LaunchTarget>(null);
+    const [stars, setStars] = useState<StarData[]>([]);
+
+    useEffect(() => {
+        const checkMobile = () =>
+            'ontouchstart' in window ||
+            navigator.maxTouchPoints > 0 ||
+            window.matchMedia('(max-width: 768px)').matches;
+        isMobile.current = checkMobile();
+    }, []);
+
+    const triggerLaunch = useCallback((target: Exclude<LaunchTarget, null>) => {
+        if (launching) return;
+        setLaunching(target);
+        const hues = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+        const newStars: StarData[] = Array.from({ length: 40 }, (_, i) => {
+            const angle = (Math.random() - 0.5) * Math.PI * 0.6;
+            const dist = 180 + Math.random() * 240;
+            return {
+                id: Date.now() + i,
+                tx: Math.sin(angle) * dist,
+                ty: -Math.abs(Math.cos(angle) * dist),
+                hueRotate: hues[Math.floor(Math.random() * hues.length)],
+                size: 30 + Math.random() * 50,
+                delay: i * 0.025,
+                rotation: Math.random() * 360,
+                startLeft: 50 + (Math.random() - 0.5) * 30,
+                startTop: 50,
+            };
+        });
+        setStars(newStars);
+        setTimeout(() => {
+            setLaunching(null);
+            setStars([]);
+        }, 2000);
+    }, [launching]);
+
+    const renderStars = (target: Exclude<LaunchTarget, null>) => {
+        if (launching !== target) return null;
+        return stars.map(star => (
+            <img
+                key={star.id}
+                src="/star.svg"
+                className="c2-rocket-star"
+                style={{
+                    left: `${star.startLeft}%`,
+                    top: `${star.startTop}%`,
+                    width: `${star.size}px`,
+                    height: `${star.size}px`,
+                    '--star-hue': `${star.hueRotate}deg`,
+                    '--star-rotation': `${star.rotation}deg`,
+                    '--star-tx': `${star.tx}px`,
+                    '--star-ty': `${star.ty}px`,
+                    animationDelay: `${star.delay}s`,
+                } as React.CSSProperties}
+                alt=""
+            />
+        ));
+    };
+
+    const doodles = useMemo(() => {
+        const placements = [
+            { src: "/courses/doodle1.svg", top: "8%", left: "4%", w: 110, rot: -12 },
+            { src: "/courses/doodle2.svg", top: "14%", left: "88%", w: 90, rot: 18 },
+            { src: "/courses/doodle3.svg", top: "22%", left: "70%", w: 120, rot: -6 },
+            { src: "/courses/doodle4.svg", top: "30%", left: "10%", w: 100, rot: 24 },
+            { src: "/courses/doodle5.svg", top: "38%", left: "82%", w: 130, rot: -20 },
+            { src: "/courses/doodle6.svg", top: "46%", left: "3%", w: 95, rot: 10 },
+            { src: "/courses/doodle1.svg", top: "55%", left: "92%", w: 110, rot: 30 },
+            { src: "/courses/doodle2.svg", top: "62%", left: "8%", w: 85, rot: -14 },
+            { src: "/courses/doodle3.svg", top: "70%", left: "84%", w: 105, rot: 8 },
+            { src: "/courses/doodle4.svg", top: "76%", left: "12%", w: 100, rot: -22 },
+            { src: "/courses/doodle5.svg", top: "84%", left: "78%", w: 115, rot: 16 },
+            { src: "/courses/doodle6.svg", top: "92%", left: "6%", w: 95, rot: -8 },
+        ];
+        return placements;
+    }, []);
+
+    return (
+        <div className="app courses2-app">
+            <div className="c2-doodles" aria-hidden="true">
+                {doodles.map((d, i) => (
+                    <img
+                        key={i}
+                        src={d.src}
+                        className="c2-doodle"
+                        style={{
+                            top: d.top,
+                            left: d.left,
+                            width: `${d.w}px`,
+                            transform: `rotate(${d.rot}deg)`,
+                        }}
+                        alt=""
+                    />
+                ))}
+            </div>
+
+            {/* 1. HEADER */}
+            <header className="c2-header">
+                <div className="c2-header-bg-loops" />
+                <div className="c2-title-cloud">
+                    <h1>WRITER<br />SUMMER</h1>
+                    <span className="c2-subtitle">прожить лето дважды</span>
+                </div>
+                <div className="c2-header-bottom">
+                    <p className="c2-header-lead">
+                        Летний писательский интенсив, где мы НЕ пишем черновик на скорость,
+                        а пошагово конструируем книгу.
+                    </p>
+                    <div className="c2-header-deco" aria-hidden="true">
+                        <div className="c2-header-deco-sun" />
+                        <span className="c2-header-pill c2-pill-writer">WRITER</span>
+                        <span className="c2-header-pill c2-pill-summer">SUMMER</span>
+                        <div className="c2-header-deco-pen" />
+                    </div>
                 </div>
             </header>
 
-            <div className="courses-container">
+            {/* 2. ABOUT */}
+            <section className="c2-about">
+                <div className="c2-about-deco c2-about-deco-1" aria-hidden="true" />
+                <div className="c2-about-deco c2-about-deco-2" aria-hidden="true" />
+                <div className="c2-about-deco c2-about-deco-3" aria-hidden="true" />
 
-                <div className="motivation-container">
-                    <p className="align-left">
-                        Как будто есть предрасположенность к креативу,</p>
-                    <p className="align-left">
-                        но что-то все равно останавливает? 
-                    </p>
-                    <p className="align-right">
-                        Это скорее к психологу. А я могу дать теории, структуры,</p>
-                    <p className="align-right">
-                        практику и хорошую атмосферу на занятиях.
-                    </p>
+                <div className="c2-about-grid">
+                    <div className="c2-about-card c2-about-card-wide c2-about-pink">
+                        <h3>1 день = 1 часть писательского процесса.</h3>
+                        <p>От заявки в издательство до нарративного профиля.</p>
+                    </div>
+                    <div className="c2-about-card c2-about-orange">
+                        <h3>7 тем = 7 гайдов</h3>
+                        <p>
+                            заполняем <strong>личные гайды</strong> к твоей рукописи.
+                            они в разы облегчат процесс и повысят шанс не забросить книгу
+                        </p>
+                    </div>
+                    <div className="c2-about-card c2-about-purple">
+                        <h3>правим отрывки</h3>
+                        <p>
+                            теорию мы применяем на ключевых отрывках <strong>из твоего текста</strong>.
+                            важные ссоры, знакомство с персонажами, метафоры и тд
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* 3. CALENDAR (mouse-trail) */}
+            <TrailSection className="c2-calendar-section" isMobile={isMobile.current}>
+                <div className="c2-section-title">
+                    <h2>ПРОГРАММА КРАТКО</h2>
+                    <span className="c2-subdate">2-9 июня</span>
                 </div>
 
-                <div className="story-container">
+                <div className="c2-calendar-panel">
+                    <div className="c2-calendar-tape t-tl" />
+                    <div className="c2-calendar-tape t-tr" />
+                    <div className="c2-calendar-tape t-bl" />
 
-                    <div className="sonchy-tv">
-                        <img src="/sonchy-tv.svg" alt="sonchy-tv"/>
+                    <div className="c2-calendar-month">
+                        <div className="c2-calendar-month-scribble" />
+                        <span>ИЮНЬ</span>
                     </div>
 
-                    <div className="story-text">
-                        <section>
-                            <p>
-                                Меня бесит идея, что творчество должно идти из страдания, а креативность идёт в паре с ментальным заболеванием. На этой ненависти я и сделала этот курс, пытаясь доказать, что креативность — это ремесло.
-                            </p>
-                            <p className="align-right">
-                                Помимо моего опыта и методик, я своровала в этот курс: абстрактную поэзию, Оксфордский курс по creative writing, аккуратные психологические приблуды, актёрские методы.
-                                Всё это вызывает эмоцию: “О! Я могу и это!”
-                            </p>
-                        </section>
+                    <div className="c2-calendar-grid">
+                        {["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"].map(d => (
+                            <div key={d} className="c2-calendar-dow">{d}</div>
+                        ))}
+
+                        {/* Week 1: 1-7 */}
+                        <div className="c2-calendar-cell"><span className="c2-calendar-num">1</span></div>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">2</span>
+                            <img className="c2-day-img" src="/courses/calendar-idea.svg" alt="Идея" />
+                            <span className="c2-day-label lbl-pink">Идея!</span>
+                        </div>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">3</span>
+                            <img className="c2-day-img" src="/courses/calendar-world.svg" alt="Мир" />
+                            <span className="c2-day-label lbl-orange">Мир</span>
+                        </div>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">4</span>
+                            <img className="c2-day-img" src="/courses/calendar-characters.svg" alt="Персонажи" />
+                            <span className="c2-day-label lbl-pink">Персонажи!</span>
+                        </div>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">5</span>
+                            <img className="c2-day-img" src="/courses/calendar-plot.svg" alt="Сюжет" />
+                            <span className="c2-day-label lbl-red">Сюжет!</span>
+                        </div>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">6</span>
+                            <img className="c2-day-img" src="/courses/calendar-dialog.svg" alt="Диалоги" />
+                            <span className="c2-day-label lbl-purple">Диалоги</span>
+                        </div>
+                        <div className="c2-calendar-cell"><span className="c2-calendar-num">7</span>
+                            <span className="c2-day-label lbl-pink" style={{ marginTop: 18 }}>отдых!</span>
+                        </div>
+
+                        {/* Week 2: 8-14 */}
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">8</span>
+                            <img className="c2-day-img" src="/courses/calendar-style.svg" alt="Стиль" />
+                            <span className="c2-day-label lbl-purple">Стиль</span>
+                        </div>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">9</span>
+                            <img className="c2-day-img" src="/courses/calendar-development.svg" alt="Продвижение" />
+                            <span className="c2-day-label lbl-orange">Продви-<br />жение</span>
+                        </div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">10</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">11</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">12</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">13</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">14</span></div>
+
+                        {/* Week 3: 15-21 */}
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">15</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">16</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">17</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">18</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">19</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">20</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">21</span></div>
                     </div>
 
-            </div>
-
-                <div
-                    className="points-container points-interactive"
-                    ref={containerRef}
-                    onMouseMove={handleMouseMove}
-                    aria-label="Интерактивная область - проведите мышкой для эффекта"
-                    role="region"
-                >
-                    {/* SVG overlay for mouse trail - exclude vertical padding */}
-                    <svg
-                        aria-hidden="true"
-                        style={{
-                            position: 'absolute',
-                            top: '90px',
-                            bottom: '90px',
-                            left: 0,
-                            right: 0,
-                            width: '100%',
-                            height: 'calc(100% - 180px)',
-                            pointerEvents: 'none',
-                            zIndex: 10
-                        }}
-                    >
-                        {/* Gradient: left = pink, right = green, sharp transition in middle */}
-                        {/* gradientUnits="userSpaceOnUse" makes gradient relative to SVG coordinates, not the line itself */}
-                        <defs>
-                            <linearGradient
-                                id="trailGradient"
-                                x1="0"
-                                y1="0"
-                                x2={containerRef.current?.getBoundingClientRect().width || 0}
-                                y2="0"
-                                gradientUnits="userSpaceOnUse"
-                            >
-                                <stop offset="0%" stopColor="#FFAFE4" />
-                                <stop offset="48%" stopColor="#FFAFE4" />
-                                <stop offset="52%" stopColor="#87E0B3" />
-                                <stop offset="100%" stopColor="#87E0B3" />
-                            </linearGradient>
-
-                            {/* Subtle rough edges filter - rare light notches like yes-word.svg */}
-                            <filter id="roughEdges">
-                                <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" result="noise" />
-                                <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G" />
-                            </filter>
-                        </defs>
-
-                        {trailPoints.length > 1 && (
-                            <path
-                                d={trailPath}
-                                stroke="url(#trailGradient)"
-                                strokeWidth="40"
-                                fill="none"
-                                strokeLinecap="square"
-                                strokeLinejoin="miter"
-                                opacity="0.5"
-                                filter="url(#roughEdges)"
-                            />
-                        )}
-                    </svg>
-
-                    <div className="no-words-container">
-                        <h3>в этом курсе<br/>нет слов: </h3>
-                        <ul aria-label="Список слов, которых нет в курсе">
-                            <li>вдохновение</li>
-                            <li>дисциплина</li>
-                            <li>ресурс</li>
-                            <li>муза</li>
-                            <li>проявленность</li>
-                            <li>алгоритмы</li>
-                            <li>талант</li>
-                            <li>гений</li>
-                            <li>поток</li>
+                    <div className="c2-calendar-notes">
+                        <ul>
+                            <li>7 лекций по 2 часа</li>
+                            <li>в зуме в 13:00</li>
+                        </ul>
+                        <ul>
+                            <li>записи лекций до 9 июля</li>
+                            <li>гайд отправляется до лекции</li>
                         </ul>
                     </div>
+                </div>
+            </TrailSection>
 
-                    <div className="yes-words-container">
-                        <h3>зато<br/>есть слова:</h3>
-                        <ul aria-label="Список слов, которые есть в курсе">
-                            <li>референсы</li>
-                            <li>анализ</li>
-                            <li>поструктуруализм</li>
-                            <li>нарратив</li>
-                            <li>аутентичность</li>
-                            <li>структура</li>
-                            <li>типология</li>
-                            <li>сеттинг</li>
-                        </ul>
-                    </div>
-
+            {/* 4. CARDS (mouse-trail) */}
+            <TrailSection className="c2-cards-section" isMobile={isMobile.current}>
+                <div className="c2-section-title">
+                    <h2>КОМУ ПОДОЙДЁТ?</h2>
                 </div>
 
-                <div className="slider-title">
-                    <h2>7 лекций = 7 тем</h2>
-                </div>
-
-                <Slider slides={slides}></Slider>
-
-                <div className="timeline">
-                    <time dateTime="2026-01-22">
-                        <h2>СТАРТ - 22 Января</h2>
-                    </time>
-                    <time dateTime="2026-03-05">
-                        <h2>ФИНАЛ - 5 Марта</h2>
-                    </time>
-                    <p>лекции по субботам</p>
-                </div>
-
-                <div id="formats" className="formats-header">
-                    <h2>ФОРМАТЫ</h2>
-                </div>
-
-                <div className="formats-container">
-
-                    <div className="format-card base">
-                        <img src="/basenysh.svg" alt="Базёныш формат" />
-                        <div className="format-content">
-                            <h3>Базёныш</h3>
-                            <ul aria-label="Что включено в формат Базёныш">
-                                <li>7 лекций по 1,5 часа без семинаров!</li>
-                                <li>ответы на вопросы</li>
-                                <li>материалы, задания (без проверки)</li>
-                            </ul>
-                            <a href="#" aria-label="Купить формат Базёныш за 9900 рублей">
-                                <button type="button" className="sold-out-button">
-                                    Sold Out!
-                                </button>
-                            </a>
+                <div className="c2-cards-bg">
+                    <img className="c2-cards-bg-img" src="/courses/cards-bg.png" alt="" aria-hidden="true" />
+                    <div className="c2-cards-row">
+                        <div className="c2-sticky s-novichku s-rot-1">
+                            <span className="c2-sticky-tape tape-blue" />
+                            <h4>НОВИЧКУ</h4>
+                            <p>есть идея, но не знаю, стоит ли в нее вкладываться</p>
+                            <div className="c2-sticky-underline" />
+                        </div>
+                        <div className="c2-sticky c2-sticky-yellow s-probuyushchemu s-rot-2">
+                            <span className="c2-sticky-tape tape-pink" />
+                            <h4>ПРОБУЮЩЕМУ</h4>
+                            <p>есть отрывки и черновики, но хочу написать что-то цельное</p>
+                            <div className="c2-sticky-underline" />
+                        </div>
+                        <div className="c2-sticky s-pishushchemu s-rot-3">
+                            <span className="c2-sticky-tape tape-yellow" />
+                            <h4>ПИШУЩЕМУ</h4>
+                            <p>есть рукопись или публикация, но интересно улучшить процесс</p>
+                            <div className="c2-sticky-underline" />
                         </div>
                     </div>
-
-                    <div className="format-card starling">
-                        <img src="/starling.svg" alt="Звёздочка формат" />
-                        <div className="format-content">
-                            <h3>Звёздочка</h3>
-                            <ul aria-label="Что включено в формат Звёздочка">
-                                <li>7 лекций по 1,5 часа</li>
-                                <li>6 практических семинаров</li>
-                                <li>группа из 10 человек</li>
-                                <li>отдельный чат</li>
-                                <li>проверка и обсуждение заданий</li>
-                            </ul>
-                            <a href="#" aria-label="Купить формат Звёздочка за 22900 рублей">
-                                <button type="button" className="sold-out-button">
-                                    Sold Out!
-                                </button>
-                            </a>
-                        </div>
-                        <img src="/info-box-green.svg" alt="всего 15 мест!" className="info-box info-box-green" />
-                        <p className="info-box info-box-green info-box-green-text">Всего 15 мест!</p>
-                    </div>
-
-                    <div className="format-card supernova">
-                        <img src="/supernova.svg" alt="Супернова формат" />
-                        <div className="format-content">
-                            <h3>Супернова</h3>
-                            <ul aria-label="Что включено в формат Супернова">
-                                <li>7 лекций</li>
-                                <li>6 практических семинаров</li>
-                                <li>2 индивидуальные сессии</li>
-                                <li>ответы в чате</li>
-                                <li>работа с личным запросом</li>
-                                <li>подборка материалов</li>
-                            </ul>
-                            <a href="#" aria-label="Купить формат Супернова за 35900 рублей">
-                                <button type="button" className="sold-out-button">
-                                    Sold Out!
-                                </button>
-                            </a>
-                        </div>
-                        <img src="/info-box-pink.svg" alt="всего 3 места!" className="info-box info-box-pink" />
-                    </div>
-
                 </div>
 
-                <div className="seminars">
-                    <div className="seminars-people">
-                        <div className="seminars-person"></div>
-                        <div className="seminars-person"></div>
-                        <div className="seminars-person"></div>
-                        <div className="seminars-person"></div>
-                        <div className="seminars-person"></div>
-                        <div className="seminars-person"></div>
-                    </div>
-                    <div className="seminars-text">
-                        <h3>А что на семинарах?</h3>
-                        <p>Честно говоря, я все это затеяла ради самих семинаров.</p>
-                        <p>По выходным мы будем обсуждать креативные задачки, обсуждать ваши проекты, рассматривать как справились с заданиями. Это всегда очень очень поддерживающая и интересная атмосфера, по которой
-                            я скучаю и как лектор, и как студентка.</p>
-                        <p className="align-right">Я подготовила этюды и упражнения на каждую тему, но оставила фокус на том, чтобы за эти полтора месяца вы узнали о себе чуть больше.</p>
-                        <p>ну и конечно, у меня есть коллекция прекрасной чуши, на которой забавно тренироваться</p>
-                    </div>
-                    <img src="/info-box-seminar.svg" className="info-box info-box-seminar" />
-                </div>
-
-                <div className="iceberg-title">
-                    <h2>И что мне за это будет?</h2>
-                </div>
-
-                <div className="iceberg">
-                    <img src="/iceberg.png" alt="iceberg"></img>
-                </div>
-
-                <div id="apply" className="apply-button">
+                <div className="c2-cta-wrap">
                     <button
-                        type={"button"}
-                        className={isLaunching ? 'launching' : ''}
-                        onClick={() => {
-                            setIsLaunching(true);
-
-                            // Generate stars trail - more stars, scattered along the path
-                            const hueRotations = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]; // Different hues for variety
-                            const newStars = Array.from({ length: 40 }, (_, i) => {
-                                const progress = i / 40; // 0 to 1
-                                return {
-                                    id: Date.now() + i,
-                                    left: 20 + progress * 100, // Stars spread from 20% to 120% (до края и дальше)
-                                    top: 50 + (Math.random() - 0.5) * 40, // Scattered vertically more
-                                    hueRotate: hueRotations[Math.floor(Math.random() * hueRotations.length)],
-                                    size: 30 + Math.random() * 50, // 30px to 80px (больше!)
-                                    delay: i * 0.04, // Longer animation
-                                    rotation: Math.random() * 360
-                                };
-                            });
-                            setStars(newStars);
-
-                            // Scroll to formats section after animation
-                            setTimeout(() => {
-                                window.location.href = '#';
-                            }, 2000);
-                        }}
+                        type="button"
+                        className={`c2-cta-pill ${launching === "cards" ? "launching" : ""}`}
+                        onClick={() => triggerLaunch("cards")}
                     >
-                        <a href="#" onClick={(e) => e.preventDefault()}>
-                            Sold Out!
-                        </a>
+                        ЗАПИСАТЬСЯ<br />12 990 Р
                     </button>
-                    {/* Stars trail */}
-                    {stars.map((star) => (
-                        <img
-                            key={star.id}
-                            src="/star.svg"
-                            className="rocket-star"
-                            style={{
-                                left: `${star.left}%`,
-                                top: `${star.top}%`,
-                                width: `${star.size}px`,
-                                height: `${star.size}px`,
-                                '--star-hue': `${star.hueRotate}deg`,
-                                '--star-rotation': `${star.rotation}deg`,
-                                animationDelay: `${star.delay}s`
-                            } as React.CSSProperties}
-                            alt=""
-                        />
+                    {renderStars("cards")}
+                    <p className="c2-cta-disclaimer">
+                        *купить в записи после окончания интенсива - нельзя.
+                        запись ТОЛЬКО для участников до 9 июля
+                    </p>
+                </div>
+            </TrailSection>
+
+            {/* 5. BOOK */}
+            <section className="c2-book-section">
+                <img src="/courses/book.png" alt="Открытая книга с описанием курса" />
+            </section>
+
+            {/* 6. PLAN (mouse-trail) */}
+            <TrailSection className="c2-plan-section" isMobile={isMobile.current}>
+                <div className="c2-section-title">
+                    <h2>ПЛАН ИНТЕНСИВА</h2>
+                </div>
+
+                <div className="c2-plan-grid">
+                    <div className="c2-plan-header ph-purple">Что изучаем?</div>
+                    <div className="c2-plan-header ph-orange">Что редактируем?</div>
+                    <div className="c2-plan-header ph-green">Какой гайд заполняем?</div>
+
+                    {[
+                        {
+                            n: 1, name: "Идея, заявка, конфликт",
+                            studyBody: "оценка идеи и развитие ее до главного конфликта и темы, оформление в заявку",
+                            edit: "логлайн (краткое описание истории)",
+                            guide: ["заявка для издательства", "презентация"],
+                        },
+                        {
+                            n: 2, name: "Мир и исследование",
+                            studyBody: "изучение и создание конфликтной среды, где будут происходить действия романа",
+                            edit: "сцена первого знакомства с миром и окружением",
+                            guide: ["устройство мира", "лорные записки"],
+                        },
+                        {
+                            n: 3, name: "Главный герой",
+                            studyBody: "детальная проработка главного героя и его арки",
+                            edit: "экспозиция главного героя или злодея",
+                            guide: ["библия персонажей"],
+                        },
+                        {
+                            n: 4, name: "Сюжет и драматургия",
+                            studyBody: "выбор сюжетной структуры и типа планирования истории",
+                            edit: "синопсис книги",
+                            guide: ["поэпизодный план в карточках"],
+                        },
+                        {
+                            n: 5, name: "Диалоги и взаимоотношения",
+                            studyBody: "раскрытие второстепенных героев через действия и реплики",
+                            edit: "диалог главного конфликта героев",
+                            guide: ["речевая карта", "план 5 ключевых диалогов"],
+                        },
+                        {
+                            n: 6, name: "Стиль и нарратив",
+                            studyBody: "основа литературного монтажа, поиск авторского стиля",
+                            edit: "описание обстановки или эмоционального состояния героя",
+                            guide: ["нарративный автопортрет (аналитика своего стиля)"],
+                        },
+                        {
+                            n: 7, name: "Редактура и продвижение",
+                            studyBody: "завершающая лекция о будущем черновика",
+                            edit: "редактура сценарной заявки для издательства",
+                            guide: ["стратегия продвижения книги", "план по редактуре"],
+                        },
+                    ].map(row => (
+                        <div className="c2-plan-row" key={row.n}>
+                            <div className="c2-plan-cell">
+                                <div className="c2-plan-cell-title">
+                                    <span className="c2-plan-cell-num">{row.n}</span>
+                                    <span className="c2-plan-cell-name">{row.name}</span>
+                                </div>
+                                <p className="c2-plan-cell-body">{row.studyBody}</p>
+                            </div>
+                            <div className="c2-plan-cell c2-plan-cell-center">{row.edit}</div>
+                            <div className="c2-plan-cell c2-plan-cell-right">
+                                <ul>
+                                    {row.guide.map((g, i) => <li key={i}>{g}</li>)}
+                                </ul>
+                            </div>
+                        </div>
                     ))}
                 </div>
+            </TrailSection>
 
-                <footer className="courses-footer">
-                </footer>
+            {/* 7. PARTICIPATE */}
+            <section className="c2-participate-section">
+                <div className="c2-participate-bg">
+                    <img className="c2-participate-bg-img" src="/courses/participate-bg.svg" alt="" aria-hidden="true" />
+                    <h2>устрой себе</h2>
+                    <h1>HOT WRITER SUMMER</h1>
+                    <div style={{ position: "relative", display: "inline-block" }}>
+                        <button
+                            type="button"
+                            className={`c2-cta-pill ${launching === "participate" ? "launching" : ""}`}
+                            onClick={() => triggerLaunch("participate")}
+                        >
+                            УЧАСТИЕ<br />12 990 Р
+                        </button>
+                        {renderStars("participate")}
+                    </div>
+                </div>
+            </section>
 
-            </div>
-
+            <div className="c2-footer-purple" />
         </div>
     );
 };
