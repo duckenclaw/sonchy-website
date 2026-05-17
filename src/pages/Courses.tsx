@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef, useMemo, useCallback, ReactNode } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
+import type { ReactNode } from "react";
 import "../styles/courses.css";
 
 interface TrailPoint {
