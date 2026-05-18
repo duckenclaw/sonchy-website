@@ -221,7 +221,6 @@ const Courses = () => {
 
             {/* 1. HEADER */}
             <header className="c2-header">
-                <div className="c2-header-bg-loops" />
                 <div className="c2-title-cloud">
                     <h1>WRITER<br />SUMMER</h1>
                     <span className="c2-subtitle">прожить лето дважды</span>
@@ -242,14 +241,11 @@ const Courses = () => {
 
             {/* 2. ABOUT */}
             <section className="c2-about">
-                <div className="c2-about-deco c2-about-deco-1" aria-hidden="true" />
-                <div className="c2-about-deco c2-about-deco-2" aria-hidden="true" />
-                <div className="c2-about-deco c2-about-deco-3" aria-hidden="true" />
-
                 <div className="c2-about-grid">
                     <div className="c2-about-card c2-about-card-wide c2-about-pink">
                         <h3>1 день = 1 часть писательского процесса.</h3>
                         <p>От заявки в издательство до нарративного профиля.</p>
+                        <img className="c2-about-card-deco" src="/courses/about-decoration1.svg" alt="" aria-hidden="true" />
                     </div>
                     <div className="c2-about-card c2-about-orange">
                         <h3>7 тем = 7 гайдов</h3>
@@ -257,6 +253,7 @@ const Courses = () => {
                             заполняем <strong>личные гайды</strong> к твоей рукописи.
                             они в разы облегчат процесс и повысят шанс не забросить книгу
                         </p>
+                        <img className="c2-about-card-deco" src="/courses/about-decoration2.svg" alt="" aria-hidden="true" />
                     </div>
                     <div className="c2-about-card c2-about-purple">
                         <h3>правим отрывки</h3>
@@ -264,6 +261,7 @@ const Courses = () => {
                             теорию мы применяем на ключевых отрывках <strong>из твоего текста</strong>.
                             важные ссоры, знакомство с персонажами, метафоры и тд
                         </p>
+                        <img className="c2-about-card-deco" src="/courses/about-decoration3.svg" alt="" aria-hidden="true" />
                     </div>
                 </div>
             </section>
@@ -411,11 +409,13 @@ const Courses = () => {
                     <h2>ПЛАН ИНТЕНСИВА</h2>
                 </div>
 
-                <div className="c2-plan-grid">
-                    <div className="c2-plan-header ph-purple">Что изучаем?</div>
-                    <div className="c2-plan-header ph-orange">Что редактируем?</div>
-                    <div className="c2-plan-header ph-green">Какой гайд заполняем?</div>
+                <div className="c2-plan-headers-row">
+                    <div className="c2-plan-header">Что изучаем?</div>
+                    <div className="c2-plan-header">Что редактируем?</div>
+                    <div className="c2-plan-header">Какой гайд заполняем?</div>
+                </div>
 
+                <div className="c2-plan-grid">
                     {[
                         {
                             n: 1, name: "Идея, заявка, конфликт",

@@ -199,19 +199,33 @@
     background: var(--c2-cream);
 }
 
-.c2-about-deco {
-    position: absolute;
-    pointer-events: none;
-    opacity: 0.6;
-    z-index: 0;
+.c2-about-card {
+    position: relative;
+    overflow: hidden;
 }
 
-.c2-about-deco-1 { top: 40px; left: 20px; width: 140px; height: 140px;
-    background: url('/courses/about-decoration1.svg') center/contain no-repeat; }
-.c2-about-deco-2 { top: 200px; left: 80px; width: 120px; height: 120px;
-    background: url('/courses/about-decoration2.svg') center/contain no-repeat; }
-.c2-about-deco-3 { top: 230px; right: 60px; width: 160px; height: 160px;
-    background: url('/courses/about-decoration3.svg') center/contain no-repeat; }
+.c2-about-card-deco {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.35;
+    z-index: 0;
+    width: 160px;
+    height: auto;
+    bottom: -20px;
+    right: -20px;
+}
+
+.c2-about-card-wide .c2-about-card-deco {
+    width: 180px;
+    bottom: -30px;
+    right: 10%;
+}
+
+.c2-about-card > h3,
+.c2-about-card > p {
+    position: relative;
+    z-index: 1;
+}
 
 .c2-about-grid {
     position: relative;
@@ -330,10 +344,12 @@
 .c2-calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-    background: transparent;
-    padding: 6px;
-    border-radius: 16px;
+    gap: 0;
+    background: #FFFFFF;
+    padding: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid #E5C9D5;
 }
 
 .c2-calendar-dow,
@@ -343,8 +359,12 @@
     position: relative;
     text-align: left;
     background: #FFFFFF;
-    border-radius: 10px;
+    border-right: 1px solid #E5C9D5;
+    border-bottom: 1px solid #E5C9D5;
 }
+
+.c2-calendar-grid > :nth-child(7n) { border-right: none; }
+.c2-calendar-grid > .c2-calendar-cell:nth-last-child(-n+7) { border-bottom: none; }
 
 .c2-calendar-cell.c-event {
     background: var(--c2-event-bg);
@@ -613,53 +633,60 @@
 }
 
 .c2-plan-grid {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.c2-plan-headers-row {
     display: grid;
     grid-template-columns: 1.2fr 1fr 1.1fr;
     column-gap: 40px;
     max-width: 900px;
     margin: 0 auto;
+    border-bottom: 2px solid #34260E;
 }
 
 .c2-plan-header {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    padding: 12px 4px;
-    margin-bottom: 12px;
-    border-bottom: 2px dotted #999;
+    font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
     text-align: center;
-}
-
-.c2-plan-header.ph-purple,
-.c2-plan-header.ph-orange,
-.c2-plan-header.ph-green {
     color: var(--c2-plan-header);
-    border-color: var(--c2-plan-header);
 }
 
 .c2-plan-row {
-    display: contents;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.1fr;
+    column-gap: 40px;
+    max-width: 900px;
+    border-bottom: 2px solid #34260E;
 }
 
 .c2-plan-cell {
-    padding: 16px 6px 24px;
-    border-bottom: 1px solid #d8d2c2;
+    padding: 12px 6px 22px;
     font-family: 'Montserrat', sans-serif;
     font-size: 13px;
     line-height: 1.5;
+    margin-left: 12px;
     color: #2a2a2a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
 }
 
 .c2-plan-cell-title {
     display: flex;
-    gap: 8px;
-    align-items: baseline;
+    flex-direction: column;
+    align-items: start;
+    gap: 0;
 }
 
 .c2-plan-cell-num {
     color: var(--c2-pink-heading);
     font-weight: 700;
     font-size: 14px;
+    margin-bottom: 4px;
 }
 
 .c2-plan-cell-name {
@@ -669,13 +696,14 @@
 }
 
 .c2-plan-cell-body {
-    margin-top: 6px;
+    margin-top: 8px;
     color: #2a2a2a;
+    text-align: left;
 }
 
 .c2-plan-cell-center {
     color: #4a4a4a;
-    text-align: left;
+    text-align: center;
     font-size: 13px;
 }
 
@@ -684,6 +712,8 @@
     padding-left: 18px;
     margin: 0;
     font-weight: 700;
+    text-align: left;
+    display: inline-block;
 }
 
 .c2-plan-cell-right li {
