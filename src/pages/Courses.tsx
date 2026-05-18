@@ -124,6 +124,21 @@ const Courses = () => {
     const isMobile = useRef<boolean>(false);
     const [launching, setLaunching] = useState<LaunchTarget>(null);
     const [stars, setStars] = useState<StarData[]>([]);
+    const [bookPage, setBookPage] = useState<0 | 1>(0);
+    const bookTouchStartX = useRef<number | null>(null);
+
+    const handleBookTouchStart = (e: React.TouchEvent) => {
+        bookTouchStartX.current = e.touches[0].clientX;
+    };
+    const handleBookTouchEnd = (e: React.TouchEvent) => {
+        if (bookTouchStartX.current === null) return;
+        const dx = e.changedTouches[0].clientX - bookTouchStartX.current;
+        if (Math.abs(dx) > 40) {
+            if (dx < 0) setBookPage(1);
+            else setBookPage(0);
+        }
+        bookTouchStartX.current = null;
+    };
 
     useEffect(() => {
         const checkMobile = () =>
@@ -188,14 +203,10 @@ const Courses = () => {
             { src: "/courses/doodle2.svg", top: "14%", left: "88%", w: 90, rot: 18 },
             { src: "/courses/doodle3.svg", top: "22%", left: "70%", w: 120, rot: -6 },
             { src: "/courses/doodle4.svg", top: "30%", left: "10%", w: 100, rot: 24 },
-            { src: "/courses/doodle5.svg", top: "38%", left: "82%", w: 130, rot: -20 },
-            { src: "/courses/doodle6.svg", top: "46%", left: "3%", w: 95, rot: 10 },
             { src: "/courses/doodle1.svg", top: "55%", left: "92%", w: 110, rot: 30 },
             { src: "/courses/doodle2.svg", top: "62%", left: "8%", w: 85, rot: -14 },
             { src: "/courses/doodle3.svg", top: "70%", left: "84%", w: 105, rot: 8 },
             { src: "/courses/doodle4.svg", top: "76%", left: "12%", w: 100, rot: -22 },
-            { src: "/courses/doodle5.svg", top: "84%", left: "78%", w: 115, rot: 16 },
-            { src: "/courses/doodle6.svg", top: "92%", left: "6%", w: 95, rot: -8 },
         ];
         return placements;
     }, []);
@@ -221,6 +232,18 @@ const Courses = () => {
 
             {/* 1. HEADER */}
             <header className="c2-header">
+                <img
+                    src="/courses/doodle1.svg"
+                    alt=""
+                    aria-hidden="true"
+                    className="c2-header-doodle c2-header-doodle-1"
+                />
+                <img
+                    src="/courses/doodle2.svg"
+                    alt=""
+                    aria-hidden="true"
+                    className="c2-header-doodle c2-header-doodle-2"
+                />
                 <div className="c2-title-cloud">
                     <h1>WRITER<br />SUMMER</h1>
                     <span className="c2-subtitle">прожить лето дважды</span>
@@ -329,14 +352,6 @@ const Courses = () => {
                         <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">13</span></div>
                         <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">14</span></div>
 
-                        {/* Week 3: 15-21 */}
-                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">15</span></div>
-                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">16</span></div>
-                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">17</span></div>
-                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">18</span></div>
-                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">19</span></div>
-                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">20</span></div>
-                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">21</span></div>
                     </div>
 
                     <div className="c2-calendar-notes">
@@ -401,10 +416,51 @@ const Courses = () => {
             {/* 5. BOOK */}
             <section className="c2-book-section">
                 <img src="/courses/book.png" alt="Открытая книга с описанием курса" />
+                <div
+                    className="c2-book-slider"
+                    aria-label="Страницы книги — пролистайте"
+                    onTouchStart={handleBookTouchStart}
+                    onTouchEnd={handleBookTouchEnd}
+                >
+                    <div
+                        className="c2-book-slider-viewport"
+                        style={{ transform: `translateX(-${bookPage * 50}%)` }}
+                    >
+                        <img src="/courses/book.png" alt="Открытая книга" />
+                    </div>
+                </div>
+                <div className="c2-book-dots" role="tablist" aria-label="Переключатель страниц">
+                    <button
+                        type="button"
+                        className={`c2-book-dot ${bookPage === 0 ? 'active' : ''}`}
+                        onClick={() => setBookPage(0)}
+                        aria-label="Страница 1"
+                        aria-selected={bookPage === 0}
+                    />
+                    <button
+                        type="button"
+                        className={`c2-book-dot ${bookPage === 1 ? 'active' : ''}`}
+                        onClick={() => setBookPage(1)}
+                        aria-label="Страница 2"
+                        aria-selected={bookPage === 1}
+                    />
+                </div>
             </section>
 
             {/* 6. PLAN (mouse-trail) */}
             <TrailSection className="c2-plan-section" isMobile={isMobile.current}>
+                <img
+                    src="/courses/doodle5.svg"
+                    alt=""
+                    aria-hidden="true"
+                    className="c2-plan-squiggle c2-plan-squiggle-top"
+                />
+                <img
+                    src="/courses/doodle6.svg"
+                    alt=""
+                    aria-hidden="true"
+                    className="c2-plan-squiggle c2-plan-squiggle-bottom"
+                />
                 <div className="c2-section-title">
                     <h2>ПЛАН ИНТЕНСИВА</h2>
                 </div>
@@ -422,24 +478,32 @@ const Courses = () => {
                             studyBody: "оценка идеи и развитие ее до главного конфликта и темы, оформление в заявку",
                             edit: "логлайн (краткое описание истории)",
                             guide: ["заявка для издательства", "презентация"],
+                            decoCenter: { src: "/courses/lamp-plan-decoration.svg", className: "deco-lamp" },
+                            decoRight: { src: "/courses/book-plan-decoration.svg", className: "deco-book" },
                         },
                         {
                             n: 2, name: "Мир и исследование",
                             studyBody: "изучение и создание конфликтной среды, где будут происходить действия романа",
                             edit: "сцена первого знакомства с миром и окружением",
                             guide: ["устройство мира", "лорные записки"],
+                            decoLeft: { src: "/courses/sun-plan-decoration.svg", className: "deco-sun" },
+                            decoRight: { src: "/courses/waves-plan-decoration.svg", className: "deco-waves" },
                         },
                         {
                             n: 3, name: "Главный герой",
                             studyBody: "детальная проработка главного героя и его арки",
                             edit: "экспозиция главного героя или злодея",
                             guide: ["библия персонажей"],
+                            decoCenter: { src: "/courses/exclamation-plan-decoration.svg", className: "deco-exclamation" },
+                            decoRight: { src: "/courses/characters-plan-decoration.svg", className: "deco-characters" },
                         },
                         {
                             n: 4, name: "Сюжет и драматургия",
                             studyBody: "выбор сюжетной структуры и типа планирования истории",
                             edit: "синопсис книги",
                             guide: ["поэпизодный план в карточках"],
+                            decoCenter: { src: "/courses/synopsis-plan-decoration.svg", className: "deco-synopsis" },
+                            decoRight: { src: "/courses/episode-plan-decoration.svg", className: "deco-episode" },
                         },
                         {
                             n: 5, name: "Диалоги и взаимоотношения",
@@ -460,16 +524,41 @@ const Courses = () => {
                             guide: ["стратегия продвижения книги", "план по редактуре"],
                         },
                     ].map(row => (
-                        <div className="c2-plan-row" key={row.n}>
+                        <div className={`c2-plan-row c2-plan-row-${row.n}`} key={row.n}>
                             <div className="c2-plan-cell">
+                                {row.decoLeft && (
+                                    <img
+                                        src={row.decoLeft.src}
+                                        alt=""
+                                        aria-hidden="true"
+                                        className={`c2-plan-deco c2-plan-deco-left ${row.decoLeft.className}`}
+                                    />
+                                )}
                                 <div className="c2-plan-cell-title">
-                                    <span className="c2-plan-cell-num">{row.n}</span>
                                     <span className="c2-plan-cell-name">{row.name}</span>
                                 </div>
                                 <p className="c2-plan-cell-body">{row.studyBody}</p>
                             </div>
-                            <div className="c2-plan-cell c2-plan-cell-center">{row.edit}</div>
+                            <div className="c2-plan-cell c2-plan-cell-center">
+                                {row.decoCenter && (
+                                    <img
+                                        src={row.decoCenter.src}
+                                        alt=""
+                                        aria-hidden="true"
+                                        className={`c2-plan-deco c2-plan-deco-center ${row.decoCenter.className}`}
+                                    />
+                                )}
+                                <span>{row.edit}</span>
+                            </div>
                             <div className="c2-plan-cell c2-plan-cell-right">
+                                {row.decoRight && (
+                                    <img
+                                        src={row.decoRight.src}
+                                        alt=""
+                                        aria-hidden="true"
+                                        className={`c2-plan-deco c2-plan-deco-right ${row.decoRight.className}`}
+                                    />
+                                )}
                                 <ul>
                                     {row.guide.map((g, i) => <li key={i}>{g}</li>)}
                                 </ul>

@@ -73,9 +73,22 @@
     width: 100%;
     min-height: 600px;
     padding: 60px 80px 100px;
-    background: radial-gradient(ellipse 120% 100% at 50% 0%, #B885EA 0%, #C9A0EE 30%, #E0C7F2 60%, #F8F3EB 100%);
+    background: #B885EA;
     overflow: hidden;
 }
+
+.c2-header-doodle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 1;
+    width: 260px;
+    height: auto;
+    filter: brightness(0.55) saturate(2.2) hue-rotate(-10deg);
+}
+
+.c2-header-doodle-1 { top: 20px; left: 5%; }
+.c2-header-doodle-2 { top: 420px; left: 8%; }
 
 .c2-header-bg-loops {
     position: absolute;
@@ -168,27 +181,36 @@
     font-weight: 800;
     font-size: 22px;
     color: var(--c2-green);
+    white-space: nowrap;
+}
+
+.c2-header-pill.c2-pill-writer {
+    top: 40px;
+    right: 30px;
+    transform: rotate(10deg);
+}
+
+.c2-header-pill.c2-pill-summer {
+    top: 110px;
+    right: 110px;
     transform: rotate(-8deg);
 }
 
-.c2-header-pill.c2-pill-writer { top: 30px; right: 30px; transform: rotate(8deg); }
-.c2-header-pill.c2-pill-summer { top: 110px; right: 90px; transform: rotate(-6deg); }
-
 .c2-header-deco-sun {
     position: absolute;
-    width: 70px;
-    height: 70px;
-    top: 90px;
-    left: 0;
+    width: 60px;
+    height: 60px;
+    top: 50px;
+    left: 30px;
     background: url('/courses/sun-header-decoration.svg') center/contain no-repeat;
 }
 
 .c2-header-deco-pen {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     bottom: 20px;
-    right: 0;
+    right: 20px;
     background: url('/courses/pen-header-decoration.svg') center/contain no-repeat;
 }
 
@@ -585,7 +607,6 @@
     margin: 24px auto 0;
     padding: 12px;
     font-size: 18px;
-    font-weight: 700;
     color: #1a1a1a;
     text-align: center;
     line-height: 1.5;
@@ -609,12 +630,7 @@
 /* ---------- 5. BOOK ---------- */
 .c2-book-section {
     padding: 80px 40px 100px;
-    background: linear-gradient(180deg,
-        var(--c2-cream) 0%,
-        var(--c2-green-bg-light) 12%,
-        var(--c2-green-bg-deep) 50%,
-        var(--c2-green-bg-light) 88%,
-        var(--c2-cream) 100%);
+    background: #027645;
     text-align: center;
 }
 
@@ -721,8 +737,42 @@
     margin-bottom: 2px;
 }
 
-/* placeholder hooks for future decorations */
-.c2-plan-deco { position: absolute; pointer-events: none; }
+/* Plan-row decorations */
+.c2-plan-cell { position: relative; }
+
+.c2-plan-deco {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.95;
+}
+
+/* per-decoration sizing */
+.c2-plan-deco.deco-lamp { width: 28px; height: auto; right: 8px; top: 30%; }
+.c2-plan-deco.deco-book { width: 56px; height: auto; right: -56px; top: 40%; }
+.c2-plan-deco.deco-sun { width: 38px; height: auto; left: -42px; top: 60%; }
+.c2-plan-deco.deco-waves { width: 50px; height: auto; right: -56px; top: 40%; }
+.c2-plan-deco.deco-exclamation { width: 22px; height: auto; right: 0; top: 18%; }
+.c2-plan-deco.deco-characters { width: 70px; height: auto; right: -76px; top: 35%; }
+.c2-plan-deco.deco-synopsis { width: 56px; height: auto; right: -12px; top: 60%; }
+.c2-plan-deco.deco-episode { width: 60px; height: auto; right: -68px; top: 40%; }
+
+.c2-plan-cell > * { position: relative; z-index: 1; }
+.c2-plan-cell > .c2-plan-deco { z-index: 0; }
+
+/* Flowing yellow squiggle running through the plan section */
+.c2-plan-squiggle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    right: 0;
+    width: 280px;
+    height: auto;
+    opacity: 0.85;
+}
+
+.c2-plan-squiggle.c2-plan-squiggle-top { top: 8%; right: -40px; }
+.c2-plan-squiggle.c2-plan-squiggle-bottom { bottom: 8%; right: -60px; transform: scaleX(-1); }
 
 /* ---------- 7. PARTICIPATE ---------- */
 .c2-participate-section {
@@ -832,41 +882,154 @@
     z-index: 2;
 }
 
+/* ---------- BOOK SLIDER (mobile only — desktop shows full image) ---------- */
+.c2-book-slider,
+.c2-book-dots {
+    display: none;
+}
+
 /* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
-    .c2-header { padding: 40px 24px 60px; min-height: auto; }
+    /* HEADER */
+    .c2-header { padding: 32px 20px 48px; min-height: auto; }
     .c2-title-cloud { width: 100%; padding: 12% 14%; }
-    .c2-header-bottom { flex-direction: column; align-items: flex-start; }
-    .c2-header-deco { width: 220px; height: 160px; align-self: center; }
-    .c2-header-lead { padding-left: 30px; }
+    .c2-title-cloud h1 { font-size: clamp(36px, 11vw, 56px); }
+    .c2-title-cloud .c2-subtitle { font-size: 13px; }
+    .c2-header-bottom { flex-direction: column; align-items: flex-start; margin-top: 40px; gap: 32px; }
+    .c2-header-deco { width: 260px; height: 170px; align-self: center; }
+    .c2-header-pill { font-size: 18px; padding: 6px 16px; }
+    .c2-header-pill.c2-pill-writer { top: 20px; right: 20px; }
+    .c2-header-pill.c2-pill-summer { top: 80px; right: 80px; }
+    .c2-header-deco-sun { width: 50px; height: 50px; top: 30px; left: 20px; }
+    .c2-header-deco-pen { width: 46px; height: 46px; bottom: 10px; right: 10px; }
+    .c2-header-lead { padding-left: 30px; font-size: 14px; max-width: 100%; }
 
-    .c2-about { padding: 50px 20px; }
-    .c2-about-grid { grid-template-columns: 1fr; }
-    .c2-about-deco { opacity: 0.3; }
+    /* SECTION TITLES */
+    .c2-section-title { margin-bottom: 28px; }
+    .c2-section-title h2 { font-size: 26px; }
+    .c2-section-title .c2-subdate { font-size: 20px; }
 
-    .c2-calendar-section { padding: 40px 16px; }
-    .c2-calendar-panel { padding: 40px 14px 28px; }
+    /* ABOUT */
+    .c2-about { padding: 40px 20px; }
+    .c2-about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .c2-about-card { padding: 22px 24px; }
+    .c2-about-card h3 { font-size: 17px; margin-bottom: 10px; }
+    .c2-about-card p { font-size: 13px; }
+    .c2-about-card-deco { width: 110px; }
+    .c2-about-card-wide .c2-about-card-deco { width: 130px; right: 4%; }
+
+    /* CALENDAR */
+    .c2-calendar-section { padding: 36px 16px; }
+    .c2-calendar-panel { padding: 36px 12px 24px; }
     .c2-calendar-dow,
-    .c2-calendar-cell { min-height: 60px; padding: 6px 4px; font-size: 11px; }
-    .c2-calendar-num { font-size: 14px; }
-    .c2-day-img { width: 24px; height: 24px; }
+    .c2-calendar-cell { min-height: 84px; padding: 6px 3px; }
+    .c2-calendar-dow { font-size: 11px; }
+    .c2-calendar-num { font-size: 12px; }
+    .c2-day-img { width: 38px; height: 38px; margin-top: 2px; }
+    .c2-day-label { font-size: 9px; margin-top: 2px; line-height: 1.1; }
+    .c2-calendar-notes { grid-template-columns: 1fr; gap: 8px; margin-top: 18px; }
+    .c2-calendar-notes li { font-size: 12px; }
+    .c2-calendar-month span { font-size: 18px; }
+
+    /* CARDS */
+    .c2-cards-section { padding: 36px 16px; }
+    .c2-cards-bg { padding: 24px 0; }
+    .c2-cards-row { gap: 36px; padding: 28px 0; flex-direction: column; align-items: center; }
+    .c2-sticky { width: 100%; max-width: 260px; min-height: 200px; }
+    .c2-sticky h4 { font-size: 16px; }
+    .c2-sticky p { font-size: 12px; }
+    .c2-sticky.s-rot-1,
+    .c2-sticky.s-rot-2,
+    .c2-sticky.s-rot-3 { transform: none; }
+    .c2-cta-pill { padding: 16px 36px; font-size: 18px; }
+    .c2-cta-disclaimer { font-size: 11px; }
+
+    /* BOOK — slider on mobile */
+    .c2-book-section { padding: 32px 0 32px; }
+    .c2-book-section > img { display: none; }
+    .c2-book-slider {
+        display: block;
+        width: 100%;
+        max-width: 100vw;
+        overflow: hidden;
+        touch-action: pan-y;
+    }
+    .c2-book-slider-viewport {
+        display: block;
+        width: 200%;
+        transition: transform 0.35s ease;
+        will-change: transform;
+    }
+    .c2-book-slider-viewport img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+    .c2-book-dots {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 16px;
+    }
+    .c2-book-dot {
+        width: 10px;
+        height: 10px;
+        padding: 0;
+        border-radius: 50%;
+        border: none;
+        background: var(--c2-green-deep);
+        opacity: 0.35;
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .c2-book-dot.active {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    /* PLAN — keep 3 columns, shrink everything */
+    .c2-plan-section { padding: 32px 10px 40px; }
+    .c2-plan-headers-row,
+    .c2-plan-row {
+        grid-template-columns: 1.1fr 1fr 1.1fr;
+        column-gap: 8px;
+        max-width: 100%;
+    }
+    .c2-plan-header { font-size: 11px; padding: 8px 2px; letter-spacing: -0.02em; }
+    .c2-plan-cell { padding: 10px 2px 12px; font-size: 10px; line-height: 1.3; }
+    .c2-plan-cell-num { margin-top: 6px; font-size: 10px; margin-bottom: 2px; }
+    .c2-plan-cell-name { font-size: 10px; line-height: 1.2; }
+    .c2-plan-cell-body { margin-top: 4px; font-size: 9.5px; line-height: 1.3; }
+    .c2-plan-cell-center { font-size: 9.5px; line-height: 1.3; }
+    .c2-plan-cell-right ul { padding-left: 12px; }
+    .c2-plan-cell-right li { font-size: 9.5px; line-height: 1.25; margin-bottom: 1px; }
+
+    /* PARTICIPATE — bg stretches under the button */
+    .c2-participate-section { padding: 40px 16px 32px; }
+    .c2-participate-bg { padding: 50px 16px 60px; max-width: 100%; }
+    .c2-participate-bg-img { transform: scale(1.25); transform-origin: center; }
+    .c2-participate-bg h2,
+    .c2-participate-bg h1 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        line-height: 1.2;
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .c2-participate-bg h1 { margin-bottom: 22px; }
+
+    .c2-footer-purple { min-height: 100px; }
+}
+
+@media (max-width: 480px) {
+    .c2-title-cloud h1 { font-size: clamp(30px, 12vw, 44px); }
+    .c2-calendar-dow,
+    .c2-calendar-cell { min-height: 72px; }
+    .c2-day-img { width: 30px; height: 30px; }
     .c2-day-label { font-size: 8px; }
-    .c2-calendar-notes { grid-template-columns: 1fr; gap: 12px; }
-    .c2-calendar-notes li { font-size: 13px; }
-
-    .c2-cards-section { padding: 40px 16px; }
-    .c2-cards-row { gap: 18px; padding: 24px 0; }
-    .c2-sticky { width: 100%; max-width: 280px; }
-    .c2-cta-pill { padding: 18px 40px; font-size: 20px; }
-
-    .c2-book-section { padding: 40px 20px; }
-
-    .c2-plan-section { padding: 40px 20px; }
-    .c2-plan-grid { grid-template-columns: 1fr; column-gap: 0; }
-    .c2-plan-header { text-align: left; }
-    .c2-plan-cell { padding: 10px 4px; }
-
-    .c2-participate-section { padding: 50px 20px 40px; }
-    .c2-participate-bg { padding: 60px 20px; }
-    .c2-footer-purple { height: 100px; }
 }
