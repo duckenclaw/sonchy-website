@@ -187,6 +187,7 @@ const Courses = () => {
         setTimeout(() => {
             setLaunching(null);
             setStars([]);
+            window.location.href = "https://payform.ru/55bxc7g/";
         }, 2000);
     }, [launching]);
 
