@@ -126,6 +126,22 @@ const Courses = () => {
     const [stars, setStars] = useState<StarData[]>([]);
     const [bookPage, setBookPage] = useState<0 | 1>(0);
     const bookTouchStartX = useRef<number | null>(null);
+    const appRef = useRef<HTMLDivElement>(null);
+    const [doodleContainerH, setDoodleContainerH] = useState<number>(0);
+
+    useEffect(() => {
+        const app = appRef.current;
+        if (!app) return;
+        const update = () => setDoodleContainerH(app.scrollHeight);
+        update();
+        const ro = new ResizeObserver(update);
+        ro.observe(app);
+        // Observe section children too — their growth changes scrollHeight
+        for (const child of Array.from(app.children)) {
+            if (child instanceof HTMLElement) ro.observe(child);
+        }
+        return () => ro.disconnect();
+    }, []);
 
     const handleBookTouchStart = (e: React.TouchEvent) => {
         bookTouchStartX.current = e.touches[0].clientX;
@@ -197,53 +213,72 @@ const Courses = () => {
         ));
     };
 
+    // Long, horizontally elongated hand-drawn spirals.
+    // viewBox is 1000×200 — wide and short — so each spiral sprawls horizontally.
+    // Strokes are #F5D381 5px wide; scaled to ~1500px across (or 100vw + overflow on small screens).
+    const spiralPaths = useMemo(() => [
+        // Loose horizontal coil winding left-to-right
+        "M 20 100 C 80 20, 160 180, 240 100 S 400 20, 480 100 S 640 180, 720 100 S 880 20, 980 100",
+        // Bigger looping spiral with a curl at the end
+        "M 10 110 C 100 30, 200 30, 300 110 S 500 190, 600 110 S 800 30, 900 110 Q 950 160, 880 170 Q 820 175, 840 110",
+        // Long meandering wavy curl
+        "M 980 90 C 900 170, 800 10, 700 90 S 500 170, 400 90 S 200 10, 100 90 Q 30 130, 80 160 Q 130 175, 150 120",
+        // Tight cluster in middle with tails extending out
+        "M 20 120 Q 200 60, 400 120 C 500 150, 580 60, 500 90 S 400 150, 480 130 Q 600 100, 700 120 Q 900 140, 980 80",
+        // Long flowing S-curve with extra loop
+        "M 10 100 C 150 10, 300 190, 450 100 Q 550 40, 600 80 Q 650 130, 580 130 Q 540 120, 600 100 S 800 180, 990 100",
+        // Vertical loops marching across
+        "M 30 100 Q 80 20, 130 100 Q 180 180, 230 100 Q 280 20, 330 100 Q 380 180, 430 100 Q 480 20, 530 100 Q 580 180, 630 100 Q 680 20, 730 100 Q 780 180, 830 100 Q 880 20, 970 100",
+    ], []);
+
     const doodles = useMemo(() => {
-        const placements = [
-            { src: "/courses/doodle1.svg", top: "8%", left: "4%", w: 110, rot: -12 },
-            { src: "/courses/doodle2.svg", top: "14%", left: "88%", w: 90, rot: 18 },
-            { src: "/courses/doodle3.svg", top: "22%", left: "70%", w: 120, rot: -6 },
-            { src: "/courses/doodle4.svg", top: "30%", left: "10%", w: 100, rot: 24 },
-            { src: "/courses/doodle1.svg", top: "55%", left: "92%", w: 110, rot: 30 },
-            { src: "/courses/doodle2.svg", top: "62%", left: "8%", w: 85, rot: -14 },
-            { src: "/courses/doodle3.svg", top: "70%", left: "84%", w: 105, rot: 8 },
-            { src: "/courses/doodle4.svg", top: "76%", left: "12%", w: 100, rot: -22 },
+        // top% positions spread across the page, deliberately SKIPPING the plan section
+        // (roughly 68%–87% of page height) so doodles don't overlap the rows.
+        return [
+            { d: spiralPaths[0], top: "6%", rot: -3 },
+            { d: spiralPaths[1], top: "16%", rot: 4 },
+            { d: spiralPaths[2], top: "26%", rot: -2 },
+            { d: spiralPaths[3], top: "38%", rot: 5 },
+            { d: spiralPaths[4], top: "50%", rot: -4 },
+            { d: spiralPaths[5], top: "62%", rot: 3 },
+            { d: spiralPaths[0], top: "93%", rot: -3, flip: true },
         ];
-        return placements;
-    }, []);
+    }, [spiralPaths]);
 
     return (
-        <div className="app courses2-app">
-            <div className="c2-doodles" aria-hidden="true">
+        <div className="app courses2-app" ref={appRef}>
+            <div
+                className="c2-doodles"
+                aria-hidden="true"
+                style={doodleContainerH ? { height: `${doodleContainerH}px` } : undefined}
+            >
                 {doodles.map((d, i) => (
-                    <img
+                    <svg
                         key={i}
-                        src={d.src}
                         className="c2-doodle"
+                        viewBox="0 0 1000 200"
+                        preserveAspectRatio="none"
                         style={{
                             top: d.top,
-                            left: d.left,
-                            width: `${d.w}px`,
-                            transform: `rotate(${d.rot}deg)`,
+                            transform: `translateX(-50%) rotate(${d.rot}deg)${d.flip ? ' scaleX(-1)' : ''}`,
                         }}
-                        alt=""
-                    />
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d={d.d}
+                            fill="none"
+                            stroke="#F5D381"
+                            strokeWidth="5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            vectorEffect="non-scaling-stroke"
+                        />
+                    </svg>
                 ))}
             </div>
 
             {/* 1. HEADER */}
             <header className="c2-header">
-                <img
-                    src="/courses/doodle1.svg"
-                    alt=""
-                    aria-hidden="true"
-                    className="c2-header-doodle c2-header-doodle-1"
-                />
-                <img
-                    src="/courses/doodle2.svg"
-                    alt=""
-                    aria-hidden="true"
-                    className="c2-header-doodle c2-header-doodle-2"
-                />
                 <div className="c2-title-cloud">
                     <h1>WRITER<br />SUMMER</h1>
                     <span className="c2-subtitle">прожить лето дважды</span>
@@ -374,25 +409,29 @@ const Courses = () => {
                 </div>
 
                 <div className="c2-cards-bg">
-                    <img className="c2-cards-bg-img" src="/courses/cards-bg.png" alt="" aria-hidden="true" />
+                    <img className="c2-cards-bg-img c2-cards-bg-desktop" src="/courses/cards-bg.png" alt="" aria-hidden="true" />
+                    <img className="c2-cards-bg-img c2-cards-bg-mobile" src="/courses/cards-bg-mobile.svg" alt="" aria-hidden="true" />
                     <div className="c2-cards-row">
-                        <div className="c2-sticky s-novichku s-rot-1">
-                            <span className="c2-sticky-tape tape-blue" />
-                            <h4>НОВИЧКУ</h4>
-                            <p>есть идея, но не знаю, стоит ли в нее вкладываться</p>
-                            <div className="c2-sticky-underline" />
+                        <div className="c2-sticky s-novichku">
+                            <img src="/courses/card1.svg" alt="" aria-hidden="true" className="c2-sticky-bg" />
+                            <div className="c2-sticky-content">
+                                <h4>НОВИЧКУ</h4>
+                                <p>есть идея, но не знаю, стоит ли в нее вкладываться</p>
+                            </div>
                         </div>
-                        <div className="c2-sticky c2-sticky-yellow s-probuyushchemu s-rot-2">
-                            <span className="c2-sticky-tape tape-pink" />
-                            <h4>ПРОБУЮЩЕМУ</h4>
-                            <p>есть отрывки и черновики, но хочу написать что-то цельное</p>
-                            <div className="c2-sticky-underline" />
+                        <div className="c2-sticky s-probuyushchemu">
+                            <img src="/courses/card2.svg" alt="" aria-hidden="true" className="c2-sticky-bg" />
+                            <div className="c2-sticky-content">
+                                <h4>ПРОБУЮЩЕМУ</h4>
+                                <p>есть отрывки и черновики, но хочу написать что-то цельное</p>
+                            </div>
                         </div>
-                        <div className="c2-sticky s-pishushchemu s-rot-3">
-                            <span className="c2-sticky-tape tape-yellow" />
-                            <h4>ПИШУЩЕМУ</h4>
-                            <p>есть рукопись или публикация, но интересно улучшить процесс</p>
-                            <div className="c2-sticky-underline" />
+                        <div className="c2-sticky s-pishushchemu">
+                            <img src="/courses/card3.svg" alt="" aria-hidden="true" className="c2-sticky-bg" />
+                            <div className="c2-sticky-content">
+                                <h4>ПИШУЩЕМУ</h4>
+                                <p>есть рукопись или публикация, но интересно улучшить процесс</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -449,18 +488,6 @@ const Courses = () => {
 
             {/* 6. PLAN (mouse-trail) */}
             <TrailSection className="c2-plan-section" isMobile={isMobile.current}>
-                <img
-                    src="/courses/doodle5.svg"
-                    alt=""
-                    aria-hidden="true"
-                    className="c2-plan-squiggle c2-plan-squiggle-top"
-                />
-                <img
-                    src="/courses/doodle6.svg"
-                    alt=""
-                    aria-hidden="true"
-                    className="c2-plan-squiggle c2-plan-squiggle-bottom"
-                />
                 <div className="c2-section-title">
                     <h2>ПЛАН ИНТЕНСИВА</h2>
                 </div>
@@ -478,32 +505,34 @@ const Courses = () => {
                             studyBody: "оценка идеи и развитие ее до главного конфликта и темы, оформление в заявку",
                             edit: "логлайн (краткое описание истории)",
                             guide: ["заявка для издательства", "презентация"],
-                            decoCenter: { src: "/courses/lamp-plan-decoration.svg", className: "deco-lamp" },
-                            decoRight: { src: "/courses/book-plan-decoration.svg", className: "deco-book" },
+                            decoCol1: { src: "/courses/lamp-plan-decoration.svg", className: "deco-lamp" },
+                            decoCol3: { src: "/courses/book-plan-decoration.svg", className: "deco-book" },
                         },
                         {
                             n: 2, name: "Мир и исследование",
                             studyBody: "изучение и создание конфликтной среды, где будут происходить действия романа",
                             edit: "сцена первого знакомства с миром и окружением",
                             guide: ["устройство мира", "лорные записки"],
-                            decoLeft: { src: "/courses/sun-plan-decoration.svg", className: "deco-sun" },
-                            decoRight: { src: "/courses/waves-plan-decoration.svg", className: "deco-waves" },
+                            decoCol1: { src: "/courses/star-plan-decoration.svg", className: "deco-star" },
+                            decoCol2: { src: "/courses/sun-plan-decoration.svg", className: "deco-sun" },
+                            decoCol3: { src: "/courses/waves-plan-decoration.svg", className: "deco-waves" },
                         },
                         {
                             n: 3, name: "Главный герой",
                             studyBody: "детальная проработка главного героя и его арки",
                             edit: "экспозиция главного героя или злодея",
                             guide: ["библия персонажей"],
-                            decoCenter: { src: "/courses/exclamation-plan-decoration.svg", className: "deco-exclamation" },
-                            decoRight: { src: "/courses/characters-plan-decoration.svg", className: "deco-characters" },
+                            decoCol2: { src: "/courses/exclamation-plan-decoration.svg", className: "deco-exclamation" },
+                            decoCol3: { src: "/courses/characters-plan-decoration.svg", className: "deco-characters" },
                         },
                         {
                             n: 4, name: "Сюжет и драматургия",
                             studyBody: "выбор сюжетной структуры и типа планирования истории",
                             edit: "синопсис книги",
                             guide: ["поэпизодный план в карточках"],
-                            decoCenter: { src: "/courses/synopsis-plan-decoration.svg", className: "deco-synopsis" },
-                            decoRight: { src: "/courses/episode-plan-decoration.svg", className: "deco-episode" },
+                            decoCol1: { src: "/courses/check-plan-decoration.svg", className: "deco-check" },
+                            decoCol2: { src: "/courses/synopsis-plan-decoration.svg", className: "deco-synopsis" },
+                            decoCol3: { src: "/courses/episode-plan-decoration.svg", className: "deco-episode" },
                         },
                         {
                             n: 5, name: "Диалоги и взаимоотношения",
@@ -526,42 +555,42 @@ const Courses = () => {
                     ].map(row => (
                         <div className={`c2-plan-row c2-plan-row-${row.n}`} key={row.n}>
                             <div className="c2-plan-cell">
-                                {row.decoLeft && (
-                                    <img
-                                        src={row.decoLeft.src}
-                                        alt=""
-                                        aria-hidden="true"
-                                        className={`c2-plan-deco c2-plan-deco-left ${row.decoLeft.className}`}
-                                    />
-                                )}
                                 <div className="c2-plan-cell-title">
                                     <span className="c2-plan-cell-name">{row.name}</span>
                                 </div>
                                 <p className="c2-plan-cell-body">{row.studyBody}</p>
+                                {row.decoCol1 && (
+                                    <img
+                                        src={row.decoCol1.src}
+                                        alt=""
+                                        aria-hidden="true"
+                                        className={`c2-plan-deco ${row.decoCol1.className}`}
+                                    />
+                                )}
                             </div>
                             <div className="c2-plan-cell c2-plan-cell-center">
-                                {row.decoCenter && (
+                                <span>{row.edit}</span>
+                                {row.decoCol2 && (
                                     <img
-                                        src={row.decoCenter.src}
+                                        src={row.decoCol2.src}
                                         alt=""
                                         aria-hidden="true"
-                                        className={`c2-plan-deco c2-plan-deco-center ${row.decoCenter.className}`}
+                                        className={`c2-plan-deco ${row.decoCol2.className}`}
                                     />
                                 )}
-                                <span>{row.edit}</span>
                             </div>
                             <div className="c2-plan-cell c2-plan-cell-right">
-                                {row.decoRight && (
-                                    <img
-                                        src={row.decoRight.src}
-                                        alt=""
-                                        aria-hidden="true"
-                                        className={`c2-plan-deco c2-plan-deco-right ${row.decoRight.className}`}
-                                    />
-                                )}
                                 <ul>
                                     {row.guide.map((g, i) => <li key={i}>{g}</li>)}
                                 </ul>
+                                {row.decoCol3 && (
+                                    <img
+                                        src={row.decoCol3.src}
+                                        alt=""
+                                        aria-hidden="true"
+                                        className={`c2-plan-deco ${row.decoCol3.className}`}
+                                    />
+                                )}
                             </div>
                         </div>
                     ))}
