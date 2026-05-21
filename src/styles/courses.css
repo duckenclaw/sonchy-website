@@ -565,6 +565,19 @@
 .c2-cta-pill:hover { transform: translateY(-2px); }
 .c2-cta-pill.launching { animation: c2-launch 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
+.c2-cta-pill-disabled,
+.c2-cta-pill-disabled:hover,
+.c2-cta-pill:disabled,
+.c2-cta-pill:disabled:hover {
+    background: #8E8E9E;
+    border-color: #5C3A1A;
+    color: #E8E5DE;
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.85;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12);
+}
+
 @keyframes c2-launch {
     0% { transform: translateY(0) scale(1); }
     20% { transform: translateY(-6px) scale(1.05); }

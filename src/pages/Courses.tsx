@@ -440,12 +440,12 @@ const Courses = () => {
                 <div className="c2-cta-wrap">
                     <button
                         type="button"
-                        className={`c2-cta-pill ${launching === "cards" ? "launching" : ""}`}
-                        onClick={() => triggerLaunch("cards")}
+                        className="c2-cta-pill c2-cta-pill-disabled"
+                        disabled
+                        aria-disabled="true"
                     >
-                        ЗАПИСАТЬСЯ<br />12 990 Р
+                        ВРЕМЕННО<br />ЗАКРЫТО
                     </button>
-                    {renderStars("cards")}
                     <p className="c2-cta-disclaimer">
                         *купить в записи после окончания интенсива - нельзя.
                         запись ТОЛЬКО для участников до 9 июля
@@ -607,12 +607,12 @@ const Courses = () => {
                     <div style={{ position: "relative", display: "inline-block" }}>
                         <button
                             type="button"
-                            className={`c2-cta-pill ${launching === "participate" ? "launching" : ""}`}
-                            onClick={() => triggerLaunch("participate")}
+                            className="c2-cta-pill c2-cta-pill-disabled"
+                            disabled
+                            aria-disabled="true"
                         >
-                            УЧАСТИЕ<br />12 990 Р
+                            ВРЕМЕННО<br />ЗАКРЫТО
                         </button>
-                        {renderStars("participate")}
                     </div>
                 </div>
             </section>
