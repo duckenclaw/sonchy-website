@@ -378,7 +378,7 @@ const Courses = () => {
                         disabled
                         aria-disabled="true"
                     >
-                        ВРЕМЕННО<br />ЗАКРЫТО
+                        СКОРО<br />ОТКРЫТИЕ
                     </button>
                     <p className="c2-cta-disclaimer">
                         *купить в записи после окончания интенсива - нельзя.
@@ -545,7 +545,7 @@ const Courses = () => {
                             disabled
                             aria-disabled="true"
                         >
-                            ВРЕМЕННО<br />ЗАКРЫТО
+                            СКОРО<br />ОТКРЫТИЕ
                         </button>
                     </div>
                 </div>
