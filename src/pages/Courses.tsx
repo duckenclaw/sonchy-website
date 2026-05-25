@@ -151,9 +151,7 @@ const Courses = () => {
             };
         });
         setStars(newStars);
-        setTimeout(() => {
-            window.location.href = PAYMENT_LINK;
-        }, 2000);
+        window.location.href = PAYMENT_LINK;
     }, [launching]);
 
     const renderStars = (target: Exclude<LaunchTarget, null>) => {
