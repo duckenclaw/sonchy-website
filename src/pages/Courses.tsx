@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo, useCallback } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import type { ReactNode } from "react";
 import "../styles/courses.css";
 
@@ -106,78 +106,12 @@ const TrailSection = ({ className = "", isMobile, children }: TrailSectionProps)
     );
 };
 
-type LaunchTarget = "cards" | "participate" | null;
-
-interface StarData {
-    id: number;
-    tx: number;
-    ty: number;
-    hueRotate: number;
-    size: number;
-    delay: number;
-    rotation: number;
-    startLeft: number;
-    startTop: number;
-}
-
-const PAYMENT_LINK = "https://app.lava.top/products/73116468-452e-4e8b-8327-77bd377b7e11";
-
 const Courses = () => {
     const isMobile = useRef<boolean>(false);
     const [bookPage, setBookPage] = useState<0 | 1>(0);
     const bookTouchStartX = useRef<number | null>(null);
     const appRef = useRef<HTMLDivElement>(null);
     const [doodleContainerH, setDoodleContainerH] = useState<number>(0);
-    const [launching, setLaunching] = useState<LaunchTarget>(null);
-    const [stars, setStars] = useState<StarData[]>([]);
-
-    const triggerLaunch = useCallback((target: Exclude<LaunchTarget, null>) => {
-        if (launching) return;
-        setLaunching(target);
-        const hues = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
-        const newStars: StarData[] = Array.from({ length: 40 }, (_, i) => {
-            const angle = (Math.random() - 0.5) * Math.PI * 0.6;
-            const dist = 180 + Math.random() * 240;
-            return {
-                id: Date.now() + i,
-                tx: Math.sin(angle) * dist,
-                ty: -Math.abs(Math.cos(angle) * dist),
-                hueRotate: hues[Math.floor(Math.random() * hues.length)],
-                size: 30 + Math.random() * 50,
-                delay: i * 0.025,
-                rotation: Math.random() * 360,
-                startLeft: 50 + (Math.random() - 0.5) * 30,
-                startTop: 50,
-            };
-        });
-        setStars(newStars);
-        setTimeout(() => {
-            window.location.href = PAYMENT_LINK;
-        }, 2000);
-    }, [launching]);
-
-    const renderStars = (target: Exclude<LaunchTarget, null>) => {
-        if (launching !== target) return null;
-        return stars.map(star => (
-            <img
-                key={star.id}
-                src="/star.svg"
-                className="c2-rocket-star"
-                style={{
-                    left: `${star.startLeft}%`,
-                    top: `${star.startTop}%`,
-                    width: `${star.size}px`,
-                    height: `${star.size}px`,
-                    '--star-hue': `${star.hueRotate}deg`,
-                    '--star-rotation': `${star.rotation}deg`,
-                    '--star-tx': `${star.tx}px`,
-                    '--star-ty': `${star.ty}px`,
-                    animationDelay: `${star.delay}s`,
-                } as React.CSSProperties}
-                alt=""
-            />
-        ));
-    };
 
     useEffect(() => {
         const app = appRef.current;
@@ -440,12 +374,12 @@ const Courses = () => {
                 <div className="c2-cta-wrap">
                     <button
                         type="button"
-                        className={`c2-cta-pill ${launching === "cards" ? "launching" : ""}`}
-                        onClick={() => triggerLaunch("cards")}
+                        className="c2-cta-pill c2-cta-pill-disabled"
+                        disabled
+                        aria-disabled="true"
                     >
-                        ЗАПИСАТЬСЯ<br />12 990 Р
+                        СКОРО
                     </button>
-                    {renderStars("cards")}
                     <p className="c2-cta-disclaimer">
                         *купить в записи после окончания интенсива - нельзя.
                         запись ТОЛЬКО для участников до 9 июля
@@ -607,12 +541,12 @@ const Courses = () => {
                     <div style={{ position: "relative", display: "inline-block" }}>
                         <button
                             type="button"
-                            className={`c2-cta-pill ${launching === "participate" ? "launching" : ""}`}
-                            onClick={() => triggerLaunch("participate")}
+                            className="c2-cta-pill c2-cta-pill-disabled"
+                            disabled
+                            aria-disabled="true"
                         >
-                            ЗАПИСАТЬСЯ<br />12 990 Р
+                            СКОРО
                         </button>
-                        {renderStars("participate")}
                     </div>
                 </div>
             </section>
