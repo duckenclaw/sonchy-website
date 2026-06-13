@@ -180,3 +180,52 @@
   }
 }
 
+/* About page layout */
+.about-page {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  align-items: flex-start;
+}
+
+.about-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  align-items: start;
+}
+
+.about-links-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    padding: 0 1rem 2rem;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+

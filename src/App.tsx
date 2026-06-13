@@ -11,6 +11,7 @@ import servicesLogo from '/services.png'
 import aboutLogo from '/about.png'
 import Courses from "./pages/Courses.tsx";
 import Education from "./pages/Education.tsx";
+import About from "./pages/About.tsx";
 import MouseStickers from "./components/MouseStickers.tsx";
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
       <Route path="/services/projects" element={<Projects />} />
       <Route path="/courses" element={<Courses />} />
       <Route path="/education" element={<Education />} />
+      <Route path="/about" element={<About />} />
       <Route path="/:section" element={<BlankPage />} />
     </Routes>
   )

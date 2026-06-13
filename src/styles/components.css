@@ -4340,3 +4340,384 @@
   }
 }
 
+/* ===== About page ===== */
+
+.about-block {
+  position: relative;
+  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 200px;
+}
+
+.about-block-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 0.75rem 0;
+  padding: 2px 8px;
+  color: var(--color-secondary);
+  background-color: #FFF4FA;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.about-block-text {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  margin: 0 0 0.5rem 0;
+  color: var(--color-dark);
+}
+
+/* Per-block backgrounds */
+.about-block-education {
+  background-image: url('/about-bg-education.svg');
+  padding: 3rem 4rem 3rem 1rem;
+}
+
+.about-block-writer {
+  background-image: url('/about-bg-writer.svg');
+  padding-left: 9rem;
+  padding-bottom: 5rem;
+}
+
+.about-block-writer-content {
+  text-align: right;
+}
+
+.about-block-new-book {
+  background-image: url('/about-bg-new_book.svg');
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.about-block-anti-ty {
+  background-image: url('/about-bg-anti_ty.svg');
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.about-block-consultant {
+  background-image: url('/about-bg-consultant.svg');
+  padding-left: 9rem;
+  padding-bottom: 5rem;
+}
+
+.about-block-lector {
+  background-image: url('/about-bg-lector.svg');
+  padding-bottom: 6rem;
+}
+
+.about-block-setters {
+  background-image: url('/about-bg-setters.svg');
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: -3rem;
+}
+
+.about-block-more {
+  background-image: url('/about-bg-more.svg');
+  padding: 4rem 3rem 6rem 7rem;
+  margin-top: -3rem;
+}
+
+.about-block-visual-novel {
+  background-image: url('/about-bg-visual_novel.svg');
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.about-block-new-book, .about-block-anti-ty, .about-block-visual-novel, .about-block-setters {
+  text-align: center ;
+  align-items: center;
+}
+
+.about-block-writer, .about-block-consultant, .about-block-more {
+  text-align: right;
+}
+
+/* Decoration images */
+.about-block-decoration {
+  transition: transform var(--transition-normal);
+}
+
+.about-block:hover .about-block-decoration {
+  transform: rotate(8deg);
+}
+
+/* Per-block decoration positions (absolute) */
+.about-block-education .about-block-decoration,
+.about-block-writer .about-block-decoration,
+.about-block-consultant .about-block-decoration,
+.about-block-lector .about-block-decoration,
+.about-block-more .about-block-decoration {
+  position: absolute;
+}
+
+.about-block-education .about-block-decoration {
+  right: 10px;
+  bottom: 60px;
+}
+
+/* Writer: woman (first img) lower-left, book (second img) upper-left */
+.about-block-writer .about-block-decoration:nth-of-type(1) {
+  left: 15px;
+  bottom: 20px;
+}
+.about-block-writer .about-block-decoration:nth-of-type(2) {
+  left: 25px;
+  top: 35px;
+}
+
+.about-block-consultant .about-block-decoration {
+  left: 10px;
+  bottom: 100px;
+}
+
+.about-block-lector .about-block-decoration {
+  right: 10px;
+  bottom: 20px;
+}
+
+/* More: first photo left, second slightly right */
+.about-block-more .about-block-decoration:nth-of-type(1) {
+  left: 0;
+  bottom: 80px;
+}
+.about-block-more .about-block-decoration:nth-of-type(2) {
+  display: none;
+  left: 40px;
+  bottom: 60px;
+}
+
+/* Centered decoration wrapper */
+.about-block-center-decoration {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+/* Lector internal link buttons */
+.about-lector-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.about-lector-link-btn {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-secondary);
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity var(--transition-fast);
+  display: block;
+  width: fit-content;
+  min-width: 160px;
+}
+
+.about-lector-link-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Links section */
+.about-links-section {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.about-links-title-wrapper {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.about-links-title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  background-image: url('/title-bg-main.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 0.4rem 1.5rem;
+  margin: 0;
+}
+
+.about-link-item {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-secondary);
+  background-color: var(--color-accent);
+  border: 2px solid var(--color-secondary);
+  border-radius: 16px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  text-align: center;
+  min-width: 120px;
+}
+
+.about-link-item.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* ===== About page — mobile ===== */
+@media (max-width: 768px) {
+  .about-block {
+    padding: 2rem 1.2rem 1.2rem 1.2rem;
+  }
+
+  .about-block-title {
+    font-size: 15px;
+  }
+
+  .about-block-text {
+    font-size: 14px;
+  }
+
+  /* Right-side decorations need padding-right so text doesn't go under them */
+  .about-block-education {
+    padding-right: 5.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .about-block-lector {
+    padding-right: 5.5rem;
+    padding-bottom: 10rem;
+  }
+
+  /* Reduce left padding for left-decoration blocks */
+  .about-block-writer {
+    padding-left: 5.5rem;
+    padding-bottom: 8rem;
+  }
+
+  .about-block-consultant {
+    padding-left: 5.5rem;
+    padding-bottom: 9rem;
+  }
+
+  .about-block-more {
+    padding-left: 5.5rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Smaller decoration images */
+  .about-block-education .about-block-decoration {
+    width: 70px;
+    height: auto;
+  }
+
+  .about-block-writer .about-block-decoration:nth-of-type(1) {
+    width: 90px;
+    height: auto;
+  }
+
+  .about-block-writer .about-block-decoration:nth-of-type(2) {
+    width: 60px;
+    height: auto;
+  }
+
+  .about-block-consultant .about-block-decoration {
+    width: 100px;
+    height: auto;
+  }
+
+  .about-block-lector .about-block-decoration {
+    width: 85px;
+    height: auto;
+  }
+
+  .about-block-more .about-block-decoration:nth-of-type(1) {
+    width: 85px;
+    height: auto;
+  }
+
+  .about-block-more .about-block-decoration:nth-of-type(2) {
+    width: 70px;
+    height: auto;
+  }
+
+  /* Links */
+  .about-links-title {
+    font-size: 1.5rem;
+  }
+
+  .about-link-item {
+    font-size: 12px;
+    padding: 0.75rem 1rem;
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-block-title {
+    font-size: 14px;
+  }
+
+  .about-block-text {
+    font-size: 13px;
+  }
+
+  .about-block-education {
+    padding-right: 4.5rem;
+  }
+
+  .about-block-writer,
+  .about-block-consultant,
+  .about-block-more {
+    padding-left: 4.5rem;
+  }
+
+  .about-block-education .about-block-decoration {
+    width: 58px;
+  }
+
+  .about-block-writer .about-block-decoration:nth-of-type(1) {
+    width: 75px;
+    left: 8px;
+  }
+
+  .about-block-writer .about-block-decoration:nth-of-type(2) {
+    width: 50px;
+    left: 10px;
+  }
+
+  .about-block-consultant .about-block-decoration {
+    width: 80px;
+  }
+
+  .about-block-lector .about-block-decoration {
+    width: 70px;
+    padding-right: 4.5rem;
+  }
+
+  .about-block-more .about-block-decoration:nth-of-type(1) {
+    width: 70px;
+    left: 5px;
+  }
+
+  .about-block-more .about-block-decoration:nth-of-type(2) {
+    width: 60px;
+    left: 72px;
+  }
+}
+
