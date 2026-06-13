@@ -44,7 +44,7 @@ const LectureCard = ({
                 className="lecture-buy-button"
                 onClick={handleBuyClick}
             >
-                КУПИТЬ
+                {lecture.price}
             </button>
         </div>
     );

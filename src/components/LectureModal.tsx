@@ -164,13 +164,12 @@ const LectureModal = ({ lecture, isOpen, position, onClose, onBuyClick }: Lectur
                     <p className="lecture-modal-description">{lecture.description}</p>
 
                     <div className="lecture-modal-footer">
-                        <p className="lecture-modal-price">{lecture.price}</p>
                         <button
                             type="button"
                             className="lecture-modal-buy-button"
                             onClick={onBuyClick}
                         >
-                            КУПИТЬ
+                            {lecture.price}
                         </button>
                     </div>
                 </div>
