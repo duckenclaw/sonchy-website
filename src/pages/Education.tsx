@@ -24,7 +24,7 @@ const Education = () => {
         {
             id: 2,
             description: 'Ваш любимый, но не такой уж важный сторителлинг. Разбираем, как он устроен, как работает, и учимся применять мои любимые структуры. Никаких пересказов Воглера, Макки и популярных базовых книг.',
-            price: '2590 Р',
+            price: '2190 Р',
             coverImage: '/education-lecture-2.png',
             buyLink: 'https://app.lava.top/products/baabf095-5a74-4fb8-989f-682656d65e81',
             images: ['/education-lecture-storytelling-1-new.png', '/education-lecture-storytelling-2.png', '/education-lecture-storytelling-3.png']
