@@ -7,18 +7,6 @@ const About = () => {
   const navigate = useNavigate();
   useBodyClass('about-page-background');
 
-  const links = [
-    { label: 'YouTube' },
-    { label: 'Telegram' },
-    { label: 'TikTok' },
-    { label: 'Секретная сеть' },
-    { label: 'Экспертное мнение по созданию персонажей' },
-    { label: 'Boosty' },
-    { label: 'Рецензия на мою книгу "Анти-ты"' },
-    { label: 'Сеттерс' },
-    { label: 'Визуальная новелла' },
-  ];
-
   return (
     <div className="app">
       <Header currentPage="ОБО МНЕ" />
@@ -203,26 +191,6 @@ const About = () => {
               </div>
             </div>
 
-          </div>
-
-          {/* Links section */}
-          <div className="about-links-section">
-            <div className="about-links-title-wrapper">
-              <h2 className="about-links-title">ССЫЛКИ</h2>
-            </div>
-            <div className="about-links-row">
-              {links.map((link) => (
-                <button
-                  key={link.label}
-                  type="button"
-                  className="about-link-item disabled"
-                  disabled
-                  aria-label={link.label}
-                >
-                  {link.label}
-                </button>
-              ))}
-            </div>
           </div>
 
           <button
