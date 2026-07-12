@@ -17,7 +17,7 @@ const Education = () => {
             id: 1,
             description: 'Только 1 день и в честь моего дня рождения! Три лекции и соурсбук за 3000 руб вместо 7300 руб. Лекции: сюжжетные структуры, луковица персонажа и как создать вселенную. И гайд на 26 страниц, что изучить по сторителлингу.',
             price: '3000 Р',
-            coverImage: '/education-lecture-5.png',
+            coverImage: '/education-lecture5.png',
             buyLink: 'https://app.lava.top/products/a20796bb-22ac-48cf-9178-27aa1370734e',
             images: ['/education-lecture-bd-0.png', '/education-lecture-bd-1.png', '/education-lecture-bd-2.png', '/education-lecture-bd-3.png', '/education-lecture-bd-4.png']
         },
