@@ -12,7 +12,7 @@ const Education = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalPosition, setModalPosition] = useState(0);
 
-    const lectures: LectureData[] = useMemo(() => [
+    const lectures: LectureData[] = useMemo(() => [ // lecture data
         {
             id: 1,
             description: 'Только 1 день и в честь моего дня рождения! Три лекции и соурсбук за 3000 руб вместо 7300 руб. Лекции: сюжжетные структуры, луковица персонажа и как создать вселенную. И гайд на 26 страниц, что изучить по сторителлингу.',
