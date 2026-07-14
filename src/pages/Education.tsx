@@ -15,14 +15,6 @@ const Education = () => {
     const lectures: LectureData[] = useMemo(() => [ // lecture data
         {
             id: 1,
-            description: 'Только 1 день и в честь моего дня рождения! Три лекции и соурсбук за 3000 руб вместо 7300 руб. Лекции: сюжжетные структуры, луковица персонажа и как создать вселенную. И гайд на 26 страниц, что изучить по сторителлингу.',
-            price: '3000 Р',
-            coverImage: '/education-lecture5.png',
-            buyLink: 'https://app.lava.top/products/a20796bb-22ac-48cf-9178-27aa1370734e',
-            images: ['/education-lecture-bd-0.png', '/education-lecture-bd-1.png', '/education-lecture-bd-2.png', '/education-lecture-bd-3.png', '/education-lecture-bd-4.png']
-        },
-        {
-            id: 2,
             description: 'Авторская методика по созданию персонажей и личных брендов — луковица персонажа. Проверила её на 100+ консультациях. Сейчас ее преподают в геймдизайнерских школах, пишут о ней статьи и уже заказали написать о ней книгу.',
             price: '2590 Р',
             coverImage: '/education-lecture-1.png',
@@ -30,7 +22,7 @@ const Education = () => {
             images: ['/education-lecture-onion-1-new.png', '/education-lecture-onion-2.png', '/education-lecture-onion-3.png', '/education-lecture-onion-4.png']
         },
         {
-            id: 3,
+            id: 2,
             description: 'Ваш любимый, но не такой уж важный сторителлинг. Разбираем, как он устроен, как работает, и учимся применять мои любимые структуры. Никаких пересказов Воглера, Макки и популярных базовых книг.',
             price: '2190 Р',
             coverImage: '/education-lecture-2.png',
@@ -38,7 +30,7 @@ const Education = () => {
             images: ['/education-lecture-storytelling-1-new.png', '/education-lecture-storytelling-2.png', '/education-lecture-storytelling-3.png']
         },
         {
-            id: 4,
+            id: 3,
             description: 'Популярная тема личного бренда, но с фокусом на органику, основные принципы, а не типологии и инструкции. Хорошо подходит, если хотите начать блог и считаете, что нужно как-то по-особому изменить свою личность. (спойлер: нет)',
             price: '1990 Р',
             coverImage: '/education-lecture-3.png',
@@ -46,7 +38,7 @@ const Education = () => {
             images: ['/education-lecture-brend-1.png', '/education-lecture-brend-2.png', '/education-lecture-brend-3.png', '/education-lecture-brend-4.png']
         },
         {
-            id: 5,
+            id: 4,
             description: 'Нарративные пространства - это теория позволяющая создавать как уникальные миры, так и блоги или бренд. Это альтернатива классическим методам работы через персонажа или анализ аудитории. Обычно, это первое что я преподаю для креативщиков.',
             price: '2190 Р',
             coverImage: '/education-lecture-4.png',
