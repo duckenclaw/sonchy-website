@@ -34,7 +34,7 @@
     --c2-pink-title: #F5CEDB;   /* "ПЛАН ИНТЕНСИВА" title */
     --c2-pink-heading: #CF0874; /* about card 1 */
     --c2-pink-bullet: #A31261;  /* about card 2 */
-    --c2-event-bg: #EFB9D5;     /* calendar lecture-day cells */
+    --c2-event-bg: #F0BFD4;     /* calendar lecture-day cells */
 
     /* --- tariff tiers --- */
     --c2-tier-1: #E5A617;
@@ -1205,56 +1205,50 @@
     .c2-calendar-notes li { font-size: 12px; }
     .c2-calendar-month span { font-size: 18px; }
 
-    /* CARDS — per the mobile mockup the notes stagger left/right and each
-       price tag hangs off the opposite bottom corner, overlapping the note. */
+    /* CARDS — one centred column. The note and its price sit close together
+       and the gap between tiers is much wider, so each pair reads as a unit. */
     .c2-cards-section { padding: 36px 16px; }
     .c2-cards-bg { padding: 24px 0; }
     .c2-cards-bg-img { display: none; }
-    .c2-cards-row { gap: 30px; padding: 24px 0; flex-direction: column; align-items: stretch; }
+    .c2-cards-row {
+        gap: 48px;              /* between one tier and the next */
+        padding: 24px 0;
+        flex-direction: column;
+        align-items: center;
+    }
     .c2-sticky h4 { font-size: 16px; }
     .c2-sticky p { font-size: 12px; }
 
     .c2-sticky-col {
-        position: relative;
+        position: static;
         width: 100%;
-        max-width: none;
-        align-items: stretch;
-        gap: 0;
-        padding-bottom: 26px; /* the overhang the price tag sits in */
+        max-width: 260px;
+        align-items: center;
+        gap: 12px;              /* between a note and its own price button */
     }
 
     .c2-sticky-col > .c2-sticky {
-        width: 78%;
+        width: 100%;
         max-width: none;
         min-height: 250px;
+        margin: 0;
     }
 
-    /* notes 1 and 3 sit left, note 2 sits right */
-    .c2-sticky-col.s-novichku > .c2-sticky,
-    .c2-sticky-col.s-consult > .c2-sticky { margin-right: auto; }
-    .c2-sticky-col.s-probuyushchemu > .c2-sticky { margin-left: auto; }
-
-    /* the mockup has no seat badges on mobile */
+    /* seat badges stay off on mobile — the note/price pairing carries the layout */
     .c2-sticky-badge { display: none; }
 
     .c2-sticky-price-wrap {
-        position: absolute;
-        bottom: 0;
-        z-index: 2;
-        width: auto;
+        position: relative;
+        width: 100%;
         margin-top: 0;
     }
 
-    .c2-sticky-col.s-novichku .c2-sticky-price-wrap,
-    .c2-sticky-col.s-consult .c2-sticky-price-wrap { right: 2%; }
-    .c2-sticky-col.s-probuyushchemu .c2-sticky-price-wrap { left: 2%; }
-
     .c2-sticky-price {
-        width: auto;
+        width: 100%;
         max-width: none;
         margin-top: 0;
         font-size: 24px;
-        padding: 11px 20px;
+        padding: 12px 20px;
         border-width: 3px;
     }
 

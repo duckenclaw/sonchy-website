@@ -170,7 +170,7 @@ const TIERS: Tier[] = [
     },
     {
         id: "consult",
-        stickyTitle: "с консультациями",
+        stickyTitle: "С КОНСУЛЬТАЦИЯМИ",
         stickyClass: "s-consult",
         blurb: "есть рукопись или готов писать сейчас — нужно личное сопровождение и полный разбор",
         seats: "4 места!",
