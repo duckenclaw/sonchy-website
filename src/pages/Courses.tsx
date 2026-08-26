@@ -135,6 +135,12 @@ const PAYMENT_LINKS: Record<TierId, string> = {
 /** The general CTA opens the storefront rather than a single product. */
 const STOREFRONT_LINK = "https://app.lava.top/xsonchy?sort=published";
 
+/**
+ * How long before a launched button is restored: the pill animates for 1.6s and
+ * the last star carries a 0.975s stagger on top of its own 1.6s run.
+ */
+const LAUNCH_RESET_MS = 2600;
+
 interface Tier {
     id: TierId;
     /** Sticky-note label — differs from the tariff-table name by design. */
@@ -145,7 +151,6 @@ interface Tier {
     price: string;
     /** Tariff-table column heading. */
     tableName: string;
-    priceLabel: string;
 }
 
 const TIERS: Tier[] = [
@@ -155,9 +160,8 @@ const TIERS: Tier[] = [
         stickyClass: "s-novichku",
         blurb: "есть идея, но не знаю, стоит ли в нее вкладываться, хочу послушать курс лекций и решить сам",
         seats: null,
-        price: "10 900",
+        price: "10 900 ₽",
         tableName: "НОВИЧОК",
-        priceLabel: "10 900 ₽",
     },
     {
         id: "trying",
@@ -165,9 +169,8 @@ const TIERS: Tier[] = [
         stickyClass: "s-probuyushchemu",
         blurb: "есть отрывки и черновики, но хочу написать что-то цельное. не хватает обратной связи и упражнений",
         seats: "30 мест!",
-        price: "17 900",
+        price: "17 900 ₽",
         tableName: "ПРОБУЮЩИЙ",
-        priceLabel: "17 900 ₽",
     },
     {
         id: "consult",
@@ -175,9 +178,8 @@ const TIERS: Tier[] = [
         stickyClass: "s-consult",
         blurb: "есть рукопись или готов писать сейчас — нужно личное сопровождение и полный разбор",
         seats: "4 места!",
-        price: "33 900",
+        price: "33 900 ₽",
         tableName: "С КОНСУЛЬТАЦИЯМИ",
-        priceLabel: "33 900 ₽",
     },
 ];
 
@@ -206,6 +208,11 @@ const Courses = () => {
     const [doodleContainerH, setDoodleContainerH] = useState<number>(0);
     const [launching, setLaunching] = useState<LaunchTarget | null>(null);
     const [stars, setStars] = useState<StarData[]>([]);
+    const launchTimer = useRef<number | null>(null);
+
+    useEffect(() => () => {
+        if (launchTimer.current !== null) window.clearTimeout(launchTimer.current);
+    }, []);
 
     const triggerLaunch = useCallback((target: LaunchTarget, href: string) => {
         if (launching) return;
@@ -227,7 +234,14 @@ const Courses = () => {
             };
         });
         setStars(newStars);
-        window.location.href = href;
+        window.open(href, "_blank", "noopener,noreferrer");
+
+        // c2-launch ends at opacity 0 with fill-mode forwards, so without this
+        // the button stays invisible once the user returns from the payment tab.
+        launchTimer.current = window.setTimeout(() => {
+            setLaunching(null);
+            setStars([]);
+        }, LAUNCH_RESET_MS);
     }, [launching]);
 
     const renderStars = (target: LaunchTarget) => {
@@ -742,7 +756,7 @@ const Courses = () => {
                                     className={`c2-tariff-buy tier-${i + 1} ${launching === `tariff-${tier.id}` ? "launching" : ""}`}
                                     onClick={() => triggerLaunch(`tariff-${tier.id}`, PAYMENT_LINKS[tier.id])}
                                 >
-                                    {tier.priceLabel}
+                                    {tier.price}
                                 </button>
                                 {renderStars(`tariff-${tier.id}`)}
                             </div>
