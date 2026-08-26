@@ -126,13 +126,14 @@ interface StarData {
     startTop: number;
 }
 
-// TODO: each tier needs its own lava.top product — all three point at the
-// existing single product until those are created.
 const PAYMENT_LINKS: Record<TierId, string> = {
-    listener: "https://app.lava.top/products/73116468-452e-4e8b-8327-77bd377b7e11",
-    trying: "https://app.lava.top/products/73116468-452e-4e8b-8327-77bd377b7e11",
-    consult: "https://app.lava.top/products/73116468-452e-4e8b-8327-77bd377b7e11",
+    listener: "https://app.lava.top/products/2e904852-f5f2-4f28-8039-b4fdcdee5358",
+    trying: "https://app.lava.top/products/a504d32c-85b6-4bef-ad89-97ebc8fa1285",
+    consult: "https://app.lava.top/products/bd25d7a6-2fb5-4a5d-a613-b9242abb2d43",
 };
+
+/** The general CTA opens the storefront rather than a single product. */
+const STOREFRONT_LINK = "https://app.lava.top/xsonchy?sort=published";
 
 interface Tier {
     id: TierId;
@@ -522,7 +523,7 @@ const Courses = () => {
                     <button
                         type="button"
                         className={`c2-cta-pill ${launching === "cards" ? "launching" : ""}`}
-                        onClick={() => triggerLaunch("cards", PAYMENT_LINKS.trying)}
+                        onClick={() => triggerLaunch("cards", STOREFRONT_LINK)}
                     >
                         ЗАПИСАТЬСЯ<br />на осенний интенсив
                     </button>
