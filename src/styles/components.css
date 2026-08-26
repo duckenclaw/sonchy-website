@@ -120,6 +120,168 @@
   outline-offset: 2px;
 }
 
+/* ---------- Mobile navigation (burger + sliding drawer) ----------
+   The desktop navbar is hidden below 1025px, so the burger covers the same
+   range. The drawer is portalled into <body> (see Header.tsx) because
+   .header sets z-index: 1 and would otherwise trap it under page content. */
+.header-burger {
+  display: none;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  align-self: center;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.header-burger-line {
+  display: block;
+  width: 100%;
+  height: 3px;
+  margin: 4px 0;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.header-burger:active { transform: scale(0.94); }
+
+.header-burger:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+
+/* Shell keeps backdrop and drawer on one open/closed switch */
+.header-mobile-shell { display: none; }
+
+.header-mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(35, 43, 54, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+}
+
+.header-mobile-shell.is-open .header-mobile-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.header-mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1001;
+  width: min(280px, 78vw);
+  height: 100vh;
+  padding: 88px 24px 32px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--color-secondary);
+  box-shadow: -6px 0 24px rgba(35, 43, 54, 0.35);
+  transform: translateX(100%);
+  transition: transform var(--transition-normal);
+  overflow-y: auto;
+  visibility: hidden;
+}
+
+.header-mobile-shell.is-open .header-mobile-nav {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+/* Sits where the burger is, so the same corner opens and closes the menu */
+.header-mobile-close {
+  position: absolute;
+  top: 22px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.header-mobile-close span {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.header-mobile-close span:nth-child(1) { transform: rotate(45deg); }
+.header-mobile-close span:nth-child(2) { transform: rotate(-45deg); }
+
+.header-mobile-close:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+
+.header-mobile-button {
+  font-family: var(--font-primary);
+  font-size: 20px;
+  text-align: left;
+  padding: 14px 12px;
+  color: rgba(255, 255, 255, 0.95);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  /* each item eases in behind the panel, staggered from Header.tsx */
+  opacity: 0;
+  transform: translateX(16px);
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+}
+
+.header-mobile-shell.is-open .header-mobile-button {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.header-mobile-button:active { transform: scale(0.97); }
+
+.header-mobile-button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: -3px;
+}
+
+@media (max-width: 1024px) {
+  .header-burger { display: block; }
+  .header-mobile-shell { display: block; }
+
+  /* The mobile title banner is width:100%, which would push the burger off
+     screen — let it share the row instead. */
+  .header-container {
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-title-container {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+  }
+}
+
+/* Respect reduced-motion: the drawer still opens, it just doesn't slide */
+@media (prefers-reduced-motion: reduce) {
+  .header-mobile-nav,
+  .header-mobile-button,
+  .header-mobile-backdrop {
+    transition: none;
+  }
+}
+
 @media (min-width: 481px) and (max-width: 768px) {
   .header {
     padding: 2rem var(--mobile-padding);

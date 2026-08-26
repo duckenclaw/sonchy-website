@@ -1,5 +1,5 @@
 /* ============================================================
-   Courses page redesign — "WRITER SUMMER" intensive
+   Courses page — "WRITER AUTUMN" intensive (24 сент – 4 окт)
    All rules scoped under .courses2-app to prevent leakage.
    ============================================================ */
 
@@ -12,37 +12,43 @@
 }
 
 .courses2-app {
-    --c2-page-bg: #F8F3EB;
-    --c2-purple-bg: #B885EA;
-    --c2-purple-light: #DCC4F2;
-    --c2-purple-mid: #A989D1;
-    --c2-purple-deep: #4A1E9E;
-    --c2-purple-footer: #B79CDB;
-    --c2-cream: #F8F3EB;
-    --c2-cream-card: #FBF1C7;
-    --c2-cream-card-soft: #FFF7D6;
-    --c2-event-bg: #FFF5DA;
-    --c2-green: #1E7B3A;
-    --c2-green-deep: #14572A;
-    --c2-green-bg-light: #C9E5D2;
-    --c2-green-bg-deep: #4A8C5F;
-    --c2-pink-heading: #CF0874;
-    --c2-pink-bullet: #A31261;
-    --c2-pink-soft: #F7C8DC;
-    --c2-pink-panel: #F8C8DC;
-    --c2-red: #D43A3A;
-    --c2-orange: #E78B26;
-    --c2-yellow-tape: #F8D86C;
-    --c2-yellow-pill: #F4E08A;
-    --c2-blue-tape: #5B73C5;
-    --c2-brown: #5C3A1A;
-    --c2-plan-header: #312FC3;
+    /* --- surfaces --- */
+    --c2-page-bg: #781E32;      /* deep wine — the page ground */
+    --c2-wine-deep: #5E1D1B;    /* near-black brown, used for ink and inverted fills */
+    --c2-ink: #3E1E19;          /* body copy on cream panels */
+    --c2-cream: #FFF5E6;        /* primary cream panel */
+    --c2-cream-white: #FFFCF5;  /* lighter cream, alternating rows / calendar grid */
+    --c2-cream-soft: #FAEBC4;   /* warm cream, used for text on coral */
+
+    /* --- accents --- */
+    --c2-coral: #F05545;        /* primary CTA / headings */
+    --c2-orange: #E8682A;       /* secondary accent, checkmarks */
+    --c2-amber: #E5A616;        /* lead copy, borders */
+    --c2-gold: #F5D381;         /* calendar panel, pills */
+    --c2-gold-bright: #F4C03A;  /* "КОМУ ПОДХОДИТ?" title */
+    --c2-olive: #8B7D2A;        /* tape, ЧТ column */
+    --c2-rust: #A8341C;         /* calendar notes — a darkened coral;
+                                   the design's #F05545 on gold is only 2.4:1 */
+    --c2-pink: #D85FA1;         /* tier accent */
+    --c2-pink-pale: #F4C6D0;    /* footnote copy on wine */
+    --c2-pink-title: #F5CEDB;   /* "ПЛАН ИНТЕНСИВА" title */
+    --c2-pink-heading: #CF0874; /* about card 1 */
+    --c2-pink-bullet: #A31261;  /* about card 2 */
+    --c2-event-bg: #F0BFD4;     /* calendar lecture-day cells */
+
+    /* --- tariff tiers --- */
+    --c2-tier-1: #E5A617;
+    --c2-tier-2: #E86929;
+    --c2-tier-3: #D94073;
+    --c2-tier-1-cta: #F2B21A;
+    --c2-tier-2-cta: #EB5926;
+    --c2-tier-3-cta: #D93373;
 
     font-family: 'Montserrat', sans-serif;
-    color: #222;
+    color: var(--c2-cream);
     width: 100%;
     min-height: 100vh;
-    background: var(--c2-cream);
+    background: var(--c2-page-bg);
     overflow-x: hidden;
 }
 
@@ -73,7 +79,7 @@
     width: 100%;
     min-height: 600px;
     padding: 60px 80px 100px;
-    background: #B885EA;
+    background: linear-gradient(180deg, #EBD9D2 0%, #C79A93 22%, #9C5254 44%, var(--c2-page-bg) 70%, var(--c2-page-bg) 100%);
     overflow: hidden;
 }
 
@@ -93,7 +99,7 @@
     margin: 0 auto;
     width: min(720px, 70vw);
     aspect-ratio: 5 / 3;
-    background: url('/courses/title-bg.svg') center/contain no-repeat;
+    background: url('/courses/autumn-title-bg.svg') center/contain no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -106,7 +112,7 @@
     font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
     font-weight: 400;
     font-size: clamp(48px, 7vw, 110px);
-    color: var(--c2-green);
+    color: var(--c2-coral);
     letter-spacing: 0.02em;
     line-height: 1;
 }
@@ -116,7 +122,7 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: clamp(16px, 1.6vw, 24px);
-    color: var(--c2-green);
+    color: var(--c2-wine-deep);
 }
 
 .c2-header-bottom {
@@ -129,10 +135,10 @@
 }
 
 .c2-header-lead {
-    max-width: 420px;
+    max-width: 460px;
     font-size: 20px;
     line-height: 1.5;
-    color: #2B1F00;
+    color: var(--c2-amber);
     position: relative;
 }
 
@@ -160,27 +166,29 @@
 
 .c2-header-pill {
     position: absolute;
-    background: var(--c2-yellow-pill);
-    border: 2px solid var(--c2-green-deep);
-    border-radius: 999px;
+    background: var(--c2-gold);
+    border: 2px solid var(--c2-wine-deep);
+    border-radius: 14px;
     padding: 8px 22px;
-    font-family: 'Alumni Sans', sans-serif;
-    font-weight: 800;
+    font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
+    font-weight: 400;
     font-size: 22px;
-    color: var(--c2-green);
     white-space: nowrap;
 }
 
 .c2-header-pill.c2-pill-writer {
     top: 40px;
     right: 30px;
-    transform: rotate(10deg);
+    transform: rotate(-8deg);
+    color: var(--c2-orange);
 }
 
-.c2-header-pill.c2-pill-summer {
+.c2-header-pill.c2-pill-autumn {
     top: 110px;
     right: 110px;
     transform: rotate(-8deg);
+    color: var(--c2-pink);
+    font-size: 18px;
 }
 
 .c2-header-deco-sun {
@@ -217,6 +225,7 @@
     position: absolute;
     pointer-events: none;
     opacity: 0.35;
+    filter: hue-rotate(118deg) saturate(1.2);
     z-index: 0;
     width: 160px;
     height: auto;
@@ -247,7 +256,7 @@
 }
 
 .c2-about-card {
-    background: var(--c2-cream-card);
+    background: var(--c2-cream);
     border-radius: 20px;
     padding: 28px 36px;
     border: 2px solid transparent;
@@ -265,17 +274,17 @@
 
 .c2-about-card.c2-about-pink h3 { color: var(--c2-pink-heading); }
 .c2-about-card.c2-about-pink { border-color: var(--c2-pink-heading); }
-.c2-about-card.c2-about-orange h3 { color: var(--c2-orange); }
-.c2-about-card.c2-about-orange { border-color: var(--c2-orange); }
-.c2-about-card.c2-about-purple h3 { color: #6B4FC6; }
-.c2-about-card.c2-about-purple { border-color: #6B4FC6; }
+.c2-about-card.c2-about-orange h3 { color: var(--c2-pink-bullet); }
+.c2-about-card.c2-about-orange { border-color: var(--c2-pink-bullet); }
+.c2-about-card.c2-about-coral h3 { color: var(--c2-coral); }
+.c2-about-card.c2-about-coral { border-color: var(--c2-coral); }
 
 .c2-about-card p {
     font-size: 15px;
-    color: #2a2a2a;
+    color: var(--c2-wine-deep);
 }
 
-.c2-about-card p strong { font-weight: 700; color: #1a1a1a; }
+.c2-about-card p strong { font-weight: 700; color: var(--c2-wine-deep); }
 
 /* ---------- 3. CALENDAR ---------- */
 .c2-calendar-section {
@@ -293,40 +302,44 @@
     font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
     font-weight: 400;
     font-size: clamp(32px, 4vw, 56px);
-    color: var(--c2-green);
+    color: var(--c2-coral);
     letter-spacing: 0.02em;
 }
+
+/* Per-section title colours, matching the design */
+.c2-section-title.t-gold h2 { color: var(--c2-gold-bright); }
+.c2-section-title.t-pink h2 { color: var(--c2-pink-title); }
+.c2-section-title.t-cream h2 { color: var(--c2-cream); }
 
 .c2-section-title .c2-subdate {
     display: block;
     margin-top: 6px;
-    font-family: 'Alumni Sans', sans-serif;
-    font-weight: 700;
-    font-size: clamp(22px, 2.6vw, 36px);
-    color: var(--c2-green);
+    font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
+    font-weight: 400;
+    font-size: clamp(22px, 2.6vw, 40px);
+    color: var(--c2-coral);
 }
 
 .c2-calendar-panel {
     position: relative;
     max-width: 900px;
     margin: 0 auto;
-    background: var(--c2-pink-panel);
-    border-radius: 28px;
+    background: var(--c2-gold);
+    border-radius: 36px;
     padding: 50px 36px 36px;
 }
 
 .c2-calendar-tape {
     position: absolute;
-    width: 60px;
-    height: 24px;
-    background: var(--c2-yellow-tape);
+    width: 46px;
+    height: 100px;
     opacity: 0.85;
     border-radius: 2px;
 }
 
-.c2-calendar-tape.t-tl { top: -12px; left: 32px; transform: rotate(-20deg); }
-.c2-calendar-tape.t-tr { top: -12px; right: 40px; transform: rotate(18deg); }
-.c2-calendar-tape.t-bl { bottom: -12px; left: 50%; transform: translateX(-50%) rotate(-6deg); }
+.c2-calendar-tape.t-tl { top: 90px; left: -18px; background: var(--c2-orange); transform: rotate(-24deg); }
+.c2-calendar-tape.t-tr { top: -18px; left: 18%; background: var(--c2-coral); width: 40px; height: 70px; transform: rotate(14deg); }
+.c2-calendar-tape.t-bl { bottom: 22%; right: -14px; background: var(--c2-olive); transform: rotate(8deg); }
 
 .c2-calendar-month {
     position: relative;
@@ -337,7 +350,7 @@
 .c2-calendar-month-scribble {
     position: absolute;
     inset: -16px 0 -16px 0;
-    background: url('/courses/calendar-title-decoration.svg') center/contain no-repeat;
+    background: url('/courses/autumn-calendar-title-decoration.svg') center/contain no-repeat;
     pointer-events: none;
 }
 
@@ -345,20 +358,20 @@
     position: relative;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 22px;
-    color: var(--c2-purple-deep);
-    letter-spacing: 0.05em;
+    font-size: 26px;
+    color: var(--c2-wine-deep);
+    letter-spacing: 0.02em;
 }
 
 .c2-calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 0;
-    background: #FFFFFF;
+    background: var(--c2-cream-white);
     padding: 0;
-    border-radius: 18px;
+    border-radius: 22px;
     overflow: hidden;
-    border: 1px solid #E5C9D5;
+    border: 2px solid var(--c2-wine-deep);
 }
 
 .c2-calendar-dow,
@@ -367,9 +380,9 @@
     min-height: 130px;
     position: relative;
     text-align: left;
-    background: #FFFFFF;
-    border-right: 1px solid #E5C9D5;
-    border-bottom: 1px solid #E5C9D5;
+    background: var(--c2-cream-white);
+    border-right: 1px solid rgba(94, 29, 27, 0.55);
+    border-bottom: 1px solid rgba(94, 29, 27, 0.55);
 }
 
 .c2-calendar-grid > :nth-child(7n) { border-right: none; }
@@ -384,20 +397,28 @@
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 14px;
-    color: var(--c2-pink-bullet);
-    padding: 10px 4px;
-    background: transparent;
+    font-size: 15px;
+    padding: 16px 4px;
+    background: var(--c2-cream-white);
 }
+
+/* Each weekday column gets its own accent, as in the design */
+.c2-calendar-dow:nth-child(1) { color: var(--c2-orange); }
+.c2-calendar-dow:nth-child(2) { color: var(--c2-amber); }
+.c2-calendar-dow:nth-child(3) { color: var(--c2-coral); }
+.c2-calendar-dow:nth-child(4) { color: var(--c2-olive); }
+.c2-calendar-dow:nth-child(5) { color: var(--c2-amber); }
+.c2-calendar-dow:nth-child(6),
+.c2-calendar-dow:nth-child(7) { color: var(--c2-wine-deep); }
 
 .c2-calendar-num {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 16px;
-    color: #5a3848;
+    font-size: 17px;
+    color: var(--c2-wine-deep);
 }
 
-.c2-calendar-cell.c-muted .c2-calendar-num { color: #b88da0; }
+.c2-calendar-cell.c-muted .c2-calendar-num { color: rgba(94, 29, 27, 0.5); }
 
 .c2-day-img {
     display: block;
@@ -411,16 +432,11 @@
     display: block;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 12px;
+    font-weight: 600;
+    font-size: 13px;
     margin-top: 4px;
+    color: var(--c2-wine-deep);
 }
-
-.c2-day-label.lbl-pink { color: var(--c2-pink-heading); }
-.c2-day-label.lbl-purple { color: var(--c2-purple-deep); }
-.c2-day-label.lbl-orange { color: var(--c2-orange); }
-.c2-day-label.lbl-green { color: var(--c2-green); }
-.c2-day-label.lbl-red { color: var(--c2-red); }
 
 .c2-calendar-notes {
     display: grid;
@@ -438,13 +454,13 @@
 
 .c2-calendar-notes li {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--c2-pink-bullet);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--c2-rust);
     line-height: 1.6;
 }
 
-.c2-calendar-notes ul { color: var(--c2-pink-bullet); }
+.c2-calendar-notes ul { color: var(--c2-rust); }
 
 /* ---------- 4. CARDS (Кому подойдёт?) ---------- */
 .c2-cards-section {
@@ -478,32 +494,122 @@
 .c2-cards-row {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 30px;
     flex-wrap: wrap;
     padding: 40px 0;
 }
 
+/* Each tier is a column: sticky note → seats badge → price button */
+.c2-sticky-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 260px;
+    flex: 0 0 auto;
+}
+
+/* The note grows to fill its column so all three price buttons share a baseline */
+.c2-sticky-col > .c2-sticky { flex: 1 1 auto; width: 100%; }
+
+.c2-sticky-badge {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--c2-ink);
+    background: var(--c2-cream);
+    border-radius: 999px;
+    padding: 4px 16px;
+}
+
+/* Reserve the badge's height on tiers that have none, so the buttons line up */
+.c2-sticky-badge.is-empty { visibility: hidden; }
+
+/* Wraps the price button so the rocket stars have a positioned ancestor */
+.c2-sticky-price-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.c2-sticky-price {
+    display: block;
+    width: 100%;
+    max-width: 240px;
+    margin-top: auto;
+    background: var(--c2-coral);
+    color: var(--c2-wine-deep);
+    border: 4px solid var(--c2-cream);
+    border-radius: 24px;
+    padding: 16px 24px;
+    font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.c2-sticky-price:hover { transform: translateY(-2px); }
+.c2-sticky-price.launching { animation: c2-launch 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+/* Top tier inverts: dark fill, pink figure */
+.c2-sticky-col.s-consult .c2-sticky-price {
+    background: var(--c2-wine-deep);
+    color: var(--c2-pink);
+}
+
 .c2-sticky {
     position: relative;
     width: 260px;
-    min-height: 260px;
+    min-height: 290px;
     font-family: 'Montserrat', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 8px;
+    box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.28);
+    /* folded bottom-left corner */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 34px 100%, 0 calc(100% - 34px));
 }
 
-.c2-sticky-bg {
+/* ruled paper lines */
+.c2-sticky::before {
+    content: "";
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
     pointer-events: none;
-    filter: drop-shadow(4px 6px 10px rgba(0,0,0,0.22));
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0 29px,
+        currentColor 29px 30px
+    );
+    opacity: 0.28;
     z-index: 0;
 }
+
+/* washi tape holding the note up */
+.c2-sticky::after {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 26px;
+    width: 40px;
+    height: 62px;
+    opacity: 0.9;
+    z-index: 2;
+}
+
+.c2-sticky.s-novichku { background: #FBDDD8; color: var(--c2-orange); transform: rotate(-1.5deg); }
+.c2-sticky.s-probuyushchemu { background: #D95BA8; color: var(--c2-cream); transform: rotate(1deg); }
+.c2-sticky.s-consult { background: #2B0A0A; color: var(--c2-orange); transform: rotate(-1deg); }
+
+.c2-sticky.s-novichku::after { background: var(--c2-coral); transform: rotate(-12deg); }
+.c2-sticky.s-probuyushchemu::after { background: var(--c2-coral); transform: rotate(10deg); }
+.c2-sticky.s-consult::after { background: var(--c2-amber); transform: rotate(-14deg); }
 
 .c2-sticky-content {
     position: relative;
@@ -522,18 +628,24 @@
     letter-spacing: 0.04em;
 }
 
-.c2-sticky.s-novichku h4 { color: var(--c2-red); }
-.c2-sticky.s-probuyushchemu h4 { color: var(--c2-purple-deep); }
-.c2-sticky.s-pishushchemu h4 { color: var(--c2-purple-deep); }
+/* Heading colour is picked for contrast against each note's own fill */
+.c2-sticky.s-novichku h4 { color: var(--c2-orange); }
+.c2-sticky.s-probuyushchemu h4 { color: var(--c2-cream-soft); }
+.c2-sticky.s-consult h4 { color: var(--c2-pink); }
 
 .c2-sticky p {
     font-size: 13px;
+    font-weight: 700;
     line-height: 1.5;
-    color: #1a1a1a;
+    color: #481614;
 }
 
-/* Cards bg variants: hide mobile by default */
-.c2-cards-bg-mobile { display: none; }
+.c2-sticky h4,
+.c2-sticky p { position: relative; z-index: 1; }
+
+/* The magenta and near-black notes carry light copy */
+.c2-sticky.s-probuyushchemu p,
+.c2-sticky.s-consult p { color: var(--c2-cream); }
 
 .c2-cta-wrap {
     text-align: center;
@@ -547,19 +659,19 @@
 .c2-cta-pill {
     position: relative;
     display: inline-block;
-    background: var(--c2-purple-deep);
-    color: #fff;
-    border: 2px solid var(--c2-brown);
-    border-radius: 16px;
+    background: var(--c2-coral);
+    color: var(--c2-cream-soft);
+    border: 4px solid var(--c2-cream);
+    border-radius: 24px;
     padding: 22px 64px;
-    font-family: 'Dela Gothic One', sans-serif;
-    font-weight: 800;
-    font-size: 24px;
-    letter-spacing: 0.04em;
+    font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: 0.02em;
     cursor: pointer;
     text-align: center;
     transition: transform 0.15s ease;
-    line-height: 1.2;
+    line-height: 1.3;
 }
 
 .c2-cta-pill:hover { transform: translateY(-2px); }
@@ -585,11 +697,12 @@
 }
 
 .c2-cta-disclaimer {
-    max-width: 640px;
+    max-width: 720px;
     margin: 24px auto 0;
     padding: 12px;
     font-size: 18px;
-    color: #1a1a1a;
+    font-weight: 500;
+    color: var(--c2-cream);
     text-align: center;
     line-height: 1.5;
 }
@@ -611,9 +724,28 @@
 
 /* ---------- 5. BOOK ---------- */
 .c2-book-section {
-    padding: 80px 40px 100px;
-    background: #027645;
+    padding: 120px 40px 160px;
+    /* Cream has to run past .c2-book-note (which ends ~85% down) or the dark
+       note copy fades into the wine. */
+    background: linear-gradient(
+        180deg,
+        var(--c2-page-bg) 0%,
+        var(--c2-cream) 15%,
+        var(--c2-cream) 88%,
+        var(--c2-page-bg) 100%
+    );
     text-align: center;
+}
+
+/* (10) note that belongs with the book, not with the tariff table */
+.courses2-app .c2-book-note {
+    max-width: 900px;
+    margin: 40px auto 0;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.55;
+    color: var(--c2-ink);
 }
 
 .c2-book-section img {
@@ -630,9 +762,14 @@
     background: var(--c2-cream);
 }
 
+/* The plan rows sit on a cream panel so the dark table copy stays readable
+   against the wine page ground. */
 .c2-plan-grid {
     max-width: 900px;
     margin: 0 auto;
+    background: var(--c2-cream);
+    border-radius: 0 0 28px 28px;
+    padding: 0 28px 24px;
 }
 
 .c2-plan-headers-row {
@@ -641,16 +778,19 @@
     column-gap: 40px;
     max-width: 900px;
     margin: 0 auto;
-    border-bottom: 2px solid #34260E;
+    padding: 8px 28px 0;
+    background: var(--c2-cream);
+    border-radius: 28px 28px 0 0;
+    border-bottom: 2px solid rgba(94, 29, 27, 0.3);
 }
 
 .c2-plan-header {
     font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
     font-weight: 400;
     font-size: 18px;
-    margin: 12px 16px;
+    margin: 12px 16px 10px;
     text-wrap: nowrap;
-    color: var(--c2-plan-header);
+    color: #1A1A1A;
 }
 
 .c2-plan-row {
@@ -658,8 +798,10 @@
     grid-template-columns: 1.2fr 1fr 1.1fr;
     column-gap: 40px;
     max-width: 900px;
-    border-bottom: 2px solid #34260E;
+    border-bottom: 2px solid rgba(94, 29, 27, 0.3);
 }
+
+.c2-plan-row:last-child { border-bottom: none; }
 
 .c2-plan-cell {
     padding: 12px 6px 22px;
@@ -667,7 +809,7 @@
     font-size: 13px;
     line-height: 1.5;
     margin-left: 12px;
-    color: #2a2a2a;
+    color: var(--c2-ink);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -696,12 +838,12 @@
 
 .c2-plan-cell-body {
     margin-top: 8px;
-    color: #2a2a2a;
+    color: var(--c2-ink);
     text-align: left;
 }
 
 .c2-plan-cell-center {
-    color: #4a4a4a;
+    color: var(--c2-ink);
     text-align: center;
     font-size: 13px;
 }
@@ -793,7 +935,7 @@
     font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
     font-weight: 400;
     font-size: clamp(28px, 4vw, 48px);
-    color: var(--c2-brown);
+    color: var(--c2-cream-soft);
     letter-spacing: 0.03em;
     line-height: 1.15;
     margin-bottom: 16px;
@@ -807,7 +949,118 @@
     width: 100%;
     min-height: 140px;
     flex-shrink: 0;
-    background: var(--c2-purple-footer);
+    background: var(--c2-wine-deep);
+}
+
+/* ---------- 8. TARIFF COMPARISON ---------- */
+.c2-tariff-section {
+    position: relative;
+    padding: 40px 40px 70px;
+}
+
+.c2-tariff-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--c2-cream);
+    border: 4px solid var(--c2-amber);
+    border-radius: 28px;
+    overflow: hidden;
+}
+
+/* One shared column template keeps the header, body and CTA rows aligned. */
+.c2-tariff-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    align-items: stretch;
+}
+
+.c2-tariff-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 16px 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: var(--c2-ink);
+}
+
+.c2-tariff-cell-label {
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: 36px;
+}
+
+/* Header */
+.c2-tariff-head .c2-tariff-cell {
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    padding: 18px 10px;
+}
+
+.c2-tariff-head .c2-tariff-cell-label { background: var(--c2-cream-white); }
+.c2-tariff-head .c2-tariff-cell.tier-1 { background: var(--c2-tier-1); }
+.c2-tariff-head .c2-tariff-cell.tier-2 { background: var(--c2-tier-2); }
+.c2-tariff-head .c2-tariff-cell.tier-3 { background: var(--c2-tier-3); }
+
+/* Body — rows alternate, and the top tier column stays a shade lighter
+   so it reads as the promoted option all the way down. */
+.c2-tariff-body .c2-tariff-row:nth-child(odd) { background: var(--c2-cream); }
+.c2-tariff-body .c2-tariff-row:nth-child(even) { background: var(--c2-cream-white); }
+.c2-tariff-body .c2-tariff-row:nth-child(odd) .tier-3 { background: var(--c2-cream-white); }
+.c2-tariff-body .c2-tariff-row:nth-child(even) .tier-3 { background: #FFFDF9; }
+.c2-tariff-body .c2-tariff-row + .c2-tariff-row { border-top: 1px solid rgba(94, 29, 27, 0.12); }
+
+.c2-tariff-check {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--c2-orange);
+}
+
+.c2-tariff-dash {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--c2-ink);
+    opacity: 0.7;
+}
+
+/* CTA row */
+.c2-tariff-cta .c2-tariff-cell { padding: 20px 10px; position: relative; }
+
+.c2-tariff-buy {
+    width: 100%;
+    border: none;
+    border-radius: 14px;
+    padding: 18px 8px;
+    font-family: 'Dela Gothic One', 'Dela Gothic One Local', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.c2-tariff-buy:hover { transform: translateY(-2px); }
+.c2-tariff-buy.launching { animation: c2-launch 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+.c2-tariff-buy.tier-1 { background: var(--c2-tier-1-cta); }
+.c2-tariff-buy.tier-2 { background: var(--c2-tier-2-cta); }
+.c2-tariff-buy.tier-3 { background: var(--c2-tier-3-cta); }
+
+.courses2-app .c2-tariff-note {
+    max-width: 1000px;
+    margin: 26px auto 0;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--c2-pink-pale);
 }
 
 /* ---------- DOODLES (background decorations) ---------- */
@@ -864,6 +1117,8 @@
 .c2-book-dots,
 .c2-plan-headers-row,
 .c2-plan-grid,
+.c2-tariff-wrapper,
+.c2-tariff-note,
 .c2-participate-bg {
     position: relative;
     z-index: 5;
@@ -874,6 +1129,7 @@
 .c2-calendar-section,
 .c2-cards-section,
 .c2-plan-section,
+.c2-tariff-section,
 .c2-participate-section {
     background: transparent !important;
 }
@@ -914,7 +1170,7 @@
     .c2-header-deco { width: 260px; height: 170px; align-self: center; }
     .c2-header-pill { font-size: 18px; padding: 6px 16px; }
     .c2-header-pill.c2-pill-writer { top: 20px; right: 20px; }
-    .c2-header-pill.c2-pill-summer { top: 80px; right: 80px; }
+    .c2-header-pill.c2-pill-autumn { top: 80px; right: 80px; font-size: 15px; }
     .c2-header-deco-sun { width: 50px; height: 50px; top: 30px; left: 20px; }
     .c2-header-deco-pen { width: 46px; height: 46px; bottom: 10px; right: 10px; }
     .c2-header-lead { padding-left: 30px; font-size: 14px; max-width: 100%; }
@@ -937,29 +1193,82 @@
     .c2-calendar-section { padding: 36px 16px; }
     .c2-calendar-panel { padding: 36px 12px 24px; }
     .c2-calendar-dow,
-    .c2-calendar-cell { min-height: 84px; padding: 6px 3px; }
-    .c2-calendar-dow { font-size: 11px; }
+    .c2-calendar-cell { min-height: 76px; padding: 6px 3px; }
+    .c2-calendar-dow { font-size: 11px; padding: 10px 2px; }
     .c2-calendar-num { font-size: 12px; }
+    .c2-calendar-tape.t-tl { top: 60px; left: -10px; width: 30px; height: 66px; }
+    .c2-calendar-tape.t-tr { width: 26px; height: 46px; }
+    .c2-calendar-tape.t-bl { right: -8px; width: 30px; height: 66px; }
     .c2-day-img { width: 38px; height: 38px; margin-top: 2px; }
     .c2-day-label { font-size: 9px; margin-top: 2px; line-height: 1.1; }
     .c2-calendar-notes { grid-template-columns: 1fr; gap: 8px; margin-top: 18px; }
     .c2-calendar-notes li { font-size: 12px; }
     .c2-calendar-month span { font-size: 18px; }
 
-    /* CARDS */
+    /* CARDS — one centred column. The note and its price sit close together
+       and the gap between tiers is much wider, so each pair reads as a unit. */
     .c2-cards-section { padding: 36px 16px; }
     .c2-cards-bg { padding: 24px 0; }
-    .c2-cards-bg-desktop { display: none; }
-    .c2-cards-bg-mobile { display: block; object-fit: cover; }
-    .c2-cards-row { gap: 36px; padding: 28px 0; flex-direction: column; align-items: center; }
-    .c2-sticky { width: 100%; max-width: 260px; min-height: 220px; }
+    .c2-cards-bg-img { display: none; }
+    .c2-cards-row {
+        gap: 48px;              /* between one tier and the next */
+        padding: 24px 0;
+        flex-direction: column;
+        align-items: center;
+    }
     .c2-sticky h4 { font-size: 16px; }
     .c2-sticky p { font-size: 12px; }
-    .c2-cta-pill { padding: 16px 36px; font-size: 18px; }
-    .c2-cta-disclaimer { font-size: 11px; }
+
+    .c2-sticky-col {
+        position: static;
+        width: 100%;
+        max-width: 260px;
+        align-items: center;
+        gap: 12px;              /* between a note and its own price button */
+    }
+
+    .c2-sticky-col > .c2-sticky {
+        width: 100%;
+        max-width: none;
+        min-height: 250px;
+        margin: 0;
+    }
+
+    /* seat badges stay off on mobile — the note/price pairing carries the layout */
+    .c2-sticky-badge { display: none; }
+
+    .c2-sticky-price-wrap {
+        position: relative;
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .c2-sticky-price {
+        width: 100%;
+        max-width: none;
+        margin-top: 0;
+        font-size: 24px;
+        padding: 12px 20px;
+        border-width: 3px;
+    }
+
+    .c2-cta-pill { padding: 16px 30px; font-size: 18px; border-width: 3px; }
+    .c2-cta-disclaimer { font-size: 12px; }
 
     /* BOOK — slider on mobile */
-    .c2-book-section { padding: 32px 0 32px; }
+    .c2-book-section {
+        padding: 56px 0 72px;
+        /* shorter section on mobile — the note lands lower, so cream runs further */
+        background: linear-gradient(
+            180deg,
+            var(--c2-page-bg) 0%,
+            var(--c2-cream) 10%,
+            var(--c2-cream) 94%,
+            var(--c2-page-bg) 100%
+        );
+    }
+    /* the section has no side padding on mobile, so the note carries its own */
+    .courses2-app .c2-book-note { font-size: 13px; margin-top: 26px; padding: 0 16px; }
     .c2-book-section > img { display: none; }
     .c2-book-slider {
         display: block;
@@ -995,7 +1304,7 @@
         padding: 0;
         border-radius: 50%;
         border: none;
-        background: var(--c2-green-deep);
+        background: var(--c2-cream);
         opacity: 0.35;
         cursor: pointer;
         transition: opacity 0.2s ease, transform 0.2s ease;
@@ -1007,13 +1316,16 @@
 
     /* PLAN — keep 3 columns, shrink everything */
     .c2-plan-section { padding: 32px 10px 40px; }
+    /* the 28px desktop panel padding costs too much of a 355px row */
+    .c2-plan-headers-row { padding: 8px 10px 0; }
+    .c2-plan-grid { padding: 0 10px 16px; }
     .c2-plan-headers-row,
     .c2-plan-row {
         grid-template-columns: 1.1fr 1fr 1.1fr;
         column-gap: 8px;
         max-width: 100%;
     }
-    .c2-plan-header { font-size: 11px; padding: 8px 2px; letter-spacing: -0.02em; text-wrap: wrap; }
+    .c2-plan-header { font-size: 11px; margin: 10px 4px 8px; padding: 8px 2px; letter-spacing: -0.02em; text-wrap: wrap; }
     .c2-plan-cell { padding: 10px 2px 12px; font-size: 10px; line-height: 1.3; }
     .c2-plan-cell-num { margin-top: 6px; font-size: 10px; margin-bottom: 2px; }
     .c2-plan-cell-name { font-size: 10px; line-height: 1.2; }
@@ -1021,6 +1333,20 @@
     .c2-plan-cell-center { font-size: 9.5px; line-height: 1.3; }
     .c2-plan-cell-right ul { padding-left: 12px; }
     .c2-plan-cell-right li { font-size: 9.5px; line-height: 1.25; margin-bottom: 1px; }
+
+    /* TARIFF — keep all four columns so the tiers stay comparable,
+       shrink the type the way the plan table already does */
+    .c2-tariff-section { padding: 24px 16px 44px; }
+    .c2-tariff-wrapper { border-radius: 18px; border-width: 3px; }
+    .c2-tariff-row { grid-template-columns: 1.25fr 1fr 1fr 1fr; }
+    .c2-tariff-cell { padding: 9px 3px; font-size: 9.5px; line-height: 1.25; }
+    .c2-tariff-cell-label { padding-left: 12px; }
+    .c2-tariff-head .c2-tariff-cell { font-size: 9px; padding: 10px 3px; letter-spacing: -0.01em; }
+    .c2-tariff-check { font-size: 16px; }
+    .c2-tariff-dash { width: 14px; }
+    .c2-tariff-cta .c2-tariff-cell { padding: 10px 3px; }
+    .c2-tariff-buy { font-size: 12px; padding: 11px 2px; border-radius: 9px; }
+    .c2-tariff-note { font-size: 12px; margin-top: 18px; padding: 0 6px; }
 
     /* PARTICIPATE — bg stretches under the button */
     .c2-participate-section { padding: 40px 16px 32px; }
@@ -1043,7 +1369,12 @@
 @media (max-width: 480px) {
     .c2-title-cloud h1 { font-size: clamp(30px, 12vw, 44px); }
     .c2-calendar-dow,
-    .c2-calendar-cell { min-height: 72px; }
-    .c2-day-img { width: 30px; height: 30px; }
+    .c2-calendar-cell { min-height: 64px; }
+    .c2-day-img { width: 28px; height: 28px; }
     .c2-day-label { font-size: 8px; }
+    .c2-calendar-num { font-size: 11px; }
+    .c2-tariff-cell { font-size: 8.5px; padding: 8px 2px; }
+    .c2-tariff-head .c2-tariff-cell { font-size: 8px; }
+    .c2-tariff-buy { font-size: 11px; }
+    .c2-sticky-price { font-size: 19px; }
 }

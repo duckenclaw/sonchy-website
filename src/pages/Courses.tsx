@@ -106,7 +106,13 @@ const TrailSection = ({ className = "", isMobile, children }: TrailSectionProps)
     );
 };
 
-type LaunchTarget = "cards" | "participate" | null;
+type TierId = "listener" | "trying" | "consult";
+
+/** Every purchase button on the page, so the rocket animation can target one. */
+type LaunchTarget =
+    | `sticky-${TierId}`
+    | `tariff-${TierId}`
+    | "cards";
 
 interface StarData {
     id: number;
@@ -120,7 +126,79 @@ interface StarData {
     startTop: number;
 }
 
-const PAYMENT_LINK = "https://app.lava.top/products/73116468-452e-4e8b-8327-77bd377b7e11";
+const PAYMENT_LINKS: Record<TierId, string> = {
+    listener: "https://app.lava.top/products/2e904852-f5f2-4f28-8039-b4fdcdee5358",
+    trying: "https://app.lava.top/products/a504d32c-85b6-4bef-ad89-97ebc8fa1285",
+    consult: "https://app.lava.top/products/bd25d7a6-2fb5-4a5d-a613-b9242abb2d43",
+};
+
+/** The general CTA opens the storefront rather than a single product. */
+const STOREFRONT_LINK = "https://app.lava.top/xsonchy?sort=published";
+
+/**
+ * How long before a launched button is restored: the pill animates for 1.6s and
+ * the last star carries a 0.975s stagger on top of its own 1.6s run.
+ */
+const LAUNCH_RESET_MS = 2600;
+
+interface Tier {
+    id: TierId;
+    /** Sticky-note label — differs from the tariff-table name by design. */
+    stickyTitle: string;
+    stickyClass: string;
+    blurb: string;
+    seats: string | null;
+    price: string;
+    /** Tariff-table column heading. */
+    tableName: string;
+}
+
+const TIERS: Tier[] = [
+    {
+        id: "listener",
+        stickyTitle: "НОВИЧКУ",
+        stickyClass: "s-novichku",
+        blurb: "есть идея, но не знаю, стоит ли в нее вкладываться, хочу послушать курс лекций и решить сам",
+        seats: null,
+        price: "10 900 ₽",
+        tableName: "НОВИЧОК",
+    },
+    {
+        id: "trying",
+        stickyTitle: "ПРОБУЮЩЕМУ",
+        stickyClass: "s-probuyushchemu",
+        blurb: "есть отрывки и черновики, но хочу написать что-то цельное. не хватает обратной связи и упражнений",
+        seats: "30 мест!",
+        price: "17 900 ₽",
+        tableName: "ПРОБУЮЩИЙ",
+    },
+    {
+        id: "consult",
+        stickyTitle: "С КОНСУЛЬТАЦИЯМИ",
+        stickyClass: "s-consult",
+        blurb: "есть рукопись или готов писать сейчас — нужно личное сопровождение и полный разбор",
+        seats: "4 места!",
+        price: "33 900 ₽",
+        tableName: "С КОНСУЛЬТАЦИЯМИ",
+    },
+];
+
+/** `true` renders a check, `false` a dash, a string renders as-is. */
+type TariffCell = boolean | string;
+
+const TARIFF_ROWS: { label: string; values: [TariffCell, TariffCell, TariffCell] }[] = [
+    { label: "Кол-во мест", values: ["∞", "30 мест", "4 места"] },
+    { label: "7 лекций + записи интенсива", values: [true, true, true] },
+    { label: "7 практических гайдов", values: [true, true, true] },
+    { label: "Доступ в общий чат писателей", values: [true, true, true] },
+    { label: "Отрывки на разбор", values: [false, "7 отрывков (по 1 на тему)", "7 отрывков (по 1 на тему)"] },
+    { label: "Разбор текстов на лекции", values: [false, "выборочно на лекции", "Все в отдельном видео"] },
+    { label: "Письменный фидбек от мастера", values: [false, true, true] },
+    { label: "Индивидуальная редактура", values: [false, false, true] },
+    { label: "Помощь с гайдами", values: [false, false, true] },
+    { label: "2 личные зум-консультации", values: [false, false, true] },
+    { label: "Доступ к материалам", values: ["3 месяца", "3 месяца", "навсегда"] },
+];
 
 const Courses = () => {
     const isMobile = useRef<boolean>(false);
@@ -128,10 +206,15 @@ const Courses = () => {
     const bookTouchStartX = useRef<number | null>(null);
     const appRef = useRef<HTMLDivElement>(null);
     const [doodleContainerH, setDoodleContainerH] = useState<number>(0);
-    const [launching, setLaunching] = useState<LaunchTarget>(null);
+    const [launching, setLaunching] = useState<LaunchTarget | null>(null);
     const [stars, setStars] = useState<StarData[]>([]);
+    const launchTimer = useRef<number | null>(null);
 
-    const triggerLaunch = useCallback((target: Exclude<LaunchTarget, null>) => {
+    useEffect(() => () => {
+        if (launchTimer.current !== null) window.clearTimeout(launchTimer.current);
+    }, []);
+
+    const triggerLaunch = useCallback((target: LaunchTarget, href: string) => {
         if (launching) return;
         setLaunching(target);
         const hues = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
@@ -151,10 +234,17 @@ const Courses = () => {
             };
         });
         setStars(newStars);
-        window.location.href = PAYMENT_LINK;
+        window.open(href, "_blank", "noopener,noreferrer");
+
+        // c2-launch ends at opacity 0 with fill-mode forwards, so without this
+        // the button stays invisible once the user returns from the payment tab.
+        launchTimer.current = window.setTimeout(() => {
+            setLaunching(null);
+            setStars([]);
+        }, LAUNCH_RESET_MS);
     }, [launching]);
 
-    const renderStars = (target: Exclude<LaunchTarget, null>) => {
+    const renderStars = (target: LaunchTarget) => {
         if (launching !== target) return null;
         return stars.map(star => (
             <img
@@ -279,18 +369,18 @@ const Courses = () => {
             {/* 1. HEADER */}
             <header className="c2-header">
                 <div className="c2-title-cloud">
-                    <h1>WRITER<br />SUMMER</h1>
-                    <span className="c2-subtitle">прожить лето дважды</span>
+                    <h1>WRITER<br />AUTUMN</h1>
+                    <span className="c2-subtitle">уютная осень со своей книгой</span>
                 </div>
                 <div className="c2-header-bottom">
                     <p className="c2-header-lead">
-                        Летний писательский интенсив, где мы НЕ пишем черновик на скорость,
+                        Осенний писательский интенсив, где мы НЕ пишем черновик на скорость,
                         а пошагово конструируем книгу.
                     </p>
                     <div className="c2-header-deco" aria-hidden="true">
                         <div className="c2-header-deco-sun" />
                         <span className="c2-header-pill c2-pill-writer">WRITER</span>
-                        <span className="c2-header-pill c2-pill-summer">SUMMER</span>
+                        <span className="c2-header-pill c2-pill-autumn">AUTUMN</span>
                         <div className="c2-header-deco-pen" />
                     </div>
                 </div>
@@ -312,11 +402,11 @@ const Courses = () => {
                         </p>
                         <img className="c2-about-card-deco" src="/courses/about-decoration2.svg" alt="" aria-hidden="true" />
                     </div>
-                    <div className="c2-about-card c2-about-purple">
+                    <div className="c2-about-card c2-about-coral">
                         <h3>правим отрывки</h3>
                         <p>
-                            теорию мы применяем на ключевых отрывках <strong>из твоего текста</strong>.
-                            важные ссоры, знакомство с персонажами, метафоры и тд
+                            помимо общей теории для всей истории, мы работаем с{" "}
+                            <strong>ключевыми элементами</strong>: диалоги, лор и тд.
                         </p>
                         <img className="c2-about-card-deco" src="/courses/about-decoration3.svg" alt="" aria-hidden="true" />
                     </div>
@@ -327,7 +417,7 @@ const Courses = () => {
             <TrailSection className="c2-calendar-section" isMobile={isMobile.current}>
                 <div className="c2-section-title">
                     <h2>ПРОГРАММА КРАТКО</h2>
-                    <span className="c2-subdate">2-9 июня</span>
+                    <span className="c2-subdate">24 сент – 4 окт</span>
                 </div>
 
                 <div className="c2-calendar-panel">
@@ -337,7 +427,7 @@ const Courses = () => {
 
                     <div className="c2-calendar-month">
                         <div className="c2-calendar-month-scribble" />
-                        <span>ИЮНЬ</span>
+                        <span>сентябрь – октябрь</span>
                     </div>
 
                     <div className="c2-calendar-grid">
@@ -345,46 +435,53 @@ const Courses = () => {
                             <div key={d} className="c2-calendar-dow">{d}</div>
                         ))}
 
-                        {/* Week 1: 1-7 */}
-                        <div className="c2-calendar-cell"><span className="c2-calendar-num">1</span></div>
-                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">2</span>
+                        {/* Week 1: 21–27 сентября */}
+                        <div className="c2-calendar-cell"><span className="c2-calendar-num">21</span></div>
+                        <div className="c2-calendar-cell"><span className="c2-calendar-num">22</span></div>
+                        <div className="c2-calendar-cell"><span className="c2-calendar-num">23</span></div>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">24</span>
                             <img className="c2-day-img" src="/courses/calendar-idea.svg" alt="Идея" />
-                            <span className="c2-day-label lbl-pink">Идея!</span>
+                            <span className="c2-day-label">Идея!</span>
                         </div>
-                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">3</span>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">25</span>
                             <img className="c2-day-img" src="/courses/calendar-world.svg" alt="Мир" />
-                            <span className="c2-day-label lbl-orange">Мир</span>
+                            <span className="c2-day-label">Мир</span>
                         </div>
-                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">4</span>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">26</span>
                             <img className="c2-day-img" src="/courses/calendar-characters.svg" alt="Персонажи" />
-                            <span className="c2-day-label lbl-pink">Персонажи!</span>
+                            <span className="c2-day-label">Персонажи!</span>
                         </div>
-                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">5</span>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">27</span>
                             <img className="c2-day-img" src="/courses/calendar-plot.svg" alt="Сюжет" />
-                            <span className="c2-day-label lbl-red">Сюжет!</span>
-                        </div>
-                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">6</span>
-                            <img className="c2-day-img" src="/courses/calendar-dialog.svg" alt="Диалоги" />
-                            <span className="c2-day-label lbl-purple">Диалоги</span>
-                        </div>
-                        <div className="c2-calendar-cell"><span className="c2-calendar-num">7</span>
-                            <span className="c2-day-label lbl-pink" style={{ marginTop: 18 }}>отдых!</span>
+                            <span className="c2-day-label">Сюжет!</span>
                         </div>
 
-                        {/* Week 2: 8-14 */}
-                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">8</span>
+                        {/* Week 2: 28 сентября – 4 октября */}
+                        <div className="c2-calendar-cell"><span className="c2-calendar-num">28</span></div>
+                        <div className="c2-calendar-cell"><span className="c2-calendar-num">29</span></div>
+                        <div className="c2-calendar-cell"><span className="c2-calendar-num">30</span></div>
+                        <div className="c2-calendar-cell"><span className="c2-calendar-num">1</span></div>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">2</span>
+                            <img className="c2-day-img" src="/courses/calendar-dialog.svg" alt="Диалоги" />
+                            <span className="c2-day-label">Диалоги</span>
+                        </div>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">3</span>
                             <img className="c2-day-img" src="/courses/calendar-style.svg" alt="Стиль" />
-                            <span className="c2-day-label lbl-purple">Стиль</span>
+                            <span className="c2-day-label">Стиль</span>
                         </div>
-                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">9</span>
+                        <div className="c2-calendar-cell c-event"><span className="c2-calendar-num">4</span>
                             <img className="c2-day-img" src="/courses/calendar-development.svg" alt="Продвижение" />
-                            <span className="c2-day-label lbl-orange">Продви-<br />жение</span>
+                            <span className="c2-day-label">Продви-<br />жение</span>
                         </div>
+
+                        {/* Week 3: 5–11 октября */}
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">5</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">6</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">7</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">8</span></div>
+                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">9</span></div>
                         <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">10</span></div>
                         <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">11</span></div>
-                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">12</span></div>
-                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">13</span></div>
-                        <div className="c2-calendar-cell c-muted"><span className="c2-calendar-num">14</span></div>
 
                     </div>
 
@@ -394,7 +491,7 @@ const Courses = () => {
                             <li>в зуме в 13:00</li>
                         </ul>
                         <ul>
-                            <li>записи лекций до 9 июля</li>
+                            <li>записи лекций до 4 января</li>
                             <li>гайд отправляется до лекции</li>
                         </ul>
                     </div>
@@ -403,35 +500,36 @@ const Courses = () => {
 
             {/* 4. CARDS (mouse-trail) */}
             <TrailSection className="c2-cards-section" isMobile={isMobile.current}>
-                <div className="c2-section-title">
-                    <h2>КОМУ ПОДОЙДЁТ?</h2>
+                <div className="c2-section-title t-gold">
+                    <h2>КОМУ ПОДХОДИТ?</h2>
                 </div>
 
                 <div className="c2-cards-bg">
-                    <img className="c2-cards-bg-img c2-cards-bg-desktop" src="/courses/cards-bg.png" alt="" aria-hidden="true" />
-                    <img className="c2-cards-bg-img c2-cards-bg-mobile" src="/courses/cards-bg-mobile.svg" alt="" aria-hidden="true" />
+                    <img className="c2-cards-bg-img" src="/courses/cards-section-bg.svg" alt="" aria-hidden="true" />
                     <div className="c2-cards-row">
-                        <div className="c2-sticky s-novichku">
-                            <img src="/courses/card1.svg" alt="" aria-hidden="true" className="c2-sticky-bg" />
-                            <div className="c2-sticky-content">
-                                <h4>НОВИЧКУ</h4>
-                                <p>есть идея, но не знаю, стоит ли в нее вкладываться</p>
+                        {TIERS.map(tier => (
+                            <div className={`c2-sticky-col ${tier.stickyClass}`} key={tier.id}>
+                                <div className={`c2-sticky ${tier.stickyClass}`}>
+                                    <div className="c2-sticky-content">
+                                        <h4>{tier.stickyTitle}</h4>
+                                        <p>{tier.blurb}</p>
+                                    </div>
+                                </div>
+                                <span className={`c2-sticky-badge ${tier.seats ? "" : "is-empty"}`}>
+                                    {tier.seats ?? "—"}
+                                </span>
+                                <div className="c2-sticky-price-wrap">
+                                    <button
+                                        type="button"
+                                        className={`c2-sticky-price ${launching === `sticky-${tier.id}` ? "launching" : ""}`}
+                                        onClick={() => triggerLaunch(`sticky-${tier.id}`, PAYMENT_LINKS[tier.id])}
+                                    >
+                                        {tier.price}
+                                    </button>
+                                    {renderStars(`sticky-${tier.id}`)}
+                                </div>
                             </div>
-                        </div>
-                        <div className="c2-sticky s-probuyushchemu">
-                            <img src="/courses/card2.svg" alt="" aria-hidden="true" className="c2-sticky-bg" />
-                            <div className="c2-sticky-content">
-                                <h4>ПРОБУЮЩЕМУ</h4>
-                                <p>есть отрывки и черновики, но хочу написать что-то цельное</p>
-                            </div>
-                        </div>
-                        <div className="c2-sticky s-pishushchemu">
-                            <img src="/courses/card3.svg" alt="" aria-hidden="true" className="c2-sticky-bg" />
-                            <div className="c2-sticky-content">
-                                <h4>ПИШУЩЕМУ</h4>
-                                <p>есть рукопись или публикация, но интересно улучшить процесс</p>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
 
@@ -439,19 +537,23 @@ const Courses = () => {
                     <button
                         type="button"
                         className={`c2-cta-pill ${launching === "cards" ? "launching" : ""}`}
-                        onClick={() => triggerLaunch("cards")}
+                        onClick={() => triggerLaunch("cards", STOREFRONT_LINK)}
                     >
-                        ЗАПИСАТЬСЯ<br />12 990 Р
+                        ЗАПИСАТЬСЯ<br />на осенний интенсив
                     </button>
                     {renderStars("cards")}
                     <p className="c2-cta-disclaimer">
                         *купить в записи после окончания интенсива - нельзя.
-                        запись ТОЛЬКО для участников до 9 июля
+                        запись ТОЛЬКО для участников
                     </p>
                 </div>
             </TrailSection>
 
-            {/* 5. BOOK */}
+            {/* 5. BOOK
+                TODO: the autumn design replaces this with a new image
+                (Figma node 670:2817 on the sonchy-landing page). Still the
+                summer artwork here — export blocked by the Figma plan's MCP
+                call limit. book.png is also 2.8 MB; re-export as WebP. */}
             <section className="c2-book-section">
                 <img src="/courses/book.png" alt="Открытая книга с описанием курса" />
                 <div
@@ -483,11 +585,16 @@ const Courses = () => {
                         aria-selected={bookPage === 1}
                     />
                 </div>
+                <p className="c2-book-note">
+                    в тарифе «Пробующий» будет короткий фидбэк на отрывки в комментариях
+                    с пояснениями на лекции типичных ошибок, полный разбор только для
+                    тарифа с консультациями
+                </p>
             </section>
 
             {/* 6. PLAN (mouse-trail) */}
             <TrailSection className="c2-plan-section" isMobile={isMobile.current}>
-                <div className="c2-section-title">
+                <div className="c2-section-title t-pink">
                     <h2>ПЛАН ИНТЕНСИВА</h2>
                 </div>
 
@@ -601,18 +708,66 @@ const Courses = () => {
                 <div className="c2-participate-bg">
                     <img className="c2-participate-bg-img" src="/courses/participate-bg.svg" alt="" aria-hidden="true" />
                     <h2>устрой себе</h2>
-                    <h1>HOT WRITER SUMMER</h1>
-                    <div style={{ position: "relative", display: "inline-block" }}>
-                        <button
-                            type="button"
-                            className={`c2-cta-pill ${launching === "participate" ? "launching" : ""}`}
-                            onClick={() => triggerLaunch("participate")}
-                        >
-                            ЗАПИСАТЬСЯ<br />12 990 Р
-                        </button>
-                        {renderStars("participate")}
+                    <h1>WARM WRITER AUTUMN</h1>
+                </div>
+            </section>
+
+            {/* 8. TARIFF COMPARISON */}
+            <section className="c2-tariff-section">
+                <div className="c2-section-title t-cream">
+                    <h2>СРАВНЕНИЕ ТАРИФОВ</h2>
+                </div>
+
+                <div className="c2-tariff-wrapper">
+                    <div className="c2-tariff-row c2-tariff-head">
+                        <div className="c2-tariff-cell c2-tariff-cell-label" />
+                        {TIERS.map((tier, i) => (
+                            <div className={`c2-tariff-cell tier-${i + 1}`} key={tier.id}>
+                                {tier.tableName}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="c2-tariff-body">
+                        {TARIFF_ROWS.map(row => (
+                            <div className="c2-tariff-row" key={row.label}>
+                                <div className="c2-tariff-cell c2-tariff-cell-label">{row.label}</div>
+                                {row.values.map((value, i) => (
+                                    <div className={`c2-tariff-cell tier-${i + 1}`} key={i}>
+                                        {value === true && (
+                                            <span className="c2-tariff-check" aria-label="включено">✓</span>
+                                        )}
+                                        {value === false && (
+                                            <span className="c2-tariff-dash" role="img" aria-label="не включено" />
+                                        )}
+                                        {typeof value === "string" && value}
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="c2-tariff-row c2-tariff-cta">
+                        <div className="c2-tariff-cell c2-tariff-cell-label" />
+                        {TIERS.map((tier, i) => (
+                            <div className="c2-tariff-cell" key={tier.id}>
+                                <button
+                                    type="button"
+                                    className={`c2-tariff-buy tier-${i + 1} ${launching === `tariff-${tier.id}` ? "launching" : ""}`}
+                                    onClick={() => triggerLaunch(`tariff-${tier.id}`, PAYMENT_LINKS[tier.id])}
+                                >
+                                    {tier.price}
+                                </button>
+                                {renderStars(`tariff-${tier.id}`)}
+                            </div>
+                        ))}
                     </div>
                 </div>
+
+                <p className="c2-tariff-note">
+                    * Запись интенсива предоставляется только участникам курса и доступна
+                    до 4 января. Успейте забронировать место на потоке.
+                </p>
             </section>
 
             <div className="c2-footer-purple" />
