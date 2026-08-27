@@ -151,6 +151,8 @@ interface Tier {
     price: string;
     /** Tariff-table column heading. */
     tableName: string;
+    /** Blocks both purchase buttons for the tier and shows SOLD OUT instead. */
+    soldOut?: boolean;
 }
 
 const TIERS: Tier[] = [
@@ -177,9 +179,10 @@ const TIERS: Tier[] = [
         stickyTitle: "С КОНСУЛЬТАЦИЯМИ",
         stickyClass: "s-consult",
         blurb: "есть рукопись или готов писать сейчас — нужно личное сопровождение и полный разбор",
-        seats: "4 места!",
+        seats: "0 мест",
         price: "33 900 ₽",
         tableName: "С КОНСУЛЬТАЦИЯМИ",
+        soldOut: true,
     },
 ];
 
@@ -523,8 +526,9 @@ const Courses = () => {
                                         type="button"
                                         className={`c2-sticky-price ${launching === `sticky-${tier.id}` ? "launching" : ""}`}
                                         onClick={() => triggerLaunch(`sticky-${tier.id}`, PAYMENT_LINKS[tier.id])}
+                                        disabled={tier.soldOut}
                                     >
-                                        {tier.price}
+                                        {tier.soldOut ? "SOLD OUT" : tier.price}
                                     </button>
                                     {renderStars(`sticky-${tier.id}`)}
                                 </div>
@@ -755,8 +759,9 @@ const Courses = () => {
                                     type="button"
                                     className={`c2-tariff-buy tier-${i + 1} ${launching === `tariff-${tier.id}` ? "launching" : ""}`}
                                     onClick={() => triggerLaunch(`tariff-${tier.id}`, PAYMENT_LINKS[tier.id])}
+                                    disabled={tier.soldOut}
                                 >
-                                    {tier.price}
+                                    {tier.soldOut ? "SOLD OUT" : tier.price}
                                 </button>
                                 {renderStars(`tariff-${tier.id}`)}
                             </div>
