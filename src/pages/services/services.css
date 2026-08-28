@@ -1,0 +1,302 @@
+/* ==========================================================================
+   Services page — three hand-drawn cards
+   ========================================================================== */
+
+.services-flexbox {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .services-flexbox {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .services-flexbox {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+}
+
+/* ServiceBox */
+.service-box {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+.service-box-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.service-box-svg-mobile {
+  display: none;
+}
+.service-box-svg-desktop {
+  display: block;
+}
+.service-box-svg path {
+  transition: fill var(--transition-normal);
+}
+.service-box:hover .service-box-svg-desktop path {
+  fill: var(--color-accent-pink);
+}
+.service-box:active .service-box-svg-mobile path {
+  fill: var(--color-accent-pink);
+}
+.service-box-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+.service-image {
+  width: 180px;
+  height: 180px;
+  margin-top: 24px;
+  object-fit: contain;
+  transition: transform var(--transition-normal);
+}
+.service-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 32px 0;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color var(--transition-normal);
+}
+.service-box:hover .service-title {
+  color: var(--color-secondary);
+}
+.service-description {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--color-accent);
+  margin: 0 0 24px 0;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-normal);
+}
+.service-box:hover .service-description {
+  color: var(--color-secondary);
+}
+.service-confirm-button {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 16px 64px;
+  background-image: url('/services/confirm-bg.svg');
+  background-color: rgba(255, 255, 255, 0);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--color-secondary);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  transform: translateY(20px);
+  opacity: 0;
+  visibility: hidden;
+}
+.service-box:hover .service-confirm-button {
+  transform: translateY(8px);
+  opacity: 1;
+  visibility: visible;
+}
+.service-confirm-button:focus-visible {
+  outline: 3px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+@media (min-width: 1025px) {
+  .services-flexbox {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .service-box {
+    flex: 1;
+    max-width: 350px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .service-box {
+    width: 300px;
+    height: 450px;
+  }
+  .service-image {
+    width: 120px;
+    height: 120px;
+  }
+  .service-title {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .service-box {
+    height: auto;
+    max-width: 100%;
+    width: calc(100% + 2 * var(--mobile-padding));
+    position: relative;
+    margin-bottom: 2rem;
+    margin-left: calc(-1 * var(--mobile-padding));
+    margin-right: calc(-1 * var(--mobile-padding));
+  }
+  .service-box-svg-desktop {
+    display: none;
+  }
+  .service-box-svg-mobile {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .service-box-content {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0 1rem;
+    text-align: left;
+    border: none;
+    background-color: transparent;
+    transition: background-color var(--transition-normal);
+    position: relative;
+    z-index: 1;
+  }
+  .service-box:active .service-title,
+  .service-box:active .service-description {
+    color: var(--color-secondary);
+  }
+  .service-image {
+    width: 160px;
+    height: 160px;
+    margin-top: 0;
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+  .service-title {
+    font-size: 1.3rem;
+    margin: 0 0 0.25rem 0;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+  .service-description {
+    font-size: 0.85rem;
+    margin: 0;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    line-height: 1.3;
+  }
+  .service-confirm-button {
+    font-size: 0.9rem;
+    padding: 10px 50px;
+    position: absolute;
+    bottom: -20px;
+    right: 5%;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-box {
+    height: auto;
+    max-width: 100%;
+    width: calc(100% + 2 * var(--mobile-padding));
+    position: relative;
+    margin-bottom: 2rem;
+    margin-left: calc(-1 * var(--mobile-padding));
+    margin-right: calc(-1 * var(--mobile-padding));
+  }
+  .service-box-svg-desktop {
+    display: none;
+  }
+  .service-box-svg-mobile {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .service-box-content {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0 1rem;
+    text-align: left;
+    border: none;
+    background-color: transparent;
+    transition: background-color var(--transition-normal);
+    position: relative;
+    z-index: 1;
+  }
+  .service-box:active .service-title,
+  .service-box:active .service-description {
+    color: var(--color-secondary);
+  }
+  .service-image {
+    width: 100px;
+    height: 100px;
+    margin-top: 0;
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+  .service-title {
+    font-size: 5.5vw;
+    margin: 0 0 0.25rem 0;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+  .service-description {
+    font-size: 3.1vw;
+    margin: 0;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    line-height: 1.3;
+  }
+  .service-confirm-button {
+    font-size: 0.9rem;
+    padding: 10px 50px;
+    position: absolute;
+    bottom: -20px;
+    right: 5%;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: none;
+  }
+}

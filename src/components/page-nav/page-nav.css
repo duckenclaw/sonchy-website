@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Page navigation
+
+   Both controls exist only on small screens — on desktop the header navbar
+   already covers going back and going home.
+   ========================================================================== */
+
+/* Side-by-side "НАЗАД / НА ГЛАВНУЮ" pair */
+.page-nav {
+  display: none;
+}
+
+/* Full-width "ВЕРНУТЬСЯ НА ГЛАВНУЮ" bar */
+.page-return-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .page-nav {
+    display: flex;
+    flex-direction: row;
+    margin: 5rem 0;
+    width: 100%;
+    height: 75px;
+  }
+
+  .page-nav-button {
+    flex: 1;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-image: url('/ui/return-button-mobile-blue.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: none;
+    color: var(--color-secondary);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    padding-bottom: 5px;
+  }
+
+  .page-nav-button:active {
+    transform: scale(0.95);
+  }
+
+  .page-return-button {
+    display: block;
+    margin: 3rem calc(-1 * var(--mobile-padding)) 2rem calc(-1 * var(--mobile-padding));
+    width: calc(100% + 2 * var(--mobile-padding));
+    padding: 18px var(--mobile-padding);
+    box-sizing: border-box;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-image: url('/ui/return-button.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.95);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+  }
+
+  .page-return-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+}

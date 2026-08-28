@@ -1,6 +1,8 @@
+/*
+ * Global stylesheets, loaded before any component CSS.
+ * Everything else lives next to the component or page that uses it.
+ */
 @import './base.css';
 @import './utilities.css';
 @import './layout.css';
-@import './components.css';
-@import './pages.css';
-
+@import './page-backgrounds.css';

@@ -1,0 +1,38 @@
+/* Full-viewport layer that sits behind the page content. */
+.mouse-stickers {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Holds the shared <symbol>; never painted itself. */
+.mouse-stickers-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.mouse-sticker {
+  position: absolute;
+  pointer-events: none;
+  /* 2500ms at full opacity, then a 500ms fade — see LIFETIME_MS / FADE_MS. */
+  animation: sticker-fade 3000ms linear forwards;
+}
+
+@keyframes sticker-fade {
+  0%,
+  83.33% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* The trail is pure decoration; drop it for anyone who asked for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .mouse-stickers {
+    display: none;
+  }
+}
