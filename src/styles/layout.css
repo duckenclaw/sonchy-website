@@ -1,3 +1,17 @@
+/* ==========================================================================
+   Page shell
+
+   Every routed page renders <PageLayout>, which produces:
+
+     .app                       full-height scroll container
+       .header                  (see components/header)
+       .page .page-<name>       centering wrapper
+         .page-inner            width-capped content column
+
+   Pages tune the shell through their own `.page-<name>` modifier so the base
+   rules below stay untouched.
+   ========================================================================== */
+
 .app {
   width: 100%;
   height: 100%;
@@ -7,45 +21,7 @@
   overflow-x: hidden;
 }
 
-.nav-blocks {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  min-height: 70vh;
-}
-
-.nav {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-@media (min-width: 1025px) {
-  .nav {
-    flex-direction: row;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    min-height: 70vh;
-  }
-
-  .nav-blocks {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    min-height: 70vh;
-  }
-}
-
-/* Pages wrappers */
-.services-page,
-.consulting-page,
-.lectures-page,
-.education-page {
+.page {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -53,40 +29,23 @@
   padding: 2rem;
 }
 
-.services-container,
-.consulting-container,
-.lectures-page-container,
-.education-page-container {
+.page-inner {
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
 }
 
-.services-flexbox {
-  display: flex;
-  flex-direction: row;
-  gap: 3rem;
-  align-items: center;
-  justify-content: center;
+/* About lays its blocks out from the top and needs a wider column */
+.page-about {
+  align-items: flex-start;
 }
 
-.consulting-flexbox {
-  display: flex;
-  flex-direction: row;
-  gap: 24px;
-  align-items: start;
-  justify-content: center;
+.page-about .page-inner {
+  max-width: 1100px;
+  padding-bottom: 2rem;
 }
 
-/* Mobile content wrapper - ensures consistent width for all elements */
 @media (max-width: 768px) {
-  .mobile-content-item {
-    width: 100%;
-    padding-left: var(--mobile-padding);
-    padding-right: var(--mobile-padding);
-    box-sizing: border-box;
-  }
-
   .app {
     height: 100vh;
     max-height: 100vh;
@@ -94,138 +53,28 @@
     overflow-x: hidden;
   }
 
-  .nav {
-    padding: 0;
-    gap: 0.5rem;
-    height: auto;
-  }
-
-  .nav-blocks {
-    min-height: auto;
+  .page {
     padding: 0;
   }
 
-  .services-page {
-    padding: 0;
+  .page-inner {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 0.5rem;
   }
 
-  .services-container {
+  /* These two sit flush against the wider mobile gutter */
+  .page-services .page-inner,
+  .page-education .page-inner {
     padding-left: var(--mobile-padding);
     padding-right: var(--mobile-padding);
-    padding-top: 0;
-    padding-bottom: 0;
-    width: 100%;
-    box-sizing: border-box;
   }
 
-  .services-flexbox {
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 0;
-  }
-
-  .consulting-page {
-    padding: 0;
-  }
-
-  .consulting-container {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-top: 0;
-    padding-bottom: 0;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .consulting-flexbox {
-    flex-direction: column;
-    gap: 2rem;
-    padding: 0;
-  }
-
-  .lectures-page {
-    padding: 0;
-  }
-
-  .lectures-page-container {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-top: 0;
-    padding-bottom: 0;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .education-page {
-    padding: 0;
-    align-items: flex-start;
-  }
-
-  .education-page-container {
-    padding-left: var(--mobile-padding);
-    padding-right: var(--mobile-padding);
-    padding-top: 1rem;
-    padding-bottom: 2rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .services-flexbox {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-  }
-}
-
-/* About page layout */
-.about-page {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-  align-items: flex-start;
-}
-
-.about-container {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding-bottom: 2rem;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.3fr 1fr;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  align-items: start;
-}
-
-.about-links-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 1.5rem;
-}
-
-@media (max-width: 768px) {
-  .about-page {
+  .page-about {
     padding: 0 1rem 2rem;
   }
 
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .page-about .page-inner {
+    padding: 0;
   }
 }
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .about-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-

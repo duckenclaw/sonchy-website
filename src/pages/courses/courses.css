@@ -1,0 +1,1821 @@
+/* ============================================================
+   Courses page — "WRITER AUTUMN" intensive (24 сент – 4 окт)
+   All rules scoped under .courses2-app to prevent leakage.
+   ============================================================ */
+
+.courses2-app {
+  /* --- surfaces --- */
+  --c2-page-bg: #781e32; /* deep wine — the page ground */
+  --c2-wine-deep: #5e1d1b; /* near-black brown, used for ink and inverted fills */
+  --c2-ink: #3e1e19; /* body copy on cream panels */
+  --c2-cream: #fff5e6; /* primary cream panel */
+  --c2-cream-white: #fffcf5; /* lighter cream, alternating rows / calendar grid */
+  --c2-cream-soft: #faebc4; /* warm cream, used for text on coral */
+
+  /* --- accents --- */
+  --c2-coral: #f05545; /* primary CTA / headings */
+  --c2-orange: #e8682a; /* secondary accent, checkmarks */
+  --c2-amber: #e5a616; /* lead copy, borders */
+  --c2-gold: #f5d381; /* calendar panel, pills */
+  --c2-gold-bright: #f4c03a; /* "КОМУ ПОДХОДИТ?" title */
+  --c2-olive: #8b7d2a; /* tape, ЧТ column */
+  --c2-rust: #a8341c; /* calendar notes — a darkened coral;
+                                   the design's #F05545 on gold is only 2.4:1 */
+  --c2-pink: #d85fa1; /* tier accent */
+  --c2-pink-pale: #f4c6d0; /* footnote copy on wine */
+  --c2-pink-title: #f5cedb; /* "ПЛАН ИНТЕНСИВА" title */
+  --c2-pink-heading: #cf0874; /* about card 1 */
+  --c2-pink-bullet: #a31261; /* about card 2 */
+  --c2-event-bg: #f0bfd4; /* calendar lecture-day cells */
+
+  /* --- tariff tiers --- */
+  --c2-tier-1: #e5a617;
+  --c2-tier-2: #e86929;
+  --c2-tier-3: #d94073;
+  --c2-tier-1-cta: #f2b21a;
+  --c2-tier-2-cta: #eb5926;
+  --c2-tier-3-cta: #d93373;
+
+  font-family: 'Montserrat', sans-serif;
+  color: var(--c2-cream);
+  width: 100%;
+  min-height: 100vh;
+  background: var(--c2-page-bg);
+  overflow-x: hidden;
+}
+
+.courses2-app * {
+  box-sizing: border-box;
+}
+
+.courses2-app > * {
+  flex-shrink: 0;
+}
+
+.courses2-app h1,
+.courses2-app h2,
+.courses2-app h3 {
+  font-family: 'Alumni Sans', sans-serif;
+  margin: 0;
+  line-height: 1;
+}
+
+.courses2-app p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ---------- 1. HEADER ---------- */
+.c2-header {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+  padding: 60px 80px 100px;
+  background: linear-gradient(
+    180deg,
+    #ebd9d2 0%,
+    #c79a93 22%,
+    #9c5254 44%,
+    var(--c2-page-bg) 70%,
+    var(--c2-page-bg) 100%
+  );
+  overflow: hidden;
+}
+
+.c2-title-cloud {
+  position: relative;
+  margin: 0 auto;
+  width: min(720px, 70vw);
+  aspect-ratio: 5 / 3;
+  background: url('/courses/autumn-title-bg.svg') center/contain no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 8% 12%;
+}
+
+.c2-title-cloud h1 {
+  font-family: 'Dela Gothic One', sans-serif;
+  font-weight: 400;
+  font-size: clamp(48px, 7vw, 110px);
+  color: var(--c2-coral);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.c2-title-cloud .c2-subtitle {
+  margin-top: 18px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: clamp(16px, 1.6vw, 24px);
+  color: var(--c2-wine-deep);
+}
+
+.c2-header-bottom {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 80px;
+  gap: 40px;
+}
+
+.c2-header-lead {
+  max-width: 460px;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--c2-amber);
+  position: relative;
+}
+
+.c2-header-lead::before {
+  content: '';
+  position: absolute;
+  left: -30px;
+  top: 8px;
+  width: 18px;
+  height: 18px;
+  background-image:
+    linear-gradient(135deg, transparent 45%, #e8b82a 45%, #e8b82a 55%, transparent 55%),
+    linear-gradient(45deg, transparent 45%, #e8b82a 45%, #e8b82a 55%, transparent 55%);
+  background-size:
+    14px 3px,
+    3px 14px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.c2-header-deco {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  flex-shrink: 0;
+}
+
+.c2-header-pill {
+  position: absolute;
+  background: var(--c2-gold);
+  border: 2px solid var(--c2-wine-deep);
+  border-radius: 14px;
+  padding: 8px 22px;
+  font-family: 'Dela Gothic One', sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  white-space: nowrap;
+}
+
+.c2-header-pill.c2-pill-writer {
+  top: 40px;
+  right: 30px;
+  transform: rotate(-8deg);
+  color: var(--c2-orange);
+}
+
+.c2-header-pill.c2-pill-autumn {
+  top: 110px;
+  right: 110px;
+  transform: rotate(-8deg);
+  color: var(--c2-pink);
+  font-size: 18px;
+}
+
+.c2-header-deco-sun {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 50px;
+  left: 30px;
+  background: url('/courses/sun-header-decoration.svg') center/contain no-repeat;
+}
+
+.c2-header-deco-pen {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  bottom: 20px;
+  right: 20px;
+  background: url('/courses/pen-header-decoration.svg') center/contain no-repeat;
+}
+
+/* ---------- 2. ABOUT (3 info cards) ---------- */
+.c2-about {
+  position: relative;
+  padding: 80px 80px 60px;
+  background: var(--c2-cream);
+}
+
+.c2-about-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.c2-about-card-deco {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.35;
+  filter: hue-rotate(118deg) saturate(1.2);
+  z-index: 0;
+  width: 160px;
+  height: auto;
+  bottom: -20px;
+  right: -20px;
+}
+
+.c2-about-card-wide .c2-about-card-deco {
+  width: 180px;
+  bottom: -30px;
+  right: 10%;
+}
+
+.c2-about-card > h3,
+.c2-about-card > p {
+  position: relative;
+  z-index: 1;
+}
+
+.c2-about-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.c2-about-card {
+  background: var(--c2-cream);
+  border-radius: 20px;
+  padding: 28px 36px;
+  border: 2px solid transparent;
+  text-align: center;
+}
+
+.c2-about-card.c2-about-card-wide {
+  grid-column: 1 / -1;
+}
+
+.c2-about-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.c2-about-card.c2-about-pink h3 {
+  color: var(--c2-pink-heading);
+}
+.c2-about-card.c2-about-pink {
+  border-color: var(--c2-pink-heading);
+}
+.c2-about-card.c2-about-orange h3 {
+  color: var(--c2-pink-bullet);
+}
+.c2-about-card.c2-about-orange {
+  border-color: var(--c2-pink-bullet);
+}
+.c2-about-card.c2-about-coral h3 {
+  color: var(--c2-coral);
+}
+.c2-about-card.c2-about-coral {
+  border-color: var(--c2-coral);
+}
+
+.c2-about-card p {
+  font-size: 15px;
+  color: var(--c2-wine-deep);
+}
+
+.c2-about-card p strong {
+  font-weight: 700;
+  color: var(--c2-wine-deep);
+}
+
+/* ---------- 3. CALENDAR ---------- */
+.c2-calendar-section {
+  position: relative;
+  padding: 60px 80px;
+  background: var(--c2-cream);
+}
+
+.c2-section-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.c2-section-title h2 {
+  font-family: 'Dela Gothic One', sans-serif;
+  font-weight: 400;
+  font-size: clamp(32px, 4vw, 56px);
+  color: var(--c2-coral);
+  letter-spacing: 0.02em;
+}
+
+/* Per-section title colours, matching the design */
+.c2-section-title.t-gold h2 {
+  color: var(--c2-gold-bright);
+}
+.c2-section-title.t-pink h2 {
+  color: var(--c2-pink-title);
+}
+.c2-section-title.t-cream h2 {
+  color: var(--c2-cream);
+}
+
+.c2-section-title .c2-subdate {
+  display: block;
+  margin-top: 6px;
+  font-family: 'Dela Gothic One', sans-serif;
+  font-weight: 400;
+  font-size: clamp(22px, 2.6vw, 40px);
+  color: var(--c2-coral);
+}
+
+.c2-calendar-panel {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--c2-gold);
+  border-radius: 36px;
+  padding: 50px 36px 36px;
+}
+
+.c2-calendar-tape {
+  position: absolute;
+  width: 46px;
+  height: 100px;
+  opacity: 0.85;
+  border-radius: 2px;
+}
+
+.c2-calendar-tape.t-tl {
+  top: 90px;
+  left: -18px;
+  background: var(--c2-orange);
+  transform: rotate(-24deg);
+}
+.c2-calendar-tape.t-tr {
+  top: -18px;
+  left: 18%;
+  background: var(--c2-coral);
+  width: 40px;
+  height: 70px;
+  transform: rotate(14deg);
+}
+.c2-calendar-tape.t-bl {
+  bottom: 22%;
+  right: -14px;
+  background: var(--c2-olive);
+  transform: rotate(8deg);
+}
+
+.c2-calendar-month {
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.c2-calendar-month-scribble {
+  position: absolute;
+  inset: -16px 0 -16px 0;
+  background: url('/courses/autumn-calendar-title-decoration.svg') center/contain no-repeat;
+  pointer-events: none;
+}
+
+.c2-calendar-month span {
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--c2-wine-deep);
+  letter-spacing: 0.02em;
+}
+
+.c2-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  background: var(--c2-cream-white);
+  padding: 0;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 2px solid var(--c2-wine-deep);
+}
+
+.c2-calendar-dow,
+.c2-calendar-cell {
+  padding: 10px 8px;
+  min-height: 130px;
+  position: relative;
+  text-align: left;
+  background: var(--c2-cream-white);
+  border-right: 1px solid rgba(94, 29, 27, 0.55);
+  border-bottom: 1px solid rgba(94, 29, 27, 0.55);
+}
+
+.c2-calendar-grid > :nth-child(7n) {
+  border-right: none;
+}
+.c2-calendar-grid > .c2-calendar-cell:nth-last-child(-n + 7) {
+  border-bottom: none;
+}
+
+.c2-calendar-cell.c-event {
+  background: var(--c2-event-bg);
+}
+
+.c2-calendar-dow {
+  min-height: auto;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 16px 4px;
+  background: var(--c2-cream-white);
+}
+
+/* Each weekday column gets its own accent, as in the design */
+.c2-calendar-dow:nth-child(1) {
+  color: var(--c2-orange);
+}
+.c2-calendar-dow:nth-child(2) {
+  color: var(--c2-amber);
+}
+.c2-calendar-dow:nth-child(3) {
+  color: var(--c2-coral);
+}
+.c2-calendar-dow:nth-child(4) {
+  color: var(--c2-olive);
+}
+.c2-calendar-dow:nth-child(5) {
+  color: var(--c2-amber);
+}
+.c2-calendar-dow:nth-child(6),
+.c2-calendar-dow:nth-child(7) {
+  color: var(--c2-wine-deep);
+}
+
+.c2-calendar-num {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--c2-wine-deep);
+}
+
+.c2-calendar-cell.c-muted .c2-calendar-num {
+  color: rgba(94, 29, 27, 0.5);
+}
+
+.c2-day-img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 4px auto 0;
+  object-fit: contain;
+}
+
+.c2-day-label {
+  display: block;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  margin-top: 4px;
+  color: var(--c2-wine-deep);
+}
+
+.c2-calendar-notes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 24px;
+  padding: 0 12px;
+}
+
+.c2-calendar-notes ul {
+  list-style: disc;
+  padding-left: 18px;
+  margin: 0;
+}
+
+.c2-calendar-notes li {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--c2-rust);
+  line-height: 1.6;
+}
+
+.c2-calendar-notes ul {
+  color: var(--c2-rust);
+}
+
+/* ---------- 4. CARDS (Кому подойдёт?) ---------- */
+.c2-cards-section {
+  position: relative;
+  padding: 60px 40px 40px;
+  background: var(--c2-cream);
+}
+
+.c2-cards-bg {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.c2-cards-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.c2-cards-bg > .c2-cards-row {
+  position: relative;
+  z-index: 1;
+}
+
+.c2-cards-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 40px 0;
+}
+
+/* Each tier is a column: sticky note → seats badge → price button */
+.c2-sticky-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 260px;
+  flex: 0 0 auto;
+}
+
+/* The note grows to fill its column so all three price buttons share a baseline */
+.c2-sticky-col > .c2-sticky {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.c2-sticky-badge {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--c2-ink);
+  background: var(--c2-cream);
+  border-radius: 999px;
+  padding: 4px 16px;
+}
+
+/* Reserve the badge's height on tiers that have none, so the buttons line up */
+.c2-sticky-badge.is-empty {
+  visibility: hidden;
+}
+
+/* Wraps the price button so the rocket stars have a positioned ancestor */
+.c2-sticky-price-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.c2-sticky-price {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  margin-top: auto;
+  background: var(--c2-coral);
+  color: var(--c2-wine-deep);
+  border: 4px solid var(--c2-cream);
+  border-radius: 24px;
+  padding: 16px 24px;
+  font-family: 'Dela Gothic One', sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.c2-sticky-price:hover {
+  transform: translateY(-2px);
+}
+.c2-sticky-price.launching {
+  animation: c2-launch 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Top tier inverts: dark fill, pink figure */
+.c2-sticky-col.s-consult .c2-sticky-price {
+  background: var(--c2-wine-deep);
+  color: var(--c2-pink);
+}
+
+.c2-sticky {
+  position: relative;
+  width: 260px;
+  min-height: 290px;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.28);
+  /* folded bottom-left corner */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 34px 100%, 0 calc(100% - 34px));
+}
+
+/* ruled paper lines */
+.c2-sticky::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 29px,
+    currentColor 29px 30px
+  );
+  opacity: 0.28;
+  z-index: 0;
+}
+
+/* washi tape holding the note up */
+.c2-sticky::after {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 26px;
+  width: 40px;
+  height: 62px;
+  opacity: 0.9;
+  z-index: 2;
+}
+
+.c2-sticky.s-novichku {
+  background: #fbddd8;
+  color: var(--c2-orange);
+  transform: rotate(-1.5deg);
+}
+.c2-sticky.s-probuyushchemu {
+  background: #d95ba8;
+  color: var(--c2-cream);
+  transform: rotate(1deg);
+}
+.c2-sticky.s-consult {
+  background: #2b0a0a;
+  color: var(--c2-orange);
+  transform: rotate(-1deg);
+}
+
+.c2-sticky.s-novichku::after {
+  background: var(--c2-coral);
+  transform: rotate(-12deg);
+}
+.c2-sticky.s-probuyushchemu::after {
+  background: var(--c2-coral);
+  transform: rotate(10deg);
+}
+.c2-sticky.s-consult::after {
+  background: var(--c2-amber);
+  transform: rotate(-14deg);
+}
+
+.c2-sticky-content {
+  position: relative;
+  z-index: 1;
+  padding: 20px 30px;
+  text-align: center;
+  width: 100%;
+}
+
+.c2-sticky h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0 0 14px;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* Heading colour is picked for contrast against each note's own fill */
+.c2-sticky.s-novichku h4 {
+  color: var(--c2-orange);
+}
+.c2-sticky.s-probuyushchemu h4 {
+  color: var(--c2-cream-soft);
+}
+.c2-sticky.s-consult h4 {
+  color: var(--c2-pink);
+}
+
+.c2-sticky p {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #481614;
+}
+
+.c2-sticky h4,
+.c2-sticky p {
+  position: relative;
+  z-index: 1;
+}
+
+/* The magenta and near-black notes carry light copy */
+.c2-sticky.s-probuyushchemu p,
+.c2-sticky.s-consult p {
+  color: var(--c2-cream);
+}
+
+.c2-cta-wrap {
+  text-align: center;
+  margin: 50px auto 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.c2-cta-pill {
+  position: relative;
+  display: inline-block;
+  background: var(--c2-coral);
+  color: var(--c2-cream-soft);
+  border: 4px solid var(--c2-cream);
+  border-radius: 24px;
+  padding: 22px 64px;
+  font-family: 'Dela Gothic One', sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.15s ease;
+  line-height: 1.3;
+}
+
+.c2-cta-pill:hover {
+  transform: translateY(-2px);
+}
+.c2-cta-pill.launching {
+  animation: c2-launch 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Sold-out / disabled state, shared by all three purchase buttons */
+.c2-cta-pill:disabled,
+.c2-cta-pill:disabled:hover,
+.c2-sticky-price:disabled,
+.c2-sticky-price:disabled:hover,
+.c2-tariff-buy:disabled,
+.c2-tariff-buy:disabled:hover {
+  background: #6e5350;
+  color: #d9cbc2;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* Tier colours are set per-button at higher specificity than the plain
+   :disabled rule above, so each one has to be beaten explicitly. */
+.c2-tariff-buy.tier-1:disabled,
+.c2-tariff-buy.tier-2:disabled,
+.c2-tariff-buy.tier-3:disabled {
+  background: #6e5350;
+}
+
+.c2-sticky-col.s-novichku .c2-sticky-price:disabled,
+.c2-sticky-col.s-probuyushchemu .c2-sticky-price:disabled,
+.c2-sticky-col.s-consult .c2-sticky-price:disabled {
+  background: #6e5350;
+  color: #d9cbc2;
+}
+
+/* "SOLD OUT" only just fits the button width, so drop the tracking and keep it
+   on one line — the font size stays put so the disabled button is exactly as
+   tall as the priced ones beside it. */
+.c2-sticky-price:disabled,
+.c2-tariff-buy:disabled {
+  white-space: nowrap;
+  letter-spacing: 0;
+}
+
+@keyframes c2-launch {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  20% {
+    transform: translateY(-6px) scale(1.05);
+  }
+  100% {
+    transform: translateY(-220px) scale(0.6);
+    opacity: 0;
+  }
+}
+
+.c2-cta-disclaimer {
+  max-width: 720px;
+  margin: 24px auto 0;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--c2-cream);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.c2-rocket-star {
+  position: absolute;
+  pointer-events: none;
+  filter: hue-rotate(var(--star-hue, 0deg));
+  opacity: 0;
+  animation: c2-star-fly 1.6s ease-out forwards;
+  transform-origin: center;
+}
+
+@keyframes c2-star-fly {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(var(--star-rotation, 0deg)) scale(0.4);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--star-tx, 0), var(--star-ty, -260px))
+      rotate(calc(var(--star-rotation, 0deg) + 360deg)) scale(1.2);
+  }
+}
+
+/* ---------- 5. BOOK ---------- */
+.c2-book-section {
+  padding: 120px 40px 160px;
+  /* Cream has to run past .c2-book-note (which ends ~85% down) or the dark
+       note copy fades into the wine. */
+  background: linear-gradient(
+    180deg,
+    var(--c2-page-bg) 0%,
+    var(--c2-cream) 15%,
+    var(--c2-cream) 88%,
+    var(--c2-page-bg) 100%
+  );
+  text-align: center;
+}
+
+/* (10) note that belongs with the book, not with the tariff table */
+.courses2-app .c2-book-note {
+  max-width: 900px;
+  margin: 40px auto 0;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--c2-ink);
+}
+
+.c2-book-section img {
+  max-width: min(900px, 90vw);
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+/* ---------- 6. PLAN ---------- */
+.c2-plan-section {
+  position: relative;
+  padding: 60px 40px 80px;
+  background: var(--c2-cream);
+}
+
+/* The plan rows sit on a cream panel so the dark table copy stays readable
+   against the wine page ground. */
+.c2-plan-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--c2-cream);
+  border-radius: 0 0 28px 28px;
+  padding: 0 28px 24px;
+}
+
+.c2-plan-headers-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.1fr;
+  column-gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 8px 28px 0;
+  background: var(--c2-cream);
+  border-radius: 28px 28px 0 0;
+  border-bottom: 2px solid rgba(94, 29, 27, 0.3);
+}
+
+.c2-plan-header {
+  font-family: 'Dela Gothic One', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  margin: 12px 16px 10px;
+  text-wrap: nowrap;
+  color: #1a1a1a;
+}
+
+.c2-plan-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.1fr;
+  column-gap: 40px;
+  max-width: 900px;
+  border-bottom: 2px solid rgba(94, 29, 27, 0.3);
+}
+
+.c2-plan-row:last-child {
+  border-bottom: none;
+}
+
+.c2-plan-cell {
+  padding: 12px 6px 22px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-left: 12px;
+  color: var(--c2-ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+}
+
+.c2-plan-cell-title {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0;
+}
+
+.c2-plan-cell-name {
+  color: var(--c2-pink-heading);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.c2-plan-cell-body {
+  margin-top: 8px;
+  color: var(--c2-ink);
+  text-align: left;
+}
+
+.c2-plan-cell-center {
+  color: var(--c2-ink);
+  text-align: center;
+  font-size: 13px;
+}
+
+.c2-plan-cell-right ul {
+  list-style: disc;
+  padding-left: 18px;
+  margin: 0;
+  font-weight: 700;
+  text-align: left;
+  display: inline-block;
+}
+
+.c2-plan-cell-right li {
+  line-height: 1.5;
+  margin-bottom: 2px;
+}
+
+/* Plan-row decorations */
+.c2-plan-cell {
+  position: relative;
+}
+
+.c2-plan-deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.95;
+}
+
+/* Row 1: lamp → col 1 bottom-right; book → col 3 right */
+.c2-plan-deco.deco-lamp {
+  width: 30px;
+  right: 6px;
+  bottom: 6px;
+}
+.c2-plan-deco.deco-book {
+  width: 60px;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Row 2: star → col 1 left-bottom; sun → col 2 below; waves → col 3 below */
+.c2-plan-deco.deco-star {
+  width: 32px;
+  left: 4px;
+  bottom: 6px;
+}
+.c2-plan-deco.deco-sun {
+  width: 40px;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+}
+.c2-plan-deco.deco-waves {
+  width: 56px;
+  left: 8px;
+  bottom: -2px;
+}
+
+/* Row 3: exclamation → col 2 top-right; characters → col 3 below (bigger) */
+.c2-plan-deco.deco-exclamation {
+  width: 24px;
+  right: 4px;
+  top: 4px;
+}
+.c2-plan-deco.deco-characters {
+  width: 100px;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+}
+
+/* Row 4: check → col 1 top-right; synopsis → col 2 below; episode → col 3 below */
+.c2-plan-deco.deco-check {
+  width: 28px;
+  right: 4px;
+  top: 4px;
+}
+.c2-plan-deco.deco-synopsis {
+  width: 60px;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+}
+.c2-plan-deco.deco-episode {
+  width: 64px;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+}
+
+.c2-plan-cell > * {
+  position: relative;
+  z-index: 1;
+}
+.c2-plan-cell > .c2-plan-deco {
+  z-index: 0;
+}
+
+/* Rows where decorations spill below need padding so they're not cut off */
+.c2-plan-row-2 .c2-plan-cell,
+.c2-plan-row-3 .c2-plan-cell,
+.c2-plan-row-4 .c2-plan-cell {
+  padding-bottom: 24px;
+}
+
+/* ---------- 7. PARTICIPATE ---------- */
+.c2-participate-section {
+  position: relative;
+  padding: 80px 40px 60px;
+  background: var(--c2-cream);
+  text-align: center;
+}
+
+.c2-participate-bg {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 40px 80px;
+}
+
+.c2-participate-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.c2-participate-bg > *:not(.c2-participate-bg-img) {
+  position: relative;
+  z-index: 1;
+}
+
+.c2-participate-bg h2,
+.c2-participate-bg h1 {
+  font-family: 'Dela Gothic One', sans-serif;
+  font-weight: 400;
+  font-size: clamp(28px, 4vw, 48px);
+  color: var(--c2-cream-soft);
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.c2-participate-bg h1 {
+  margin-bottom: 36px;
+}
+
+.c2-footer-purple {
+  width: 100%;
+  min-height: 140px;
+  flex-shrink: 0;
+  background: var(--c2-wine-deep);
+}
+
+/* ---------- 8. TARIFF COMPARISON ---------- */
+.c2-tariff-section {
+  position: relative;
+  padding: 40px 40px 70px;
+}
+
+.c2-tariff-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: var(--c2-cream);
+  border: 4px solid var(--c2-amber);
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+/* One shared column template keeps the header, body and CTA rows aligned. */
+.c2-tariff-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  align-items: stretch;
+}
+
+.c2-tariff-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.3;
+  color: var(--c2-ink);
+}
+
+.c2-tariff-cell-label {
+  justify-content: flex-start;
+  text-align: left;
+  padding-left: 36px;
+}
+
+/* Header */
+.c2-tariff-head .c2-tariff-cell {
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  padding: 18px 10px;
+}
+
+.c2-tariff-head .c2-tariff-cell-label {
+  background: var(--c2-cream-white);
+}
+.c2-tariff-head .c2-tariff-cell.tier-1 {
+  background: var(--c2-tier-1);
+}
+.c2-tariff-head .c2-tariff-cell.tier-2 {
+  background: var(--c2-tier-2);
+}
+.c2-tariff-head .c2-tariff-cell.tier-3 {
+  background: var(--c2-tier-3);
+}
+
+/* Body — rows alternate, and the top tier column stays a shade lighter
+   so it reads as the promoted option all the way down. */
+.c2-tariff-body .c2-tariff-row:nth-child(odd) {
+  background: var(--c2-cream);
+}
+.c2-tariff-body .c2-tariff-row:nth-child(even) {
+  background: var(--c2-cream-white);
+}
+.c2-tariff-body .c2-tariff-row:nth-child(odd) .tier-3 {
+  background: var(--c2-cream-white);
+}
+.c2-tariff-body .c2-tariff-row:nth-child(even) .tier-3 {
+  background: #fffdf9;
+}
+.c2-tariff-body .c2-tariff-row + .c2-tariff-row {
+  border-top: 1px solid rgba(94, 29, 27, 0.12);
+}
+
+.c2-tariff-check {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--c2-orange);
+}
+
+.c2-tariff-dash {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--c2-ink);
+  opacity: 0.7;
+}
+
+/* CTA row */
+.c2-tariff-cta .c2-tariff-cell {
+  padding: 20px 10px;
+  position: relative;
+}
+
+.c2-tariff-buy {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 18px 8px;
+  font-family: 'Dela Gothic One', sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.55;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.c2-tariff-buy:hover {
+  transform: translateY(-2px);
+}
+.c2-tariff-buy.launching {
+  animation: c2-launch 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.c2-tariff-buy.tier-1 {
+  background: var(--c2-tier-1-cta);
+}
+.c2-tariff-buy.tier-2 {
+  background: var(--c2-tier-2-cta);
+}
+.c2-tariff-buy.tier-3 {
+  background: var(--c2-tier-3-cta);
+}
+
+.courses2-app .c2-tariff-note {
+  max-width: 1000px;
+  margin: 26px auto 0;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--c2-pink-pale);
+}
+
+/* ---------- DOODLES (background decorations) ---------- */
+.c2-doodles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.c2-doodle {
+  position: absolute;
+  left: 50%;
+  width: max(1500px, 110vw);
+  height: clamp(180px, 18vw, 320px);
+  opacity: 0.85;
+  pointer-events: none;
+  overflow: visible;
+  transform-origin: center center;
+}
+
+.courses2-app {
+  position: relative;
+}
+
+/* Sections are positioned but DO NOT create a stacking context (no z-index).
+   This lets the page-wide .c2-doodles (z-index 3) sit above section
+   backgrounds but below text content (z-index 5+) regardless of nesting. */
+.courses2-app > header,
+.courses2-app > section,
+.courses2-app > .c2-trail-section,
+.courses2-app > .c2-footer-purple {
+  position: relative;
+}
+
+/* Content within sections that should sit above doodles.
+   Because section parents have no z-index, these z-indexes work
+   in the global .courses2-app stacking context, above .c2-doodles (z-3). */
+.c2-title-cloud,
+.c2-header-bottom,
+.c2-about-grid,
+.c2-section-title,
+.c2-calendar-panel,
+.c2-calendar-notes,
+.c2-cards-bg,
+.c2-cta-wrap,
+.c2-book-section > img,
+.c2-book-slider,
+.c2-book-dots,
+.c2-plan-headers-row,
+.c2-plan-grid,
+.c2-tariff-wrapper,
+.c2-tariff-note,
+.c2-participate-bg {
+  position: relative;
+  z-index: 5;
+}
+
+/* Make cream sections transparent so doodles bleed through naturally */
+.c2-about,
+.c2-calendar-section,
+.c2-cards-section,
+.c2-plan-section,
+.c2-tariff-section,
+.c2-participate-section {
+  background: transparent !important;
+}
+
+/* ---------- MOUSE TRAIL CONTAINER ---------- */
+.c2-trail-section {
+  position: relative;
+}
+
+.c2-trail-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.c2-trail-section > *:not(.c2-trail-svg) {
+  position: relative;
+  z-index: 5;
+}
+
+/* ---------- BOOK SLIDER (mobile only — desktop shows full image) ---------- */
+.c2-book-slider,
+.c2-book-dots {
+  display: none;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+  /* HEADER */
+  .c2-header {
+    padding: 32px 20px 48px;
+    min-height: auto;
+  }
+  .c2-title-cloud {
+    width: 100%;
+    padding: 12% 14%;
+  }
+  .c2-title-cloud h1 {
+    font-size: clamp(36px, 11vw, 56px);
+  }
+  .c2-title-cloud .c2-subtitle {
+    font-size: 13px;
+  }
+  .c2-header-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 40px;
+    gap: 32px;
+  }
+  .c2-header-deco {
+    width: 260px;
+    height: 170px;
+    align-self: center;
+  }
+  .c2-header-pill {
+    font-size: 18px;
+    padding: 6px 16px;
+  }
+  .c2-header-pill.c2-pill-writer {
+    top: 20px;
+    right: 20px;
+  }
+  .c2-header-pill.c2-pill-autumn {
+    top: 80px;
+    right: 80px;
+    font-size: 15px;
+  }
+  .c2-header-deco-sun {
+    width: 50px;
+    height: 50px;
+    top: 30px;
+    left: 20px;
+  }
+  .c2-header-deco-pen {
+    width: 46px;
+    height: 46px;
+    bottom: 10px;
+    right: 10px;
+  }
+  .c2-header-lead {
+    padding-left: 30px;
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  /* SECTION TITLES */
+  .c2-section-title {
+    margin-bottom: 28px;
+  }
+  .c2-section-title h2 {
+    font-size: 26px;
+  }
+  .c2-section-title .c2-subdate {
+    font-size: 20px;
+  }
+
+  /* ABOUT */
+  .c2-about {
+    padding: 40px 20px;
+  }
+  .c2-about-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .c2-about-card {
+    padding: 22px 24px;
+  }
+  .c2-about-card h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+  }
+  .c2-about-card p {
+    font-size: 13px;
+  }
+  .c2-about-card-deco {
+    width: 110px;
+  }
+  .c2-about-card-wide .c2-about-card-deco {
+    width: 130px;
+    right: 4%;
+  }
+
+  /* CALENDAR */
+  .c2-calendar-section {
+    padding: 36px 16px;
+  }
+  .c2-calendar-panel {
+    padding: 36px 12px 24px;
+  }
+  .c2-calendar-dow,
+  .c2-calendar-cell {
+    min-height: 76px;
+    padding: 6px 3px;
+  }
+  .c2-calendar-dow {
+    font-size: 11px;
+    padding: 10px 2px;
+  }
+  .c2-calendar-num {
+    font-size: 12px;
+  }
+  .c2-calendar-tape.t-tl {
+    top: 60px;
+    left: -10px;
+    width: 30px;
+    height: 66px;
+  }
+  .c2-calendar-tape.t-tr {
+    width: 26px;
+    height: 46px;
+  }
+  .c2-calendar-tape.t-bl {
+    right: -8px;
+    width: 30px;
+    height: 66px;
+  }
+  .c2-day-img {
+    width: 38px;
+    height: 38px;
+    margin-top: 2px;
+  }
+  .c2-day-label {
+    font-size: 9px;
+    margin-top: 2px;
+    line-height: 1.1;
+  }
+  .c2-calendar-notes {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .c2-calendar-notes li {
+    font-size: 12px;
+  }
+  .c2-calendar-month span {
+    font-size: 18px;
+  }
+
+  /* CARDS — one centred column. The note and its price sit close together
+       and the gap between tiers is much wider, so each pair reads as a unit. */
+  .c2-cards-section {
+    padding: 36px 16px;
+  }
+  .c2-cards-bg {
+    padding: 24px 0;
+  }
+  .c2-cards-bg-img {
+    display: none;
+  }
+  .c2-cards-row {
+    gap: 48px; /* between one tier and the next */
+    padding: 24px 0;
+    flex-direction: column;
+    align-items: center;
+  }
+  .c2-sticky h4 {
+    font-size: 16px;
+  }
+  .c2-sticky p {
+    font-size: 12px;
+  }
+
+  .c2-sticky-col {
+    position: static;
+    width: 100%;
+    max-width: 260px;
+    align-items: center;
+    gap: 12px; /* between a note and its own price button */
+  }
+
+  .c2-sticky-col > .c2-sticky {
+    width: 100%;
+    max-width: none;
+    min-height: 250px;
+    margin: 0;
+  }
+
+  /* seat badges stay off on mobile — the note/price pairing carries the layout */
+  .c2-sticky-badge {
+    display: none;
+  }
+
+  .c2-sticky-price-wrap {
+    position: relative;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .c2-sticky-price {
+    width: 100%;
+    max-width: none;
+    margin-top: 0;
+    font-size: 24px;
+    padding: 12px 20px;
+    border-width: 3px;
+  }
+
+  .c2-cta-pill {
+    padding: 16px 30px;
+    font-size: 18px;
+    border-width: 3px;
+  }
+  .c2-cta-disclaimer {
+    font-size: 12px;
+  }
+
+  /* BOOK — slider on mobile */
+  .c2-book-section {
+    padding: 56px 0 72px;
+    /* shorter section on mobile — the note lands lower, so cream runs further */
+    background: linear-gradient(
+      180deg,
+      var(--c2-page-bg) 0%,
+      var(--c2-cream) 10%,
+      var(--c2-cream) 94%,
+      var(--c2-page-bg) 100%
+    );
+  }
+  /* the section has no side padding on mobile, so the note carries its own */
+  .courses2-app .c2-book-note {
+    font-size: 13px;
+    margin-top: 26px;
+    padding: 0 16px;
+  }
+  .c2-book-section > img {
+    display: none;
+  }
+  .c2-book-slider {
+    display: block;
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+  .c2-book-slider-viewport {
+    display: block;
+    width: 200%;
+    transition: transform 0.35s ease;
+    will-change: transform;
+  }
+  .c2-book-slider-viewport img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+  .c2-book-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .c2-book-dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: var(--c2-cream);
+    opacity: 0.35;
+    cursor: pointer;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+  .c2-book-dot.active {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  /* PLAN — keep 3 columns, shrink everything */
+  .c2-plan-section {
+    padding: 32px 10px 40px;
+  }
+  /* the 28px desktop panel padding costs too much of a 355px row */
+  .c2-plan-headers-row {
+    padding: 8px 10px 0;
+  }
+  .c2-plan-grid {
+    padding: 0 10px 16px;
+  }
+  .c2-plan-headers-row,
+  .c2-plan-row {
+    grid-template-columns: 1.1fr 1fr 1.1fr;
+    column-gap: 8px;
+    max-width: 100%;
+  }
+  .c2-plan-header {
+    font-size: 11px;
+    margin: 10px 4px 8px;
+    padding: 8px 2px;
+    letter-spacing: -0.02em;
+    text-wrap: wrap;
+  }
+  .c2-plan-cell {
+    padding: 10px 2px 12px;
+    font-size: 10px;
+    line-height: 1.3;
+  }
+  .c2-plan-cell-name {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+  .c2-plan-cell-body {
+    margin-top: 4px;
+    font-size: 9.5px;
+    line-height: 1.3;
+  }
+  .c2-plan-cell-center {
+    font-size: 9.5px;
+    line-height: 1.3;
+  }
+  .c2-plan-cell-right ul {
+    padding-left: 12px;
+  }
+  .c2-plan-cell-right li {
+    font-size: 9.5px;
+    line-height: 1.25;
+    margin-bottom: 1px;
+  }
+
+  /* TARIFF — keep all four columns so the tiers stay comparable,
+       shrink the type the way the plan table already does */
+  .c2-tariff-section {
+    padding: 24px 16px 44px;
+  }
+  .c2-tariff-wrapper {
+    border-radius: 18px;
+    border-width: 3px;
+  }
+  .c2-tariff-row {
+    grid-template-columns: 1.25fr 1fr 1fr 1fr;
+  }
+  .c2-tariff-cell {
+    padding: 9px 3px;
+    font-size: 9.5px;
+    line-height: 1.25;
+  }
+  .c2-tariff-cell-label {
+    padding-left: 12px;
+  }
+  .c2-tariff-head .c2-tariff-cell {
+    font-size: 9px;
+    padding: 10px 3px;
+    letter-spacing: -0.01em;
+  }
+  .c2-tariff-check {
+    font-size: 16px;
+  }
+  .c2-tariff-dash {
+    width: 14px;
+  }
+  .c2-tariff-cta .c2-tariff-cell {
+    padding: 10px 3px;
+  }
+  .c2-tariff-buy {
+    font-size: 12px;
+    padding: 11px 2px;
+    border-radius: 9px;
+  }
+  .c2-tariff-note {
+    font-size: 12px;
+    margin-top: 18px;
+    padding: 0 6px;
+  }
+
+  /* PARTICIPATE — bg stretches under the button */
+  .c2-participate-section {
+    padding: 40px 16px 32px;
+  }
+  .c2-participate-bg {
+    padding: 50px 16px 60px;
+    max-width: 100%;
+  }
+  .c2-participate-bg-img {
+    transform: scale(1.25);
+    transform-origin: center;
+  }
+  .c2-participate-bg h2,
+  .c2-participate-bg h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .c2-participate-bg h1 {
+    margin-bottom: 22px;
+  }
+
+  .c2-footer-purple {
+    min-height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .c2-title-cloud h1 {
+    font-size: clamp(30px, 12vw, 44px);
+  }
+  .c2-calendar-dow,
+  .c2-calendar-cell {
+    min-height: 64px;
+  }
+  .c2-day-img {
+    width: 28px;
+    height: 28px;
+  }
+  .c2-day-label {
+    font-size: 8px;
+  }
+  .c2-calendar-num {
+    font-size: 11px;
+  }
+  .c2-tariff-cell {
+    font-size: 8.5px;
+    padding: 8px 2px;
+  }
+  .c2-tariff-head .c2-tariff-cell {
+    font-size: 8px;
+  }
+  .c2-tariff-buy {
+    font-size: 11px;
+  }
+  .c2-sticky-price {
+    font-size: 19px;
+  }
+}

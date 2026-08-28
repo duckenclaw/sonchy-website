@@ -1,0 +1,67 @@
+/* BlankPage */
+.blank-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+.blank-page-content {
+  text-align: center;
+  max-width: 600px;
+  padding: 3rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.blank-page-content h1 {
+  font-size: 3.5rem;
+  margin: 0 0 1.5rem 0;
+  color: rgba(255, 255, 255, 0.95);
+}
+.blank-page-content p {
+  font-size: 1.2rem;
+  margin: 0 0 2rem 0;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+.back-button {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1rem 2rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+.back-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+.back-button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .blank-page-content {
+    padding: 2rem;
+  }
+  .blank-page-content h1 {
+    font-size: 2.5rem;
+  }
+  .blank-page-content p {
+    font-size: 1rem;
+  }
+  .back-button {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+}

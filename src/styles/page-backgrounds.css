@@ -1,0 +1,62 @@
+/* ==========================================================================
+   Page backgrounds
+
+   Pages swap the artwork behind the whole site by asking <PageLayout> for a
+   `bodyClass`, which is added to <body> for as long as the page is mounted.
+   Each background also restates the header title colour, because the plaque
+   artwork changes contrast with the page behind it.
+
+   On mobile the patterned artwork is dropped in favour of a flat colour —
+   the illustrations are drawn for wide viewports and tile badly on a phone.
+   ========================================================================== */
+
+body.page-bg-services {
+  background-color: var(--color-secondary);
+  background-image: url('/backgrounds/pattern-services-desktop.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: var(--color-accent);
+}
+
+body.page-bg-services .header h1 {
+  color: var(--color-secondary);
+}
+
+/* Shared by Consulting, Lectures, Projects and Education */
+body.page-bg-purple {
+  background-color: var(--color-primary);
+  background-image: url('/backgrounds/pattern-consulting.svg');
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: var(--color-accent);
+}
+
+body.page-bg-purple .header h1 {
+  color: var(--color-secondary);
+}
+
+body.page-bg-about {
+  background-color: var(--color-primary);
+  background-image: url('/backgrounds/about.svg');
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+body.page-bg-about .header h1 {
+  color: var(--color-secondary);
+}
+
+@media (max-width: 768px) {
+  body.page-bg-services {
+    background-image: none;
+    background-color: var(--color-secondary);
+  }
+
+  body.page-bg-purple {
+    background-image: none;
+    background-color: var(--color-primary);
+  }
+}

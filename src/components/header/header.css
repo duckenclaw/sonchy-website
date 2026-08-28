@@ -1,0 +1,380 @@
+/* Header */
+.header {
+  width: 80%;
+  padding: 2rem;
+  align-self: center;
+  text-align: center;
+  text-wrap: nowrap;
+  position: relative;
+  z-index: 1;
+}
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+}
+.header-title-container {
+  cursor: default;
+  margin: 0;
+  padding: 15px 30px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-width: 400px;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-title-services {
+  background-image: url('/ui/title-bg-services.svg');
+}
+.header-title-consulting {
+  background-image: url('/ui/title-bg-main.svg');
+}
+.header-title-education {
+  background-image: url('/ui/title-bg-mobile.svg');
+}
+.header-title-main {
+  background-image: url('/ui/title-bg-main.svg');
+}
+.header-desktop-only {
+  display: flex;
+  justify-content: center;
+}
+.header h1 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 56px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.95);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.header-desktop-navbar {
+  flex: 1;
+  background-image: url('/ui/header-nav-border.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  padding: 20px 36px;
+  gap: 15px;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+@keyframes dance {
+  0% {
+    transform: rotate(-15deg) scale(1.15);
+  }
+  50% {
+    transform: rotate(15deg) scale(1.15);
+  }
+}
+@keyframes dance-soft {
+  0% {
+    transform: rotate(-8deg) scale(1.15);
+  }
+  50% {
+    transform: rotate(8deg) scale(1.15);
+  }
+}
+.header-button {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  padding: 7px 15px;
+  color: rgba(255, 255, 255, 0.95);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: none;
+}
+.header-button:hover {
+  animation: dance 0.3s step-end infinite;
+}
+.header-button:active {
+  animation: none;
+  transform: scale(0.95);
+}
+.header-button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+/* ---------- Mobile navigation (burger + sliding drawer) ----------
+   The desktop navbar is hidden below 1025px, so the burger covers the same
+   range. The drawer is portalled into <body> (see Header.tsx) because
+   .header sets z-index: 1 and would otherwise trap it under page content. */
+.header-burger {
+  display: none;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  align-self: center;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.header-burger-line {
+  display: block;
+  width: 100%;
+  height: 3px;
+  margin: 4px 0;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.95);
+}
+.header-burger:active {
+  transform: scale(0.94);
+}
+.header-burger:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+/* Shell keeps backdrop and drawer on one open/closed switch */
+.header-mobile-shell {
+  display: none;
+}
+.header-mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(35, 43, 54, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+}
+.header-mobile-shell.is-open .header-mobile-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+.header-mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1001;
+  width: min(280px, 78vw);
+  height: 100vh;
+  padding: 88px 24px 32px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--color-secondary);
+  box-shadow: -6px 0 24px rgba(35, 43, 54, 0.35);
+  transform: translateX(100%);
+  transition: transform var(--transition-normal);
+  overflow-y: auto;
+  visibility: hidden;
+}
+.header-mobile-shell.is-open .header-mobile-nav {
+  transform: translateX(0);
+  visibility: visible;
+}
+/* Sits where the burger is, so the same corner opens and closes the menu */
+.header-mobile-close {
+  position: absolute;
+  top: 22px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.header-mobile-close span {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.95);
+}
+.header-mobile-close span:nth-child(1) {
+  transform: rotate(45deg);
+}
+.header-mobile-close span:nth-child(2) {
+  transform: rotate(-45deg);
+}
+.header-mobile-close:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+.header-mobile-button {
+  font-family: var(--font-primary);
+  font-size: 20px;
+  text-align: left;
+  padding: 14px 12px;
+  color: rgba(255, 255, 255, 0.95);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  /* each item eases in behind the panel, staggered from Header.tsx */
+  opacity: 0;
+  transform: translateX(16px);
+  transition:
+    opacity var(--transition-normal),
+    transform var(--transition-normal);
+}
+.header-mobile-shell.is-open .header-mobile-button {
+  opacity: 1;
+  transform: translateX(0);
+}
+.header-mobile-button:active {
+  transform: scale(0.97);
+}
+.header-mobile-button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: -3px;
+}
+
+@media (max-width: 1024px) {
+  .header-burger {
+    display: block;
+  }
+  .header-mobile-shell {
+    display: block;
+  }
+  /* The mobile title banner is width:100%, which would push the burger off
+     screen — let it share the row instead. */
+  .header-container {
+    align-items: center;
+    gap: 8px;
+  }
+  .header-title-container {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-mobile-nav,
+  .header-mobile-button,
+  .header-mobile-backdrop {
+    transition: none;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .header {
+    padding: 2rem var(--mobile-padding);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .header h1 {
+    font-size: 4.5rem;
+  }
+  .header-desktop-navbar {
+    display: none;
+  }
+  .header-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .header-title-container {
+    width: 100%;
+    padding: 24px 0;
+    box-sizing: border-box;
+  }
+  .header-title-services {
+    background-image: url('/ui/title-bg-mobile.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .header-title-consulting {
+    background-image: url('/ui/title-bg-mobile.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .header-title-education {
+    background-image: url('/ui/title-bg-mobile.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .header-title-main {
+    background-image: url('/ui/title-bg-main.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 1.5rem var(--mobile-padding);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .header h1 {
+    font-size: 2.5rem;
+  }
+  .header-desktop-navbar {
+    display: none;
+  }
+  .header-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .header-title-container {
+    width: 100%;
+    padding: 14px 0;
+    box-sizing: border-box;
+  }
+  .header-title-services {
+    background-image: url('/ui/title-bg-mobile.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .header-title-consulting {
+    background-image: url('/ui/title-bg-mobile.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .header-title-education {
+    background-image: url('/ui/title-bg-mobile.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .header-title-main {
+    background-image: url('/ui/title-bg-main.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header h1 {
+    font-size: 5rem;
+  }
+  .header-desktop-navbar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hide header on mobile for Lectures and Projects pages */
+  .header-desktop-only {
+    display: none !important;
+  }
+}
