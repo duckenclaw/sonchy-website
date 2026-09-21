@@ -46,7 +46,7 @@ export const TIERS: Tier[] = [
     stickyClass: 's-probuyushchemu',
     blurb:
       'есть отрывки и черновики, но хочу написать что-то цельное. не хватает обратной связи и упражнений',
-    seats: '30 мест!',
+    seats: '9 мест!',
     price: '17 900 ₽',
     tableName: 'ПРОБУЮЩИЙ',
   },
