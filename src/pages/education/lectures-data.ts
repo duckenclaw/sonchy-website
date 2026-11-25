@@ -81,7 +81,7 @@ export const LECTURES: Lecture[] = [
     price: '0 Р',
     coverImage: '/education/lecture-constructor.webp',
     material: 'constructor',
-    images: ['/education/lecture-constructor.webp'],
+    images: ['/education/lecture-constructor-0.webp'],
   },
   {
     id: 9,
@@ -90,6 +90,6 @@ export const LECTURES: Lecture[] = [
     price: '0 Р',
     coverImage: '/education/lecture-speechcard.webp',
     material: 'speechcard',
-    images: ['/education/lecture-speechcard.webp'],
+    images: ['/education/lecture-speechcard-0.webp'],
   },
 ];
