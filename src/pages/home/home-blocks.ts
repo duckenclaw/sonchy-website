@@ -18,7 +18,7 @@ export const HOME_BLOCKS: HomeBlock[] = [
     description: 'лекции, материалы, курсы',
     alt: 'education',
     position: 'left',
-    route: ROUTES.COURSES,
+    route: ROUTES.EDUCATION,
   },
   {
     image: '/home/services.webp',

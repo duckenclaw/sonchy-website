@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react';
 
 import PageLayout from '@/components/page-layout/page-layout';
+import EmailSection from './email-section';
+import LectureGallery from './lecture-gallery';
 import LectureModal from './lecture-modal';
-import LectureSlider from './lecture-slider';
 import { LECTURES } from './lectures-data';
 import type { Lecture } from './lecture';
 import './education.css';
@@ -30,11 +31,13 @@ function EducationPage() {
       bodyClass="page-bg-purple"
       headerDesktopOnly
     >
-      <LectureSlider
+      <LectureGallery
         lectures={LECTURES}
         onDetailsClick={handleDetailsClick}
         onBuyClick={openBuyLink}
       />
+
+      <EmailSection />
 
       <LectureModal
         lecture={selected}

@@ -6,7 +6,10 @@ interface LectureCardProps {
   onBuyClick: () => void;
 }
 
-/** Cover art plus a price button; clicking the card opens the details modal. */
+/**
+ * Cover art with the price button laid over its bottom edge; clicking anywhere
+ * else on the card opens the details modal.
+ */
 function LectureCard({ lecture, onDetailsClick, onBuyClick }: LectureCardProps) {
   return (
     <div
@@ -35,6 +38,7 @@ function LectureCard({ lecture, onDetailsClick, onBuyClick }: LectureCardProps) 
         type="button"
         className="lecture-buy-button"
         onClick={(e) => {
+          // Buying must not also open the modal behind it.
           e.stopPropagation();
           onBuyClick();
         }}

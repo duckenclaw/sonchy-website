@@ -71,4 +71,13 @@ export const LECTURES: Lecture[] = [
       '/education/lecture-narrative-4.webp',
     ],
   },
+  {
+    id: 6,
+    description:
+      'Как из идеи сделать историю или проект. 75 минут лекций и упражнений для работы с идеями: техники создания идей и критерии оценки, разница между проблемой, темой и конфликтом, роды и виды конфликта С. Нехорошева, оформление заявки в издательство и ошибки при работе с логлайнами.',
+    price: '2590 Р',
+    coverImage: '/education/lecture-conflict.webp',
+    buyLink: 'https://app.lava.top/products/70549037-ba21-45ce-a663-3b906885a5ae',
+    images: ['/education/lecture-conflict-1.webp', '/education/lecture-conflict-2.webp'],
+  },
 ];
