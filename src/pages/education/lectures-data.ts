@@ -63,7 +63,11 @@ export const LECTURES: Lecture[] = [
     price: '2590 Р',
     coverImage: '/education/lecture-conflict.webp',
     buyLink: 'https://app.lava.top/products/70549037-ba21-45ce-a663-3b906885a5ae',
-    images: ['/education/lecture-conflict-1.webp', '/education/lecture-conflict-2.webp'],
+    images: [
+      '/education/lecture-conflict-1.webp',
+      '/education/lecture-conflict-2.webp',
+      '/education/lecture-conflict-3.webp',
+    ],
   },
   {
     id: 7,
