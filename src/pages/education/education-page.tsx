@@ -1,14 +1,15 @@
 import { useCallback, useState } from 'react';
 
 import PageLayout from '@/components/page-layout/page-layout';
-import EmailSection from './email-section';
 import LectureGallery from './lecture-gallery';
 import LectureModal from './lecture-modal';
 import { LECTURES } from './lectures-data';
 import type { Lecture } from './lecture';
 import './education.css';
 
+/** Free materials have no shop link — they are mailed from inside the modal. */
 function openBuyLink(lecture: Lecture) {
+  if (!lecture.buyLink) return;
   window.open(lecture.buyLink, '_blank', 'noopener,noreferrer');
 }
 
@@ -36,8 +37,6 @@ function EducationPage() {
         onDetailsClick={handleDetailsClick}
         onBuyClick={openBuyLink}
       />
-
-      <EmailSection />
 
       <LectureModal
         lecture={selected}

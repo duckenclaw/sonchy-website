@@ -9,16 +9,25 @@ import { Resend } from 'resend';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(HERE, '..');
 const DIST_DIR = path.join(ROOT, 'dist');
-const ATTACHMENTS_DIR = path.join(HERE, 'attachments');
+/** The PDFs ship as static assets, so they are both mailable and linkable. */
+const MATERIALS_DIRS = [
+  path.join(DIST_DIR, 'education'),
+  path.join(ROOT, 'public', 'education'),
+];
 
 const PORT = Number(process.env.PORT) || 3000;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const MAIL_FROM = process.env.MAIL_FROM;
 const MAIL_REPLY_TO = process.env.MAIL_REPLY_TO;
 const MAIL_SUBJECT = process.env.MAIL_SUBJECT || 'Материалы от Sonchy';
+const SITE_URL = (process.env.SITE_URL || 'https://xsonchy.com').replace(/\/+$/, '');
 
-/** Resend caps a message at 40MB post-base64; stay far below for deliverability. */
-const ATTACHMENT_WARN_BYTES = 10 * 1024 * 1024;
+/**
+ * Resend's hard cap is 40MB after base64, but most inboxes reject well before
+ * that — Gmail and Outlook stop around 25MB. Anything over this is linked
+ * rather than attached, so an oversized file degrades instead of bouncing.
+ */
+const ATTACH_MAX_BYTES = 8 * 1024 * 1024;
 const MAX_EMAIL_LENGTH = 254;
 /** Requests one IP may make inside RATE_WINDOW_MS before being turned away. */
 const RATE_LIMIT = 5;
@@ -35,53 +44,65 @@ if (!RESEND_API_KEY || !MAIL_FROM) {
 const resend = new Resend(RESEND_API_KEY);
 
 /**
- * The attachments are small and never change at runtime, so they are read once
- * at boot rather than per request.
- * @returns {{ filename: string, content: Buffer }[]}
+ * The free materials, keyed by the slug the form posts. Keep these keys in
+ * step with `material` in src/pages/education/lectures-data.ts.
  */
-function loadAttachments() {
-  if (!fs.existsSync(ATTACHMENTS_DIR)) {
-    console.warn(`No ${ATTACHMENTS_DIR} directory — sending mail without attachments.`);
-    return [];
+const MATERIALS = {
+  constructor: { file: 'constructor.pdf', title: 'Конструктор персонажа' },
+  speechcard: { file: 'speechcard.pdf', title: 'Речевая карта' },
+};
+
+/** @param {string} file */
+function findMaterialFile(file) {
+  for (const dir of MATERIALS_DIRS) {
+    const full = path.join(dir, file);
+    if (fs.existsSync(full)) return full;
   }
-
-  const files = fs
-    .readdirSync(ATTACHMENTS_DIR, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && !entry.name.startsWith('.'))
-    .filter((entry) => entry.name !== 'README.md')
-    .map((entry) => entry.name)
-    .sort();
-
-  if (files.length === 0) {
-    console.warn(
-      'server/attachments/ is empty — mail will be sent with no files attached. ' +
-        'Drop the files to send into that folder and redeploy.',
-    );
-    return [];
-  }
-
-  const attachments = files.map((filename) => ({
-    filename,
-    content: fs.readFileSync(path.join(ATTACHMENTS_DIR, filename)),
-  }));
-
-  const totalBytes = attachments.reduce((sum, file) => sum + file.content.length, 0);
-  const totalMb = (totalBytes / 1024 / 1024).toFixed(2);
-  console.log(`Loaded ${attachments.length} attachment(s), ${totalMb}MB total:`);
-  for (const file of attachments) {
-    console.log(`  - ${file.filename} (${(file.content.length / 1024).toFixed(0)}KB)`);
-  }
-  if (totalBytes > ATTACHMENT_WARN_BYTES) {
-    console.warn(
-      `Attachments total ${totalMb}MB. Resend's hard cap is 40MB after base64 encoding, ` +
-        'but anything this large hurts deliverability — consider linking to the files instead.',
-    );
-  }
-
-  return attachments;
+  return null;
 }
 
-const ATTACHMENTS = loadAttachments();
+/**
+ * Read once at boot: the files are static and never change at runtime. Each
+ * entry carries a public URL, and the bytes too when it is small enough to
+ * attach.
+ * @returns {Map<string, { title: string, filename: string, url: string, content: Buffer | null }>}
+ */
+function loadMaterials() {
+  const loaded = new Map();
+
+  for (const [slug, { file, title }] of Object.entries(MATERIALS)) {
+    const full = findMaterialFile(file);
+    const url = `${SITE_URL}/education/${file}`;
+
+    if (!full) {
+      console.error(
+        `Material "${slug}": ${file} not found in ${MATERIALS_DIRS.join(' or ')}. ` +
+          'Mail for it will link to the site and the link will 404 until the file is added.',
+      );
+      loaded.set(slug, { title, filename: file, url, content: null });
+      continue;
+    }
+
+    const content = fs.readFileSync(full);
+    const mb = (content.length / 1024 / 1024).toFixed(2);
+
+    if (content.length > ATTACH_MAX_BYTES) {
+      console.warn(
+        `Material "${slug}": ${file} is ${mb}MB, over the ${ATTACH_MAX_BYTES / 1024 / 1024}MB ` +
+          'attach limit — mail will link to it instead of attaching it.',
+      );
+      loaded.set(slug, { title, filename: file, url, content: null });
+      continue;
+    }
+
+    console.log(`Material "${slug}": ${file} (${mb}MB, attached)`);
+    loaded.set(slug, { title, filename: file, url, content });
+  }
+
+  return loaded;
+}
+
+const LOADED_MATERIALS = loadMaterials();
 
 /** Deliberately permissive — the mail provider is the final judge of an address. */
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
@@ -136,11 +157,11 @@ app.set('trust proxy', 1);
 app.use(express.json({ limit: '1kb' }));
 
 app.get('/api/health', (_req, res) => {
-  res.json({ ok: true, attachments: ATTACHMENTS.length });
+  res.json({ ok: true, materials: [...LOADED_MATERIALS.keys()] });
 });
 
 app.post('/api/subscribe', async (req, res) => {
-  const { email, botField } = req.body ?? {};
+  const { email, botField, material } = req.body ?? {};
 
   // A filled honeypot means a bot. Look successful, send nothing.
   if (typeof botField === 'string' && botField.trim() !== '') {
@@ -149,6 +170,13 @@ app.post('/api/subscribe', async (req, res) => {
 
   if (!isValidEmail(email)) {
     return res.status(400).json({ ok: false, error: 'invalid_email' });
+  }
+
+  // 404 rather than 400: the form maps 400 to "check your address", which
+  // would be the wrong thing to tell someone about a slug mismatch.
+  const chosen = typeof material === 'string' ? LOADED_MATERIALS.get(material) : undefined;
+  if (!chosen) {
+    return res.status(404).json({ ok: false, error: 'unknown_material' });
   }
 
   if (isRateLimited(req.ip ?? 'unknown')) {
@@ -160,10 +188,12 @@ app.post('/api/subscribe', async (req, res) => {
       from: MAIL_FROM,
       to: [email],
       ...(MAIL_REPLY_TO ? { replyTo: MAIL_REPLY_TO } : {}),
-      subject: MAIL_SUBJECT,
-      html: buildMailHtml(),
-      text: buildMailText(),
-      ...(ATTACHMENTS.length > 0 ? { attachments: ATTACHMENTS } : {}),
+      subject: `${MAIL_SUBJECT}: ${chosen.title}`,
+      html: buildMailHtml(chosen),
+      text: buildMailText(chosen),
+      ...(chosen.content
+        ? { attachments: [{ filename: chosen.filename, content: chosen.content }] }
+        : {}),
     });
 
     if (error) {
@@ -203,25 +233,50 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(
     `Sending as ${MAIL_FROM}${MAIL_REPLY_TO ? ` (replies to ${MAIL_REPLY_TO})` : ''}`,
   );
+  console.log(`Materials: ${[...LOADED_MATERIALS.keys()].join(', ') || 'none'}`);
 });
 
-/** Body of the mail. Edit freely — it is plain HTML. */
-function buildMailHtml() {
+/**
+ * Body of the mail. Edit freely — it is plain HTML.
+ * @param {{ title: string, url: string, content: Buffer | null }} material
+ */
+function buildMailHtml(material) {
+  const delivery = material.content
+    ? `<p>«${material.title}» — во вложении к этому письму.</p>
+       <p>Если вложение не открывается, файл всегда можно скачать здесь:<br />
+       <a href="${material.url}">${material.url}</a></p>`
+    : `<p>«${material.title}» можно скачать по ссылке:<br />
+       <a href="${material.url}">${material.url}</a></p>`;
+
   return `
     <div style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #232b36;">
       <p>Привет!</p>
-      <p>Спасибо за интерес — материалы во вложении к этому письму.</p>
+      <p>Спасибо за интерес — держите материал.</p>
+      ${delivery}
       <p>— Sonchy</p>
     </div>
   `.trim();
 }
 
-/** Plain-text alternative. Clients that reject HTML-only mail need this. */
-function buildMailText() {
+/**
+ * Plain-text alternative. Clients that reject HTML-only mail need this.
+ * @param {{ title: string, url: string, content: Buffer | null }} material
+ */
+function buildMailText(material) {
+  const delivery = material.content
+    ? [
+        `«${material.title}» — во вложении к этому письму.`,
+        '',
+        `Запасная ссылка: ${material.url}`,
+      ]
+    : [`«${material.title}» можно скачать по ссылке:`, material.url];
+
   return [
     'Привет!',
     '',
-    'Спасибо за интерес — материалы во вложении к этому письму.',
+    'Спасибо за интерес — держите материал.',
+    '',
+    ...delivery,
     '',
     '— Sonchy',
   ].join('\n');

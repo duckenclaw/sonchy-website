@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useFocusTrap } from '@/hooks/use-focus-trap';
+import EmailSection from './email-section';
 import type { Lecture } from './lecture';
 
 interface LectureModalProps {
@@ -156,9 +157,15 @@ function LectureModal({ lecture, isOpen, position, onClose, onBuyClick }: Lectur
           <p className="lecture-modal-description">{lecture.description}</p>
 
           <div className="lecture-modal-footer">
-            <button type="button" className="lecture-modal-buy-button" onClick={onBuyClick}>
-              {lecture.price}
-            </button>
+            {lecture.material ? (
+              // Keyed per lecture so switching cards does not carry a typed
+              // address or a leftover status line over to the next material.
+              <EmailSection key={lecture.id} material={lecture.material} />
+            ) : (
+              <button type="button" className="lecture-modal-buy-button" onClick={onBuyClick}>
+                {lecture.price}
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -2,21 +2,6 @@ import type { Lecture } from './lecture';
 
 export const LECTURES: Lecture[] = [
   {
-    id: 1,
-    description:
-      'Только 1 день и в честь моего дня рождения! Три лекции и соурсбук за 3000 руб вместо 7300 руб. Лекции: сюжжетные структуры, луковица персонажа и как создать вселенную. И гайд на 26 страниц, что изучить по сторителлингу.',
-    price: '3000 Р',
-    coverImage: '/education/lecture-bd.webp',
-    buyLink: 'https://app.lava.top/products/a20796bb-22ac-48cf-9178-27aa1370734e',
-    images: [
-      '/education/lecture-bd-0.webp',
-      '/education/lecture-bd-1.webp',
-      '/education/lecture-bd-2.webp',
-      '/education/lecture-bd-3.webp',
-      '/education/lecture-bd-4.webp',
-    ],
-  },
-  {
     id: 2,
     description:
       'Авторская методика по созданию персонажей и личных брендов — луковица персонажа. Проверила её на 100+ консультациях. Сейчас ее преподают в геймдизайнерских школах, пишут о ней статьи и уже заказали написать о ней книгу.',
@@ -79,5 +64,32 @@ export const LECTURES: Lecture[] = [
     coverImage: '/education/lecture-conflict.webp',
     buyLink: 'https://app.lava.top/products/70549037-ba21-45ce-a663-3b906885a5ae',
     images: ['/education/lecture-conflict-1.webp', '/education/lecture-conflict-2.webp'],
+  },
+  {
+    id: 7,
+    description:
+      'Что почитать о сторителлинге: PDF на 26 страниц со ссылками, книгами и упражнениями.',
+    price: '499 Р',
+    coverImage: '/education/lecture-sourcebook.webp',
+    buyLink: 'https://app.lava.top/products/6ffc405a-9d64-4c4e-a827-dc25927976a3',
+    images: ['/education/lecture-sourcebook-0.webp'],
+  },
+  {
+    id: 8,
+    description:
+      'Конструктор персонажа: метод Т-И-П. PDF с разбором доминанты, травмы и положения, примерами и типами комбинаций.',
+    price: '0 Р',
+    coverImage: '/education/lecture-constructor.webp',
+    material: 'constructor',
+    images: ['/education/lecture-constructor.webp'],
+  },
+  {
+    id: 9,
+    description:
+      'Речевая карта — шаблон для живых диалогов. PDF, который можно заполнить на каждого персонажа.',
+    price: '0 Р',
+    coverImage: '/education/lecture-speechcard.webp',
+    material: 'speechcard',
+    images: ['/education/lecture-speechcard.webp'],
   },
 ];

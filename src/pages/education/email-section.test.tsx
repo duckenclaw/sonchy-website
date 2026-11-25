@@ -19,7 +19,7 @@ afterEach(() => {
 describe('EmailSection', () => {
   it('posts the address and reports success', async () => {
     const fetchMock = mockFetch({ ok: true, status: 200 });
-    render(<EmailSection />);
+    render(<EmailSection material="constructor" />);
 
     await userEvent.type(screen.getByLabelText(EMAIL_SECTION.inputLabel), 'reader@example.com');
     await userEvent.click(screen.getByRole('button', { name: EMAIL_SECTION.submitLabel }));
@@ -31,12 +31,16 @@ describe('EmailSection', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     const [url, init] = fetchMock.mock.calls[0];
     expect(url).toBe('/api/subscribe');
-    expect(JSON.parse(init.body)).toEqual({ email: 'reader@example.com', botField: '' });
+    expect(JSON.parse(init.body)).toEqual({
+      email: 'reader@example.com',
+      botField: '',
+      material: 'constructor',
+    });
   });
 
   it('rejects an address without an @ without calling the server', async () => {
     const fetchMock = mockFetch({ ok: true, status: 200 });
-    render(<EmailSection />);
+    render(<EmailSection material="constructor" />);
 
     await userEvent.type(screen.getByLabelText(EMAIL_SECTION.inputLabel), 'not-an-address');
     await userEvent.click(screen.getByRole('button', { name: EMAIL_SECTION.submitLabel }));
@@ -47,7 +51,7 @@ describe('EmailSection', () => {
 
   it('reports an error when the server fails', async () => {
     mockFetch({ ok: false, status: 502 });
-    render(<EmailSection />);
+    render(<EmailSection material="constructor" />);
 
     await userEvent.type(screen.getByLabelText(EMAIL_SECTION.inputLabel), 'reader@example.com');
     await userEvent.click(screen.getByRole('button', { name: EMAIL_SECTION.submitLabel }));
@@ -57,7 +61,7 @@ describe('EmailSection', () => {
 
   it('reports an error when the request throws', async () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
-    render(<EmailSection />);
+    render(<EmailSection material="constructor" />);
 
     await userEvent.type(screen.getByLabelText(EMAIL_SECTION.inputLabel), 'reader@example.com');
     await userEvent.click(screen.getByRole('button', { name: EMAIL_SECTION.submitLabel }));

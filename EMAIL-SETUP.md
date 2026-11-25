@@ -1,7 +1,8 @@
 # Email capture setup
 
-The `/education` page has a section where a visitor leaves their email and immediately
-receives a mail from `creative@xsonchy.com` with the files in `server/attachments/`.
+The `/education` page lists free materials alongside the paid lectures. Opening one of
+them shows a form: the visitor leaves their email and immediately receives a mail from
+`creative@xsonchy.com` with that one material.
 
 This is a one-time setup. Work through it top to bottom; the whole thing takes about
 half an hour, most of which is waiting for DNS.
@@ -91,7 +92,9 @@ Open the existing service for this repo.
 | `MAIL_FROM`      | `Sonchy <creative@xsonchy.com>` |
 | `MAIL_REPLY_TO`  | an inbox you actually read      |
 
-Optionally `MAIL_SUBJECT` to override the default subject line.
+Optionally `MAIL_SUBJECT` to override the subject stem (the material's name is appended),
+and `SITE_URL` if the site ever moves off `https://xsonchy.com` — it is what the download
+links in the mail are built from.
 
 **Do not set `PORT`.** Railway injects it, and the server reads it from the environment.
 
@@ -110,19 +113,41 @@ the static serving itself.
 > like `/services/consulting` returned a 404. The Express server returns `index.html`
 > for unmatched paths, which fixes that.
 
-## 6. The attachment files
+## 6. The material files
 
-Put the files to be emailed in **`server/attachments/`**, commit, and push. Railway
-redeploys and picks them up.
+Each free material is one PDF in **`public/education/`**, registered in the `MATERIALS`
+map near the top of `server/index.js`:
 
-- Every file in that folder is attached to every mail. Dotfiles and `README.md` are skipped.
-- They are read **once at startup** — a new file needs a redeploy, not just an upload.
-- Keep the total under **~10MB**. Resend's hard cap is 40MB after base64 encoding, but
-  anything near that gets filtered as spam. For bigger files, link to them in the mail
-  body instead (`buildMailHtml()` at the bottom of `server/index.js`).
+```js
+const MATERIALS = {
+  constructor: { file: 'constructor.pdf', title: 'Конструктор персонажа' },
+  speechcard: { file: 'speechcard.pdf', title: 'Речевая карта' },
+};
+```
 
-With the folder empty, the server still boots and sends the mail with no attachments,
-logging a warning — so you can test the flow before the files exist.
+The key is the slug, and it has to match the `material` field on the matching entry in
+`src/pages/education/lectures-data.ts`. A lecture with a `material` is free; one with a
+`buyLink` is paid. Adding a material means: drop the PDF in `public/education/`, add the
+row here, add the lecture with its `material` slug.
+
+Because the PDFs sit in `public/`, they are also served at
+`https://xsonchy.com/education/<file>.pdf` — so every mail carries a download link as
+well, and a file too big to attach still arrives as something clickable.
+
+- Files are read **once at startup**, so a new or replaced PDF needs a redeploy.
+- Anything over **8MB** is linked instead of attached. Resend's hard cap is 40MB after
+  base64, but Gmail and Outlook reject well before that, so an oversized attachment would
+  bounce rather than merely annoy.
+- Keep PDFs small. `constructor.pdf` came in at 23.8MB because its images were stored
+  losslessly; re-encoding brought it to 3.8MB with no visible loss:
+
+  ```bash
+  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dBATCH -dDetectDuplicateImages=true -sOutputFile=out.pdf in.pdf
+  ```
+
+The server logs every material at boot with its size and whether it is attached or linked.
+A missing file is logged as an error and the mail falls back to the (then broken) link, so
+check that log after a deploy.
 
 ## 7. Verify, and what to do when it breaks
 
@@ -170,10 +195,11 @@ Two things worth knowing about this implementation:
 | Path                                    | What it does                                               |
 | --------------------------------------- | ---------------------------------------------------------- |
 | `server/index.js`                       | Express server: the API, the static site, the SPA fallback |
-| `server/attachments/`                   | Files attached to every mail                               |
+| `public/education/*.pdf`                | The materials — mailed, and served for the download links  |
 | `.env.example`                          | Template for `.env` (local) and Railway's Variables        |
 | `src/pages/education/email-section.tsx` | The form                                                   |
-| `src/pages/education/education-data.ts` | All the section's visible copy                             |
+| `src/pages/education/education-data.ts` | All the form's visible copy                                |
+| `src/pages/education/lectures-data.ts`  | Which lectures are free, and their `material` slugs        |
 
 To change the **section's wording**, edit `education-data.ts`. To change the **mail
 body**, edit `buildMailHtml()` / `buildMailText()` at the bottom of `server/index.js`.

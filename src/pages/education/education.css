@@ -127,33 +127,50 @@
   transform: translateX(-50%) translateY(-2px);
   filter: brightness(0.95);
 }
+/* Звезда «0 Р» в углу карточки бесплатного материала.
+   Ширина задана в процентах от карточки, поэтому звезда сохраняет свою долю
+   обложки на всех брейкпоинтах, а подпись внутри SVG масштабируется вместе
+   с ней и не выходит за лучи. */
+.lecture-card-badge {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  width: clamp(3rem, 30%, 6rem);
+  height: auto;
+  z-index: 3;
+  /* Decorative: the card underneath owns the click. */
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(35, 43, 54, 0.25));
+}
 /* ====================
    EMAIL SECTION STYLES
    ==================== */
+/* The form lives inside the lecture modal, whose window art is pale blue
+   (#C4DEF8) — so everything here is the dark-on-light counterpart of the
+   purple page the form used to sit on. */
 .email-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
+  gap: 0.75rem;
   width: 100%;
-  padding: 2.5rem 2rem;
   text-align: center;
 }
 .email-section-title {
   font-family: var(--font-heading);
-  font-size: 2.5rem;
+  font-size: 1.9rem;
   font-weight: 700;
-  color: var(--color-light);
+  color: var(--color-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0;
 }
 .email-section-text {
   font-family: var(--font-primary);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: var(--color-light);
-  max-width: 48ch;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-dark);
+  max-width: 40ch;
   margin: 0;
 }
 .email-section-form {
@@ -161,12 +178,12 @@
   align-items: stretch;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.75rem;
   width: 100%;
-  max-width: 560px;
+  max-width: 480px;
 }
 .email-section-input {
-  flex: 1 1 260px;
+  flex: 1 1 220px;
   min-width: 0;
   /* The global reset does not cover form controls, and without this the
      padding is added on top of width: 100% and overflows the form. */
@@ -174,19 +191,21 @@
   font-family: var(--font-primary);
   font-size: 1rem;
   color: var(--color-dark);
-  background: var(--color-light);
-  border: 2px solid var(--color-accent);
+  background: #fff;
+  /* The page version outlined the field in pale blue; on the pale blue modal
+     that outline disappears, so it switches to the deep purple. */
+  border: 2px solid var(--color-secondary);
   border-radius: var(--radius-sm);
-  padding: 0.9rem 1.25rem;
+  padding: 0.8rem 1.1rem;
   transition: border-color var(--transition-fast);
 }
 .email-section-input::placeholder {
   color: var(--color-dark);
-  opacity: 0.55;
+  opacity: 0.5;
 }
 .email-section-input:focus-visible {
   outline: none;
-  border-color: var(--color-accent-pink);
+  border-color: var(--color-primary);
 }
 .email-section-input:disabled {
   opacity: 0.6;
@@ -196,18 +215,18 @@
   flex: 0 0 auto;
   box-sizing: border-box;
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 0.5rem 2.5rem 0.9rem;
+  padding: 0.5rem 2rem 0.9rem;
   background: url('/ui/portfolio-button.svg') no-repeat center;
   background-size: 100% 100%;
   color: var(--color-secondary);
   border: none;
   cursor: pointer;
   transition: all var(--transition-normal);
-  min-height: 55px;
+  min-height: 52px;
 }
 .email-section-submit:not(:disabled):hover {
   transform: translateY(-2px);
@@ -220,18 +239,19 @@
 /* Reserve the line so the layout does not jump when a message appears */
 .email-section-status {
   font-family: var(--font-primary);
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.5;
   min-height: 1.5em;
   margin: 0;
 }
 .email-section-status-success {
-  color: var(--color-light);
+  color: var(--color-secondary);
+  font-weight: 600;
 }
-/* The brand pink only reaches 3.4:1 on the purple page, so errors use the
-   light tone and lean on weight to stand apart from the success line. */
+/* A one-off: the palette has no red, and both purples read as "normal copy"
+   against the modal. 7.4:1 on #C4DEF8. */
 .email-section-status-error {
-  color: var(--color-light);
+  color: #8a2246;
   font-weight: 600;
 }
 /* Honeypot and the input's label: present for bots and screen readers only */
@@ -597,13 +617,13 @@
     min-height: 50px;
   }
   .email-section {
-    padding: 1.5rem 0;
+    gap: 0.5rem;
   }
   .email-section-title {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
   .email-section-text {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   .email-section-form {
     flex-direction: column;

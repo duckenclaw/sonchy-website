@@ -4,11 +4,19 @@ import { EMAIL_SECTION } from './education-data';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
+interface EmailSectionProps {
+  /** Which free material to mail. Must match a key of MATERIALS on the server. */
+  material: string;
+}
+
 /**
- * Collects an email address and asks the server to mail the materials to it.
- * Nothing is stored — the server sends and forgets. See EMAIL-SETUP.md.
+ * Collects an email address and asks the server to mail one free material to
+ * it. Nothing is stored — the server sends and forgets. See EMAIL-SETUP.md.
+ *
+ * Lives inside the lecture modal, so its colours are tuned for the pale blue
+ * modal window rather than the purple page.
  */
-function EmailSection() {
+function EmailSection({ material }: EmailSectionProps) {
   const [email, setEmail] = useState('');
   const [botField, setBotField] = useState('');
   const [status, setStatus] = useState<Status>('idle');
@@ -35,7 +43,7 @@ function EmailSection() {
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: trimmed, botField }),
+        body: JSON.stringify({ email: trimmed, botField, material }),
       });
 
       if (!response.ok) {
@@ -55,17 +63,22 @@ function EmailSection() {
     }
   }
 
+  // Several of these ids appear once per mounted form, and the modal keeps one
+  // form per lecture, so they are scoped by material to stay unique.
+  const inputId = `email-section-input-${material}`;
+  const honeypotId = `email-section-website-${material}`;
+
   return (
     <section className="email-section">
-      <h2 className="email-section-title">{EMAIL_SECTION.title}</h2>
+      <h3 className="email-section-title">{EMAIL_SECTION.title}</h3>
       <p className="email-section-text">{EMAIL_SECTION.text}</p>
 
       <form className="email-section-form" onSubmit={handleSubmit} noValidate>
-        <label className="email-section-hidden" htmlFor="email-section-input">
+        <label className="email-section-hidden" htmlFor={inputId}>
           {EMAIL_SECTION.inputLabel}
         </label>
         <input
-          id="email-section-input"
+          id={inputId}
           className="email-section-input"
           type="email"
           name="email"
@@ -79,9 +92,9 @@ function EmailSection() {
 
         {/* Honeypot: hidden from people, tempting to bots. */}
         <div className="email-section-hidden" aria-hidden="true">
-          <label htmlFor="email-section-website">Website</label>
+          <label htmlFor={honeypotId}>Website</label>
           <input
-            id="email-section-website"
+            id={honeypotId}
             type="text"
             name="website"
             value={botField}
