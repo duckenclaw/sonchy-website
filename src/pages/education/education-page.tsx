@@ -1,13 +1,15 @@
 import { useCallback, useState } from 'react';
 
 import PageLayout from '@/components/page-layout/page-layout';
+import LectureGallery from './lecture-gallery';
 import LectureModal from './lecture-modal';
-import LectureSlider from './lecture-slider';
 import { LECTURES } from './lectures-data';
 import type { Lecture } from './lecture';
 import './education.css';
 
+/** Free materials have no shop link — they are mailed from inside the modal. */
 function openBuyLink(lecture: Lecture) {
+  if (!lecture.buyLink) return;
   window.open(lecture.buyLink, '_blank', 'noopener,noreferrer');
 }
 
@@ -30,7 +32,7 @@ function EducationPage() {
       bodyClass="page-bg-purple"
       headerDesktopOnly
     >
-      <LectureSlider
+      <LectureGallery
         lectures={LECTURES}
         onDetailsClick={handleDetailsClick}
         onBuyClick={openBuyLink}

@@ -1,3 +1,4 @@
+import StarBadge from './star-badge';
 import type { Lecture } from './lecture';
 
 interface LectureCardProps {
@@ -6,8 +7,18 @@ interface LectureCardProps {
   onBuyClick: () => void;
 }
 
-/** Cover art plus a price button; clicking the card opens the details modal. */
+/**
+ * Cover art with the price laid over it; clicking anywhere else on the card
+ * opens the details modal.
+ *
+ * Paid lectures get a price button that jumps straight to the shop. Free
+ * materials have nowhere to jump to — they are mailed from the form inside the
+ * modal — so they carry the star badge in the corner instead, and the whole
+ * card is the way in.
+ */
 function LectureCard({ lecture, onDetailsClick, onBuyClick }: LectureCardProps) {
+  const isFree = Boolean(lecture.material);
+
   return (
     <div
       className="lecture-card"
@@ -31,16 +42,21 @@ function LectureCard({ lecture, onDetailsClick, onBuyClick }: LectureCardProps) 
         />
       </div>
 
-      <button
-        type="button"
-        className="lecture-buy-button"
-        onClick={(e) => {
-          e.stopPropagation();
-          onBuyClick();
-        }}
-      >
-        {lecture.price}
-      </button>
+      {isFree ? (
+        <StarBadge className="lecture-card-badge" label={lecture.price} />
+      ) : (
+        <button
+          type="button"
+          className="lecture-buy-button"
+          onClick={(e) => {
+            // Buying must not also open the modal behind it.
+            e.stopPropagation();
+            onBuyClick();
+          }}
+        >
+          {lecture.price}
+        </button>
+      )}
     </div>
   );
 }
